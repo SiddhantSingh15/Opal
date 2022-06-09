@@ -22,16 +22,6 @@
     text-decoration: underline;
 }
 
-.home__headerRight {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    min-width: 13vw;
-}
-
-.home__headerRight > .MuiSvgIcon-root {
-    margin-right: 20px;
-}
 
 .home__body {
     flex: 1;

@@ -3,12 +3,14 @@
     align-items: center;
     height: 30px;
     border: 1px solid lightgrey;
+
     padding: 10px 20px;
     border-radius: 999px;
     width: 75 vw;
     margin: 0 auto;
     margin-top: 40px;
     max-width: 560px;
+    background-color: white;
 }
 
 .search__input > input {
@@ -39,6 +41,7 @@
     background-color: #f8f8f8;
     border: 1px solid white;
     text-transform: inherit;
+
     columns: #5f6368;
 }
 

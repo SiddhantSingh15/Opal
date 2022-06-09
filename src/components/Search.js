@@ -1,7 +1,7 @@
 import React from 'react';
 import "../pages/Search.css";
 import { Button } from '@material-ui/core';
-import MicIcon from '@material-ui/icons/Mic';
+import HardwareRoundedIcon from '@mui/icons-material/HardwareRounded';
 import SearchIcon from '@material-ui/icons/Search';
 
 function Search() {
@@ -10,13 +10,12 @@ function Search() {
         <div className='search__input'> 
             <SearchIcon className='search__inputIcon' />
             <input />
-            <MicIcon />
+            <HardwareRoundedIcon />
         </div>
 
-        <div className='search__buttons'>
+        {/* <div className='search__buttons'>
             <Button variant='outlined' type='submit'>Opal Search</Button>
-            <Button variant='outlined'>Tags</Button>
-        </div>
+        </div> */}
     </form>
 
 
