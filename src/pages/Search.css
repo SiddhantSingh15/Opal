@@ -13,6 +13,15 @@
     background-color: white;
 }
 
+.s_button {
+    padding: 10px 10px;
+    border-radius: 50%;
+    border-style: solid;
+    
+    border: 1px solid lightgrey;
+    background-color: white;
+}
+
 .search__input > input {
     flex: 1;
     padding: 10px 20px;
