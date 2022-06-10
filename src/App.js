@@ -12,11 +12,19 @@ function App() {
   
   return (
     <div className='app'>
-       <NavBar searchEnabled={!search}/>
       <Router>
         <Routes> 
-          <Route index path="/" element={<Search/>}/>
-          <Route index path="/results" element={<Results/>}/>
+          <Route index path="/" element={
+            <div>
+              <NavBar searchEnabled={false}/>
+              <Search/>
+            </div>}/>
+          <Route index path="/results" element={
+            <div>
+              <NavBar searchEnabled={true}/>
+              <Results/>
+            </div>
+          }/>
         </Routes>
       </Router>
     </div>
