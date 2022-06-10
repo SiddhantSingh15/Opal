@@ -9,7 +9,7 @@ function Home() {
   return (
     <div className='home'>
         <div className='home__header'>
-            <NavBar/>
+            <NavBar searchEnabled={false}/>
         </div>
         
         <div className='home__body'>

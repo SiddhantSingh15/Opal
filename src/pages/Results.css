@@ -7,7 +7,7 @@
     height: 100vh;
 }
 
-.results__body {
+/* .results__body {
     display: block;
     margin-top: 10%;
     flex-direction: column;
@@ -17,7 +17,7 @@
 .results__body > img {
     object-fit: contain;
     height: 100px;
-}
+} */
 
 
 

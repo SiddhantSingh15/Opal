@@ -31,6 +31,10 @@
     align-items: center;
 }
 
+.navbar__links{
+    margin-left: auto;
+}
+
 .navbar__links ul{
     list-style-type: none;
     margin: 0;
@@ -41,6 +45,7 @@
     float: left;
 }
 .navbar__links a{
+    
     color: white;
     font-size: 25px;
     font-weight: bold;

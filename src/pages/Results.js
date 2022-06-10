@@ -9,11 +9,10 @@ function Results() {
   return (
     <div className='results'>
         <div>
-					<NavBar/>
+					<NavBar searchEnabled={true}/>
         </div>
-        
         <div className='results__body'>
-            <p>Hello</p>
+          hello
         </div>
     </div>
   )

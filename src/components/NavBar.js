@@ -3,13 +3,15 @@ import {ReactComponent as OpalLogo} from "../assets/opal.svg"
 import "./NavBar.css";
 import NavSearchBar  from "../components/NavSearchBar";
 
-function NavBar() {
+const NavBar = ({searchEnabled}) => {
   return (
 		<div className='navbar'>
-			<div className='navbar__search'>
+			{searchEnabled && 
+				<div className='navbar__search'>
 					<OpalLogo className = 'navbar__logo'/>
 					<NavSearchBar/>
-			</div>
+				</div>
+			}
 			<div className="navbar__links">
 				<ul>
 					<li><a href="/">Search</a></li>
