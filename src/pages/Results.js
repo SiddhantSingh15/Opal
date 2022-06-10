@@ -8,11 +8,8 @@ import NavBar from '../components/NavBar';
 function Results() {
   return (
     <div className='results'>
-        <div>
-					<NavBar searchEnabled={true}/>
-        </div>
         <div className='results__body'>
-          hello
+          Results
         </div>
     </div>
   )
