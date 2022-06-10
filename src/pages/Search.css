@@ -4,39 +4,10 @@
     max-height: 100px;
 }
 
-.home {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-}
 
-
-.home__body {
+.search__home {
     display: block;
     margin-top: 10%;
     flex-direction: column;
 }
 
-.home__body > img {
-    object-fit: contain;
-    height: 100px;
-}
-
-.home__inputContainer {
-    display: flex;
-    flex-direction: column;
-}
-
-@media screen and 
-    (max-width: 750px)
-{
-
-    .search {
-        max-width: 560px;
-    }
-
-    .home__body > img {
-        object-fit: contain;
-        height: 70px;
-    }
-}

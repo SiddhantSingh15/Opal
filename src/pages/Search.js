@@ -5,21 +5,13 @@ import HomeSearchBar  from "../components/HomeSearchBar";
 import NavBar from '../components/NavBar';
 import {Link} from 'react-router-dom';
 
-function Home() {
+function Search() {
   return (
-    <div className='home'>
-        <div className='home__header'>
-            <NavBar searchEnabled={false}/>
-        </div>
-        
-        <div className='home__body'>
-            <OpalLogo className = "logo--title"/>
-            <div className='home__inputContainer'>
-                <HomeSearchBar />
-            </div>
-        </div>
+    <div className='search__home'>
+        <OpalLogo className = "logo--title"/>
+        <HomeSearchBar />
     </div>
   )
 }
 
-export default Home
+export default Search
