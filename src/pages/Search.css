@@ -1,77 +1,59 @@
-.search__input {
+.logo--title {
+    display: block;
+    margin:auto;
+    max-height: 100px;
+}
+
+.home {
     display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.home__header {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 30px;
     align-items: center;
-    height: 30px;
-    border: 1px solid lightgrey;
-
-    padding: 10px 20px;
-    border-radius: 999px;
-    width: 75 vw;
-    margin: 0 auto;
-    margin-top: 40px;
-    max-width: 560px;
-    background-color: white;
 }
 
-.s_button {
-    padding: 10px 10px;
-    border-radius: 50%;
-    border-style: solid;
-    
-    border: 1px solid lightgrey;
-    background-color: white;
+.home__header a {
+    margin-right: 20px;
+    text-decoration: inherit;
+    color: rgba(0, 0, 0, 0.87);
+    font-size: 15px;
 }
 
-.search__input > input {
-    flex: 1;
-    padding: 10px 20px;
-    font-size: medium;
-    border: none;
+.home__header a:hover {
+    text-decoration: underline;
 }
 
-.search__input > input:focus {
-    outline-width: 0;
-    outline: none;
+.home__body {
+    display: block;
+    margin-top: 10%;
+    flex-direction: column;
 }
 
-.search_inputIcon {
-    color: gray;
+.home__body > img {
+    object-fit: contain;
+    height: 100px;
 }
 
-.search_buttons {
-    margin-top: 30px;
+.home__inputContainer {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
 }
 
-.search_buttons button {
-    margin: 5px;
-    padding: 7px 15px;
-    background-color: #f8f8f8;
-    border: 1px solid white;
-    text-transform: inherit;
+@media screen and 
+    (max-width: 750px)
+{
 
-    columns: #5f6368;
-}
-
-.search_buttons button:hover {
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
-    background-image: -webkit-linear-gradient(top, #f8f8f8, #f1f1f1);
-    background-color: #f8f8f8;
-    border: 1px solid #c6c6c6;
-    color: #222;
-}
-
-@media screen and (max-width: 750px) {
     .search {
         max-width: 560px;
     }
 
-    .search__input > input:focus {
-        outline: none;
-    }
-
-    .search__input {
-        height: 20px;
+    .home__body > img {
+        object-fit: contain;
+        height: 70px;
     }
 }

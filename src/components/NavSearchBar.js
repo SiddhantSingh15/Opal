@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import "../pages/Search.css";
+import "./NavSearchBar.css";
 import { Button, IconButton } from '@material-ui/core';
 import HardwareRoundedIcon from '@mui/icons-material/HardwareRounded';
 import SearchIcon from '@material-ui/icons/Search';
 import Avatar from '@material-ui/core/Avatar';
 import {useNavigate} from 'react-router-dom';
 
-function Search() {
+function  NavSearch() {
 
   const [input, setInput] = useState("");
   const history = useNavigate();
@@ -19,9 +19,9 @@ function Search() {
   }
 
   return (
-    <form className='search'>
-      <div className='search__input'> 
-          <SearchIcon className='search__inputIcon' />
+    <form className='nav_search'>
+      <div className='nav_search__input'> 
+          <SearchIcon className='nav_search__inputIcon' />
           <input value={input} onChange = {(e) => setInput(e.target.value)} />
           <div class="font-icon-wrapper" onClick={search}>
             <HardwareRoundedIcon />
@@ -34,4 +34,4 @@ function Search() {
   )
 }
 
-export default Search
+export default NavSearch
