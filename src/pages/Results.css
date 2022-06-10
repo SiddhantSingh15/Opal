@@ -1,10 +1,11 @@
-.results__nav_logo{
-	max-height: 30px;
-	max-width: 111px;
+.results__nav_logo {
+  max-height: 30px;
+  max-width: 111px;
 }
+
 .results {
-    background-color: white;
-    height: 100vh;
+  background-color: white;
+  min-height: 100vh;
 }
 
 /* .results__body {
@@ -19,18 +20,13 @@
     height: 100px;
 } */
 
+@media screen and (max-width: 750px) {
+  .search {
+    max-width: 560px;
+  }
 
-
-@media screen and 
-    (max-width: 750px)
-{
-
-    .search {
-        max-width: 560px;
-    }
-
-    .results__body > img {
-        object-fit: contain;
-        height: 70px;
-    }
+  .results__body > img {
+    object-fit: contain;
+    height: 70px;
+  }
 }

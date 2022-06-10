@@ -4,8 +4,6 @@ import "./Search.css";
 import HomeSearchBar  from "../components/HomeSearchBar";
 
 const Search = () => {
-  const searchQuery = null;
-
   return (
     <div className='search__home'>
         <OpalLogo className = "logo--title"/>
