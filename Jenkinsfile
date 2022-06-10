@@ -6,7 +6,7 @@ node {
     }
 
     stage('Build Repo') {
-        newImage = docker.build("us-east1-docker.pkg.dev/lawyer-document-search/frontend/frontend")
+        newImage = docker.build("frontend", "./")
     }
     
     stage('Push Image') {
