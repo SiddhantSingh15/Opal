@@ -1,22 +1,15 @@
 import React, { useState } from 'react';
 import "./HomeSearchBar.css";
 import { Search } from '@mui/icons-material';
-import {useNavigate} from 'react-router-dom';
+import {useNavigate} from "react-router-dom"
 
-function HomeSearchBar() {
+function HomeSearchBar(props) {
 
   const [input, setInput] = useState("");
-  // const history = useNavigate();
-
-  // const search = (e) => {
-  //   e.preventDefault();
-  //   console.log("search!");
-
-  //   history("/search");
-  // }
+  let navigate = useNavigate();
 
   return (
-    <form onSubmit={() => {}} className='search'>
+    <form onSubmit={() => {navigate('/results')}} className='search'>
       <div className='search__input'> 
           <Search className='search__inputIcon' />
           <input value={input} onChange = {(e) => setInput(e.target.value)} />

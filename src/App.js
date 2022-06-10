@@ -1,6 +1,6 @@
 import './App.css';
 import React, { useState } from 'react';
-import {BrowserRouter as HashRouter, Route, Routes} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import NavBar from './components/NavBar';
 import Search from "./pages/Search";
 import Results from "./pages/Results";
@@ -12,17 +12,13 @@ function App() {
   
   return (
     <div className='app'>
-      <HashRouter>
+       <NavBar searchEnabled={!search}/>
+      <Router>
         <Routes> 
-          <Route index path="/" element={
-            <div>
-              <NavBar searchEnabled={!search}/>
-              {search && <Search/>}
-              {!search && <Results/>}
-            </div>
-          }/>
+          <Route index path="/" element={<Search/>}/>
+          <Route index path="/results" element={<Results/>}/>
         </Routes>
-      </HashRouter>
+      </Router>
     </div>
   );
 }
