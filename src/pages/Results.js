@@ -3,15 +3,13 @@ import {ReactComponent as OpalLogo} from "../assets/opal.svg"
 import "./Results.css";
 import NavSearchBar  from "../components/NavSearchBar";
 import {Link} from 'react-router-dom';
+import NavBar from '../components/NavBar';
 
 function Results() {
   return (
     <div className='results'>
-        <div className='results__header'>
-					<OpalLogo className = "results__nav_logo"/>
-					<div className='results__nav_search'>
-							<NavSearchBar />
-					</div>
+        <div>
+					<NavBar/>
         </div>
         
         <div className='results__body'>
