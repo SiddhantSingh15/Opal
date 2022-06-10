@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import "./HomeSearchBar.css";
-import SearchIcon from '@material-ui/icons/Search';
+import { Search } from '@mui/icons-material';
 import {useNavigate} from 'react-router-dom';
 
 function HomeSearchBar() {
@@ -18,7 +18,7 @@ function HomeSearchBar() {
   return (
     <form onSubmit={() => {}} className='search'>
       <div className='search__input'> 
-          <SearchIcon className='search__inputIcon' />
+          <Search className='search__inputIcon' />
           <input value={input} onChange = {(e) => setInput(e.target.value)} />
       </div>
     </form>

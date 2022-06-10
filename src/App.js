@@ -1,5 +1,5 @@
 import './App.css';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {BrowserRouter as HashRouter, Route, Routes} from 'react-router-dom';
 import NavBar from './components/NavBar';
 import Search from "./pages/Search";
