@@ -8,7 +8,6 @@ import Results from "./pages/Results";
 function App() {
   return (
     <div className="app">
-      <NavBar searchEnabled={false} />
       <Router>
         <Routes>
           <Route
