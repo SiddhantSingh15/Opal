@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import NavBar from "./components/NavBar";
 import Search from "./pages/Search";
 import Results from "./pages/Results";
+import "typeface-open-sans"
 
 function App() {
   return (
