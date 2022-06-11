@@ -30,7 +30,8 @@ const useFetch = (url) => {
 					setError(e.message);
 				}
 			})
-		},10);
+			// Artificial Timeout 
+		},0);
 
 		return () => abortCont.abort()
 	}, [url]);
