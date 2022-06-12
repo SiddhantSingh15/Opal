@@ -1,15 +1,16 @@
-node {
-    def newImage
+pipeline {
+    agent any
+    stages {
 
-    stage('Clone Repo') {
-        checkout scm
-    }
+        stage('checkout repo') {
+            git "https://github.com/SiddhantSingh15/opal.git"
+        }
 
-    stage('Build Repo') {
-        newImage = docker.build("us-east1-docker.pkg.dev/lawyer-document-search/frontend/frontend")
-    }
-    
-    stage('Push Image') {
-        newImage.push()
+        stage('build docker') {
+            steps {
+                sh "docker build -t frontend:${BUILD_ID} ."
+                sh "echo build ${BUILD_ID} complete"
+            }
+        }
     }
 }
