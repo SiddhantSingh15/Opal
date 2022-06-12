@@ -7,16 +7,7 @@
 }
 
 
-.param {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  margin-top:2px;
-  margin-bottom:2px;
-  padding-right: 5px;
-  background-color: transparent;
-}
+
 
 .paramText {
   display: flex;
@@ -52,23 +43,8 @@
   padding-right: 5px;
   margin-top: 10px;
   padding-bottom: 5px;
+  border-bottom: 1px dotted grey;
 }
-
-
-.searchParams p {
-  margin: auto;
-  padding-left: 10px;
-  padding-right: 10px;
-  font-weight: bold;
-}
-
-.searchParams s {
-  margin: auto;
-  padding-left: 10px;
-  padding-right: 10px;
-  font-weight: bold;
-}
-
 
 .searchIcon {
   height: 60px;
@@ -100,30 +76,32 @@ input:focus {
   font-size: 35px;
 }
 
-.suggestedParams {
+.searchOptions {
+  border-top: 1px dotted grey;
   padding-top: 2px;
   padding-bottom: 2px;
+}
+
+.searchOption {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-top:2px;
+  margin-bottom:2px;
+  padding-right: 3px;
+  padding-left: 3px;
+  background-color: transparent;
+}
+
+.excludeSearchOptionButton {
+  background-color: transparent;
+  border-color: transparent;
 }
 
 .dataResult::-webkit-scrollbar {
   display: none;
 }
-
-.dataResult .dataItem {
-  width: 100%;
-  height: 50px;
-  display: flex;
-  align-items: center;
-  color: black;
-}
-
-.dataItem p {
-  margin-left: 10px;
-}
-a {
-  text-decoration: none;
-}
-
 
 #clearBtn {
   cursor: pointer;

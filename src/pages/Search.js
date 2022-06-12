@@ -87,15 +87,17 @@ const HomeSearchBar = ({ placeholder, data }) => {
     }
 
     getParamOptions(event) {
+      //Takes the first 6 params (not sorted atm in order of relevance)
       const paramOptions = this.state.filteredOptions
         .map(tag => new SearchParam(tag.name, "tag", true, tag))
+        .slice(0,6)
 
       // Current Search value is not already a tag
       if (!this.state.searchParams
         .filter((param) => (param.type === "search"))
         .map((param) => param.obj)
         .includes(this.state.value)) {
-        paramOptions.push(new SearchParam('"' + this.state.value + '"', "search", true, this.state.value))
+        paramOptions.unshift(new SearchParam('"' + this.state.value + '"', "search", true, this.state.value))
       }
       return paramOptions
     }
@@ -138,17 +140,17 @@ const HomeSearchBar = ({ placeholder, data }) => {
 
             {/* Search options - Tags */}
             {this.state.value.length != 0 && (
-              <div className="suggestedParams">
+              <div className="searchOptions">
                 {this.getParamOptions().map((param, key) => {
                   return (
-                    <div key={key} className="param">
+                    <div key={key} className="searchOption">
                       <Tag
                         tagData={param}
                         key={key}
                         handleClick={() => this.handleAddParam(param)} />
 
                       {/* on clicking the x it converts the param to a exclude param */}
-                      <button onClick={() => {
+                      <button className='excludeSearchOptionButton' onClick={() => {
                         { param.include = false }
                         return this.handleAddParam(param)
                       }}>

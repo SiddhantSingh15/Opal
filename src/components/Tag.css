@@ -10,7 +10,28 @@
   margin-right: 2px;
 	margin-top: 2px;
   padding: 5px;
-  background-color: black;
+  background-color: #202124ff;
   color: white;
   flex-direction: row;
+	align-items: center;
+  border-color: transparent;
+}
+
+.tag:hover {
+  cursor: pointer;
+  background-color: grey;
+}
+
+.tag p {
+  margin: auto;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-weight: bold;
+}
+
+.tag s {
+  margin: auto;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-weight: bold;
 }

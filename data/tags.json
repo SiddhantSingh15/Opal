@@ -3,42 +3,116 @@
     {
 			"id": 1,
       "name": "Asset Liability Investment Solutions ",
+			"class": "doc type",
 			"colour": "black"
     },
 		{
 			"id": 2,
       "name": "International Asset Management Services",
+			"class": "doc type",
 			"colour": "black"
     },
 		{
 			"id": 3,
       "name": "Employment Relationships",
+			"class": "doc type",
 			"colour": "black"
     },
 		{
 			"id": 4,
       "name": "Netting",
+			"class": "doc type",
 			"colour": "black"
     },
 		{
 			"id": 5,
       "name": "OTC Derivatives",
+			"class": "doc type",
 			"colour": "black"
     },
 		{
 			"id": 6,
       "name": "Private Equity Fund",
+			"class": "doc type",
 			"colour": "black"
     },
 		{
 			"id": 7,
       "name": "Web Scraping of Third Party Websites",
+			"class": "doc type",
 			"colour": "black"
     },
 		{
 			"id": 8,
       "name": "Other",
+			"class": "doc type",
 			"colour": "black"
-    }
+    },
+		{
+			"id": 9,
+      "name": "Australia",
+			"class": "gov law",
+			"colour": "black"
+    },
+		{
+			"id": 10,
+      "name": "China",
+			"class": "gov law",
+			"colour": "black"
+    },
+		{
+			"id": 11,
+      "name": "England and Wales",
+			"class": "gov law",
+			"colour": "black"
+    },
+		{
+			"id": 12,
+      "name": "Germany",
+			"class": "gov law",
+			"colour": "black"
+    },
+		{
+			"id": 13,
+      "name": "Hong Kong",
+			"class": "gov law",
+			"colour": "black"
+    },
+		{
+			"id": 14,
+      "name": "Japan",
+			"class": "gov law",
+			"colour": "black"
+    },
+		{
+			"id": 15,
+      "name": "New York",
+			"class": "gov law",
+			"colour": "black"
+    },
+		{
+			"id": 16,
+      "name": "New Zealand",
+			"class": "gov law",
+			"colour": "black"
+    },
+		{
+			"id": 13,
+			"name": "Switzerland",
+			"class": "gov law",
+			"colour": "black"
+		},
+		{
+			"id": 14,
+			"name": "Singapore",
+			"class": "gov law",
+			"colour": "black"
+		},
+		{
+			"id": 15,
+			"name": "Taiwan",
+			"class": "gov law",
+			"colour": "black"
+		}
   ]
 }
