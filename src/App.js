@@ -9,34 +9,51 @@ import "typeface-open-sans"
 
 function App() {
   const {data: tags, isPending, error} =  useFetch("http://localhost:8000/tags");
-  return (
-    <div className="app">
-      <Router>
-        <Routes>
-          <Route
-            index
-            path="/"
-            element={
-              <div>
-                <NavBar searchEnabled={false} />
-                <Search data={tags}/>
-              </div>
-            }
-          />
-          <Route
-            index
-            path="/results"
-            element={
-              <div>
-                <NavBar searchEnabled={true} />
-                <Results />
-              </div>
-            }
-          />
-        </Routes>
-      </Router>
-    </div>
-  );
+
+  class MainApp extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = {
+        page: "search",
+        searchParams: []
+      };
+
+      this.handleRenderBody = this.handleRenderBody.bind(this);
+      this.handleResults = this.handleResults.bind(this);
+    }
+
+    handleRenderBody(event) {
+      switch (this.state.page) {
+        case "search":
+          return <Search 
+                    data={tags}
+                    handleResults={this.handleResults}
+                    app={this}/>
+        case "results":
+          return <Results
+                    app={this}/>
+        default:
+          return <Search data={tags}/>
+      }
+    }
+
+    handleResults(event) {
+      this.setState({page: "results"})
+    }
+
+    render() {
+      return (
+        <div className="app">
+          <div>
+            <NavBar searchEnabled={false} />
+            {this.handleRenderBody()}
+          </div>
+        </div>
+      );
+    }
+  }
+  
+  return <MainApp/>
 }
 
 export default App;

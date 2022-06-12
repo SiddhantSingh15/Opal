@@ -8,7 +8,7 @@ import {ReactComponent as ClassificationIcon} from "../assets/lock.svg"
 
 import "./Tag.css"
 
-const Tag = ({tagData,key,handleClick}) => {
+const Tag = ({tagData,handleClick}) => {
 
 	const renderTagIcon = (type) => {
 		switch(type) {
@@ -28,7 +28,7 @@ const Tag = ({tagData,key,handleClick}) => {
 	}
 
 	return ( 
-		<button className="tag" key={key} onClick={handleClick} >
+		<button className="tag" onClick={handleClick} >
 			{renderTagIcon(tagData.type)}
 			{tagData.include === true ? <p>{tagData.name}</p> : <s>{tagData.name}</s>}
 		</button>
