@@ -3,7 +3,9 @@ pipeline {
     stages {
 
         stage('checkout repo') {
-            git "https://github.com/SiddhantSingh15/opal.git"
+            steps {
+                git "https://github.com/SiddhantSingh15/opal.git"
+            }
         }
 
         stage('build docker') {
