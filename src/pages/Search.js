@@ -89,7 +89,7 @@ const HomeSearchBar = ({ placeholder, data }) => {
     getParamOptions(event) {
       //Takes the first 6 params (not sorted atm in order of relevance)
       const paramOptions = this.state.filteredOptions
-        .map(tag => new SearchParam(tag.name, "tag", true, tag))
+        .map(tag => new SearchParam(tag.name, tag.class, true, tag))
         .slice(0,6)
 
       // Current Search value is not already a tag

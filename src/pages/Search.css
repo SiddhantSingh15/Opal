@@ -1,5 +1,6 @@
 
 .body {
+  padding-top: 200px;
   display: flex;
   flex-direction: column;
   margin: auto;
@@ -22,6 +23,7 @@
 }
 
 .search {
+  margin-top: 20px;
   display: flex;
   flex-direction: column;
   max-width: 1000px;

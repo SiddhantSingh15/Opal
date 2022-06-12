@@ -24,14 +24,15 @@
 
 .tag p {
   margin: auto;
-  padding-left: 10px;
-  padding-right: 10px;
+  padding-left: 5px;
+  padding-right: 5px;
   font-weight: bold;
+  font-size: 15px;
 }
 
 .tag s {
   margin: auto;
-  padding-left: 10px;
-  padding-right: 10px;
+  padding-left: 5px;
+  padding-right: 5px;
   font-weight: bold;
 }
