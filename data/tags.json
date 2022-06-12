@@ -1,0 +1,44 @@
+{
+  "tags": [
+    {
+			"id": 1,
+      "name": "Asset Liability Investment Solutions ",
+			"colour": "black"
+    },
+		{
+			"id": 2,
+      "name": "International Asset Management Services",
+			"colour": "black"
+    },
+		{
+			"id": 3,
+      "name": "Employment Relationships",
+			"colour": "black"
+    },
+		{
+			"id": 4,
+      "name": "Netting",
+			"colour": "black"
+    },
+		{
+			"id": 5,
+      "name": "OTC Derivatives",
+			"colour": "black"
+    },
+		{
+			"id": 6,
+      "name": "Private Equity Fund",
+			"colour": "black"
+    },
+		{
+			"id": 7,
+      "name": "Web Scraping of Third Party Websites",
+			"colour": "black"
+    },
+		{
+			"id": 8,
+      "name": "Other",
+			"colour": "black"
+    }
+  ]
+}
