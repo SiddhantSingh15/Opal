@@ -5,7 +5,7 @@ pipeline {
         REPOSITORY = 'frontend'
         APP_NAME = 'frontend'
         LOCATION = 'us-east1'
-        TAG = 'production'
+        TAG = 'latest'
         IMAGE_TAG = '${LOCATION}-docker.pkg.dev/${PROJECT}/${REPOSITORY}/${APP_NAME}:${TAG}'
     }
 
@@ -19,12 +19,14 @@ pipeline {
 
         stage('build docker image') {
             steps {
-                // sh "docker build -t frontend:${BUILD_ID} ."
-                // sh "echo build ${BUILD_ID} complete"
-                sh "echo image tag: ${IMAGE_TAG}"
+                // sh "docker build -t ${IMAGE_TAG} ."
+                sh "docker --version"
+                sh "echo image built successfully"
             }
         }
+
+        // stage('Push image to registry') {
+        //     sh("gcloud docker -- push ${imageTag}")
+        // }
     }
 }
-
-// http://http://34.102.223.27:80/crumbIssuer/api/xml?xpath=concat(//crumbRequestField,%22:%22,//crumb
