@@ -1,7 +1,6 @@
 import React from 'react';
 import {ReactComponent as OpalLogo} from "../assets/opal.svg"
 import "./NavBar.css";
-import NavSearchBar  from "../components/NavSearchBar";
 
 const NavBar = ({app}) => {
   return (
