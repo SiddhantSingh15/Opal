@@ -1,48 +1,25 @@
 import React, { useState } from 'react';
-import useFetch from "../hooks/useFetch.js"
 import Tag from '../components/Tag.js';
+import SearchParam from '../Utils.js'
 import "./Search.css"
 import { ReactComponent as SearchIcon } from "../assets/magnifier.svg"
 import { ReactComponent as CloseIcon } from "../assets/close.svg"
 import { ReactComponent as TagIcon } from "../assets/tag.svg"
 import { ReactComponent as OpalLogo } from "../assets/opal.svg"
-import { type } from '@testing-library/user-event/dist/type/index.js';
 
 
-const HomeSearchBar = ({ placeholder, data }) => {
+const Search = ({app}) => {
 
-  class SearchParam {
-    constructor(name, type, include, obj) {
-      this.name = name;
-      this.type = type;
-      this.include = include;
-      this.obj = obj;
-    }
-  }
-
-  class SearchBar extends React.Component {
+  class Search extends React.Component {
 
     constructor(props) {
       super(props);
       this.state = {
         value: "",
-        filteredOptions: (data ? data : []),
-        searchParams: []
-        // //Test params for css
-        // searchParams: [
-        //   new SearchParam("english","tag",true,null),
-        //   new SearchParam("french","tag",false,null),
-        //   new SearchParam('"goldsmiths"',"search",true,null),
-        //   new SearchParam("english","tag",true,null),
-        //   new SearchParam("french","tag",false,null),
-        //   new SearchParam('"goldsmiths"',"search",true,null)
-        // ]
+        filteredOptions: (app.state.tags ? app.state.tags : []),
       };
       this.handleChange = this.handleChange.bind(this);
-      this.handleSubmit = this.handleSubmit.bind(this);
       this.handleClear = this.handleClear.bind(this);
-      this.handleAddParam = this.handleAddParam.bind(this);
-      this.handleRemoveParam = this.handleRemoveParam.bind(this);
       this.getParamOptions = this.getParamOptions.bind(this);
     }
 
@@ -51,20 +28,13 @@ const HomeSearchBar = ({ placeholder, data }) => {
       this.setState({ value: event.target.value });
       // The options tags being shown as search param options
       this.setState({
-        filteredOptions: data.filter((tag) => {
+        filteredOptions: app.state.tags.filter((tag) => {
           return (
             // Show tags that are related to search query and ignore already included tags 
             tag.name.toLowerCase().includes(event.target.value.toLowerCase())) &&
-            !(this.state.searchParams.filter((param) => param.type === "tag")
-              .map((param) => param.obj.id)).includes(tag.id)
+            !app.state.searchParams.map((param) => param.obj).includes(tag.obj)
         })
       });
-    }
-
-    // Submit the search
-    handleSubmit(event) {
-      alert("Searching for " + this.state.searchParams.map((obj) => obj.name));
-      event.preventDefault();
     }
 
     // Clear the search input
@@ -72,28 +42,13 @@ const HomeSearchBar = ({ placeholder, data }) => {
       this.setState({ value: "" });
     }
 
-    // Add a search parameters you have already selected
-    handleAddParam(param, event) {
-      if (!this.state.searchParams.includes(param)) {
-        this.setState({ searchParams: this.state.searchParams.concat([param]) });
-        // Dunno if should clear here it is a bit annoying need to force refresh if i do
-        this.handleClear();
-      }
-    }
-
-    // Remove a search parameters you have already selected
-    handleRemoveParam(paramToRemove, event) {
-      this.setState({ searchParams: this.state.searchParams.filter((param) => param != paramToRemove) })
-    }
-
     getParamOptions(event) {
       //Takes the first 6 params (not sorted atm in order of relevance)
       const paramOptions = this.state.filteredOptions
-        .map(tag => new SearchParam(tag.name, "tag", true, tag))
         .slice(0,6)
 
       // Current Search value is not already a tag
-      if (!this.state.searchParams
+      if (!app.state.searchParams
         .filter((param) => (param.type === "search"))
         .map((param) => param.obj)
         .includes(this.state.value)) {
@@ -109,14 +64,15 @@ const HomeSearchBar = ({ placeholder, data }) => {
           <OpalLogo className="searchLogo" />
           <div className="search">
             {/* Currently Selected Tags */}
-            {this.state.searchParams.length != 0 && (
+            {this.props.app.state.searchParams.length != 0 && (
               <div className="searchParams">
-                {this.state.searchParams.map((param, key) => {
+                {this.props.app.state.searchParams.map((param, key) => {
                   return (
-                    <Tag
-                      tagData={param}
-                      key={key}
-                      handleClick={() => this.handleRemoveParam(param)} />
+                    <React.Fragment key = {key}>
+                      <Tag
+                        tagData={param}
+                        handleClick={() => this.props.app.handleRemoveSearchParams([param])} />
+                    </React.Fragment>
                   )
                 })}
               </div>
@@ -126,14 +82,14 @@ const HomeSearchBar = ({ placeholder, data }) => {
             <div className="searchInputs">
               <input
                 type="text"
-                placeholder={placeholder}
+                placeholder={"Search"}
                 value={this.state.value}
                 id="searchBar"
                 onChange={this.handleChange} />
 
               <div className="searchIcon">
                 {this.state.value.length === 0 ?
-                  <SearchIcon id="searchBtn" onClick={this.handleSubmit} /> :
+                  <SearchIcon id="searchBtn" onClick={this.props.app.handleResults} /> :
                   <CloseIcon id="clearBtn" onClick={this.handleClear} />}
               </div>
             </div>
@@ -146,13 +102,16 @@ const HomeSearchBar = ({ placeholder, data }) => {
                     <div key={key} className="searchOption">
                       <Tag
                         tagData={param}
-                        key={key}
-                        handleClick={() => this.handleAddParam(param)} />
-
+                        handleClick={() => {
+                          this.props.app.handleAddSearchParams([param]);
+                          this.handleClear();
+                        }} />
                       {/* on clicking the x it converts the param to a exclude param */}
-                      <button className='excludeSearchOptionButton' onClick={() => {
-                        { param.include = false }
-                        return this.handleAddParam(param)
+                      <button className='excludeSearchOptionButton'
+                        onClick={() => {
+                          param.include = false;
+                          this.props.app.handleAddSearchParams([param]);
+                          this.handleClear();
                       }}>
                         <CloseIcon />
                       </button>
@@ -167,7 +126,7 @@ const HomeSearchBar = ({ placeholder, data }) => {
     }
   }
 
-  return (<SearchBar />)
+  return (<Search app={app}/>)
 }
 
-export default HomeSearchBar;
+export default Search;

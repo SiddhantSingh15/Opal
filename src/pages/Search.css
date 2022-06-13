@@ -1,14 +1,11 @@
 
 .body {
+  padding-top: 200px;
   display: flex;
   flex-direction: column;
   margin: auto;
   align-items: center;
 }
-
-
-
-
 .paramText {
   display: flex;
   border-radius: 15px;
@@ -22,6 +19,7 @@
 }
 
 .search {
+  margin-top: 20px;
   display: flex;
   flex-direction: column;
   max-width: 1000px;

@@ -1,0 +1,399 @@
+{
+  "tags": [
+    {
+			"id": 1,
+      "name": "Asset Liability Investment Solutions",
+			"class": "doc-type",
+			"colour": "black"
+    },
+		{
+			"id": 2,
+      "name": "International Asset Management Services",
+			"class": "doc-type",
+			"colour": "black"
+    },
+		{
+			"id": 3,
+      "name": "Employment Relationships",
+			"class": "doc-type",
+			"colour": "black"
+    },
+		{
+			"id": 4,
+      "name": "Netting",
+			"class": "doc-type",
+			"colour": "black"
+    },
+		{
+			"id": 5,
+      "name": "OTC Derivatives",
+			"class": "doc-type",
+			"colour": "black"
+    },
+		{
+			"id": 6,
+      "name": "Private Equity Fund",
+			"class": "doc-type",
+			"colour": "black"
+    },
+		{
+			"id": 7,
+      "name": "Web Scraping of Third Party Websites",
+			"class": "doc-type",
+			"colour": "black"
+    },
+		{
+			"id": 8,
+      "name": "Other",
+			"class": "doc-type",
+			"colour": "black"
+    },
+		{
+			"id": 9,
+      "name": "Australia",
+			"class": "gov-law",
+			"colour": "black"
+    },
+		{
+			"id": 10,
+      "name": "China",
+			"class": "gov-law",
+			"colour": "black"
+    },
+		{
+			"id": 11,
+      "name": "England and Wales",
+			"class": "gov-law",
+			"colour": "black"
+    },
+		{
+			"id": 12,
+      "name": "Germany",
+			"class": "gov-law",
+			"colour": "black"
+    },
+		{
+			"id": 13,
+      "name": "Hong Kong",
+			"class": "gov-law",
+			"colour": "black"
+    },
+		{
+			"id": 14,
+      "name": "Japan",
+			"class": "gov-law",
+			"colour": "black"
+    },
+		{
+			"id": 15,
+      "name": "New York",
+			"class": "gov-law",
+			"colour": "black"
+    },
+		{
+			"id": 16,
+      "name": "New Zealand",
+			"class": "gov-law",
+			"colour": "black"
+    },
+		{
+			"id": 13,
+			"name": "Switzerland",
+			"class": "gov-law",
+			"colour": "black"
+		},
+		{
+			"id": 14,
+			"name": "Singapore",
+			"class": "gov-law",
+			"colour": "black"
+		},
+		{
+			"id": 15,
+			"name": "Taiwan",
+			"class": "gov-law",
+			"colour": "black"
+		},
+		{
+			"id": 16,
+			"name": "Other",
+			"class": "gov-law",
+			"colour": "black"
+		},
+		{
+			"id": 17,
+      "name": "Chinese",
+			"class": "language",
+			"colour": "black"
+    },
+		{
+			"id": 18,
+      "name": "English",
+			"class": "language",
+			"colour": "black"
+    },
+		{
+			"id": 19,
+      "name": "French",
+			"class": "language",
+			"colour": "black"
+    },
+		{
+			"id": 20,
+      "name": "German",
+			"class": "language",
+			"colour": "black"
+    },
+		{
+			"id": 21,
+      "name": "Italian",
+			"class": "language",
+			"colour": "black"
+    },
+		{
+			"id": 22,
+      "name": "Japanese",
+			"class":"language",
+			"colour": "black"
+    },
+		{
+			"id": 23,
+      "name": "Portuguese",
+			"class": "language",
+			"colour": "black"
+    },
+		{
+			"id": 24,
+      "name": "Spanish",
+			"class": "language",
+			"colour": "black"
+    },
+		{
+			"id": 25,
+      "name": "Other",
+			"class": "language",
+			"colour": "black"
+    },
+		{
+			"id": 26,
+      "name": "Strictly Confidential",
+			"class": "classification",
+			"colour": "black"
+    },
+		{
+			"id": 27,
+      "name": "Confidential",
+			"class":"classification",
+			"colour": "black"
+    },
+		{
+			"id": 28,
+      "name": "Internal",
+			"class": "classification",
+			"colour": "black"
+    },
+		{
+			"id": 29,
+      "name": "Public",
+			"class": "classification",
+			"colour": "black"
+    }
+
+  ],
+	"files":[
+		{
+			"name": "Brandywine Global SEC Filing",
+			"language": "English",
+			"type": "Other",
+			"topic": "OTC Derivatives",
+			"source": "Other",
+			"date": "20/11/2000",
+			"govlaw": "New York",
+			"access": "Public",
+			"status": "Executed",
+			"tags": [1,2,3]
+		},
+		{
+			"name": "Wiskycider International SEC Filing",
+			"language": "English",
+			"type": "Other",
+			"topic": "OTC Derivatives",
+			"source": "Other",
+			"date": "13/02/2005",
+			"govlaw": "England and Wales",
+			"access": "Public",
+			"status": "Executed",
+			"tags": [2,5]
+			
+		},
+		{
+			"name": "Portchardonnay Mondial SEC Filing",
+			"language": "French",
+			"type": "Other",
+			"topic": "OTC Derivatives",
+			"source": "Other",
+			"date": "14/09/2019",
+			"govlaw": "France",
+			"access": "Public",
+			"status": "Executed",
+			"tags": [9,14]
+		},
+		{
+			"name": "Beer & Beer Weltweit SEC Filing",
+			"language": "German",
+			"type": "Other",
+			"topic": "OTC Derivatives",
+			"source": "Other",
+			"date": "14/09/2019",
+			"govlaw": "Germany",
+			"access": "Public",
+			"status": "Executed",
+			"tags": [2,12]
+		},
+		{
+			"name": "Brandywine Global SEC Filing",
+			"language": "English",
+			"type": "Other",
+			"topic": "OTC Derivatives",
+			"source": "Other",
+			"date": "20/11/2000",
+			"govlaw": "New York",
+			"access": "Public",
+			"status": "Executed",
+			"tags": [17,15]
+		},
+		{
+			"name": "Wiskycider International SEC Filing",
+			"language": "English",
+			"type": "Other",
+			"topic": "OTC Derivatives",
+			"source": "Other",
+			"date": "13/02/2005",
+			"govlaw": "England and Wales",
+			"access": "Public",
+			"status": "Executed",
+			"tags": [1,2,3]
+		},
+		{
+			"name": "Portchardonnay Mondial SEC Filing",
+			"language": "French",
+			"type": "Other",
+			"topic": "OTC Derivatives",
+			"source": "Other",
+			"date": "14/09/2019",
+			"govlaw": "France",
+			"access": "Public",
+			"status": "Executed",
+			"tags": [19,18]
+		},
+		{
+			"name": "Beer & Beer Weltweit SEC Filing",
+			"language": "German",
+			"type": "Other",
+			"topic": "OTC Derivatives",
+			"source": "Other",
+			"date": "14/09/2019",
+			"govlaw": "Germany",
+			"access": "Public",
+			"status": "Executed",
+			"tags": [10]
+		}, 
+		{
+			"name": "Brandywine Global SEC Filing",
+			"language": "English",
+			"type": "Other",
+			"topic": "OTC Derivatives",
+			"source": "Other",
+			"date": "20/11/2000",
+			"govlaw": "New York",
+			"access": "Public",
+			"status": "Executed",
+			"tags": [1,2,3]
+		},
+		{
+			"name": "Wiskycider International SEC Filing",
+			"language": "English",
+			"type": "Other",
+			"topic": "OTC Derivatives",
+			"source": "Other",
+			"date": "13/02/2005",
+			"govlaw": "England and Wales",
+			"access": "Public",
+			"status": "Executed",
+			"tags": [2,5]
+			
+		},
+		{
+			"name": "Portchardonnay Mondial SEC Filing",
+			"language": "French",
+			"type": "Other",
+			"topic": "OTC Derivatives",
+			"source": "Other",
+			"date": "14/09/2019",
+			"govlaw": "France",
+			"access": "Public",
+			"status": "Executed",
+			"tags": [9,14]
+		},
+		{
+			"name": "Beer & Beer Weltweit SEC Filing",
+			"language": "German",
+			"type": "Other",
+			"topic": "OTC Derivatives",
+			"source": "Other",
+			"date": "14/09/2019",
+			"govlaw": "Germany",
+			"access": "Public",
+			"status": "Executed",
+			"tags": [2,12]
+		},
+		{
+			"name": "Brandywine Global SEC Filing",
+			"language": "English",
+			"type": "Other",
+			"topic": "OTC Derivatives",
+			"source": "Other",
+			"date": "20/11/2000",
+			"govlaw": "New York",
+			"access": "Public",
+			"status": "Executed",
+			"tags": [17,15]
+		},
+		{
+			"name": "Wiskycider International SEC Filing",
+			"language": "English",
+			"type": "Other",
+			"topic": "OTC Derivatives",
+			"source": "Other",
+			"date": "13/02/2005",
+			"govlaw": "England and Wales",
+			"access": "Public",
+			"status": "Executed",
+			"tags": [1,2,3]
+		},
+		{
+			"name": "Portchardonnay Mondial SEC Filing",
+			"language": "French",
+			"type": "Other",
+			"topic": "OTC Derivatives",
+			"source": "Other",
+			"date": "14/09/2019",
+			"govlaw": "France",
+			"access": "Public",
+			"status": "Executed",
+			"tags": [19,18]
+		},
+		{
+			"name": "Beer & Beer Weltweit SEC Filing",
+			"language": "German",
+			"type": "Other",
+			"topic": "OTC Derivatives",
+			"source": "Other",
+			"date": "14/09/2019",
+			"govlaw": "Germany",
+			"access": "Public",
+			"status": "Executed",
+			"tags": [10]
+		}
+	]
+}
