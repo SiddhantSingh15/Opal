@@ -11,7 +11,7 @@ pipeline {
     stage('check docker version') {
       steps {
         container('gcloud') {  
-          sh "echo $(gcloud version)"  // when we run docker in this step, we're running it via a shell on the docker build-pod container, 
+          sh "gcloud version"  // when we run docker in this step, we're running it via a shell on the docker build-pod container, 
         }
       }
     }
