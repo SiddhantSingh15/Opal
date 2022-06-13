@@ -1,19 +1,22 @@
-import { Container, Typography, Box, Stack, Chip } from "@mui/material";
 import React from "react";
 import "./Results.css";
 import Tag from "../components/Tag";
 import useFetch from "../hooks/useFetch";
 import {ReactComponent as PreviewIcon} from "../assets/preview.svg"
+import Modal from "react-modal"
 
 const Results = ({app}) => {
   
   class Results extends React.Component {
     constructor(props) {
       super(props);
+      this.state = {
+        isOpen:false,
+      }
       this.handleDisplayResults = this.handleDisplayResults.bind(this);
       this.handleDisplaySearching = this.handleDisplaySearching.bind(this);
       this.handleDisplaySearchParams = this.handleDisplaySearchParams.bind(this);
-      this.data = props.data
+      this.handleToggleModal = this.handleToggleModal.bind(this);
     }
 
     handleDisplaySearchParams() {
@@ -42,6 +45,10 @@ const Results = ({app}) => {
       )
     }
 
+    handleToggleModal() {
+      this.setState({isOpen: !this.state.isOpen})
+    }
+
     handleDisplayResults() {
       return( 
         <div className="results-table">
@@ -53,7 +60,7 @@ const Results = ({app}) => {
             <div className="grid-element">Date</div>
             <div className="grid-element">Gov Law</div>
           </div>
-          {data.map((result,key) => {
+          {this.props.data.map((result,key) => {
             return (
               <div  key = {0 + 10*key}  className = "grid-row">
                 <div key = {1 + 10*key} className = "grid-row-properties"  >
@@ -92,7 +99,12 @@ const Results = ({app}) => {
     render() {
       return (
         <div className="results-body">
-          {/* Refactor this when not tired */}
+
+          <Modal
+            isOpen={this.state.isOpen}
+            onRequestClose={this.toggleModal}
+            contentLabel="my dialog"
+          />
           
           <div className = "results-search">
             <h1>Results for:</h1>
@@ -101,8 +113,8 @@ const Results = ({app}) => {
             </div>
           </div>
           
-          {!data && this.handleDisplaySearching()}
-          {data && this.handleDisplayResults()}
+          {!this.props.data && this.handleDisplaySearching()}
+          {this.props.data && this.handleDisplayResults()}
       </div>
       )
     }

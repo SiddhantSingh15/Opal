@@ -7,7 +7,7 @@ import Search from "./pages/Search";
 import Results from "./pages/Results";
 import useFetch from "./hooks/useFetch";
 import "typeface-open-sans"
-import { PropaneSharp } from "@mui/icons-material";
+
 
 
 function App() {
@@ -20,12 +20,6 @@ function App() {
       this.state = { 
         page: "search",
         searchParams: [],
-        // For dev
-        // page: "results",
-        // searchParams: [new SearchParam("tag1","doc-type",true,null),
-        //                new SearchParam("tag2","doc-type",true,null),
-        //                new SearchParam("tag1","doc-type",true,null),
-        //                new SearchParam("tag2","doc-type",true,null)],     
         tags: this.handleLoadTags(props.tags)
       };
 
