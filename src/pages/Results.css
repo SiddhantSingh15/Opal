@@ -30,6 +30,7 @@
 }
 
 .grid-row-properties {
+  grid-template-columns: repeat(6, 1fr);
   padding: 0px;
   display: block;
   background-color: transparent;
