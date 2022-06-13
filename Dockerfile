@@ -14,7 +14,8 @@ RUN npm install
 # Copy app files
 COPY . .
 
-# Expose port
+# Expose react port
 EXPOSE 3000
+
 # Start the app
 CMD [ "npm", "start" ]

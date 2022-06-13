@@ -1,0 +1,14 @@
+#!/bin/bash
+imageName=opal
+containerName=opal-container
+port=3000
+
+docker build -t $imageName -f Dockerfile  .
+
+echo Delete old container...
+docker rm -f $containerName
+
+echo Run new container...
+docker run --name $containerName -d -p $port:$port $imageName
+
+##### Script to automatically update the image
