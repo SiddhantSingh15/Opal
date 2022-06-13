@@ -11,7 +11,7 @@ env:
   APP_NAME: frontend
   REGION: us-east1
   TAG: latest
-  IMAGE_TAG: $REGION-docker.pkg.dev/$PROJECT/$ARTIFACT_REGISTRY/$APP_NAME:$TAG
+  IMAGE_TAG: $REGION -docker.pkg.dev/ $PROJECT / $ARTIFACT_REGISTRY / $APP_NAME :$TAG
   # DOCKER_SECRET: secrets.DOCKER_SECRET
   # DOCKER_ID: secrets.DOCKER_ID
     
