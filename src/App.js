@@ -7,11 +7,10 @@ import Search from "./pages/Search";
 import Results from "./pages/Results";
 import useFetch from "./hooks/useFetch";
 import "typeface-open-sans"
+import { PropaneSharp } from "@mui/icons-material";
 
 function App() {
 
-  //Load this on construction
-  const {data: tags, isPending, error} =  useFetch("http://localhost:8000/tags");
 
   class MainApp extends React.Component {
     constructor(props) {
@@ -23,25 +22,30 @@ function App() {
         // For dev
         // page: "results",
         // searchParams: [new SearchParam("tag1","doc-type",true,null),new SearchParam("tag2","doc-type",true,null)],
-        tags: tags
+        tags: props.tags//this.handleLoadTags(props.tag)
       };
 
       this.handleRenderBody = this.handleRenderBody.bind(this);
       this.handleResults = this.handleResults.bind(this);
+      this.handleLoadTags = this.handleLoadTags.bind(this);
+    }
+
+    handleLoadTags(tags) {
+      console.log(tags.map(tag => new SearchParam(tag.name, tag.class, true, tag)));
     }
 
     handleRenderBody(event) {
       switch (this.state.page) {
         case "search":
           return <Search 
-                    data={tags}
+                    data={this.state.tags}
                     handleResults={this.handleResults}
                     app={this}/>
         case "results":
           return <Results
                     app={this}/>
         default:
-          return <Search data={tags}/>
+          return <Search data={this.state.tags}/>
       }
     }
 
@@ -50,6 +54,7 @@ function App() {
     }
 
     render() {
+      {this.handleLoadTags(this.state.tags)}
       return (
         <div className="app">
           <div>
@@ -60,8 +65,13 @@ function App() {
       );
     }
   }
-  
-  return <MainApp/>
+
+  //Load this on construction
+  const {data: tags, isPending, error} =  useFetch("http://localhost:8000/tags");
+
+  return (
+    <MainApp tags={tags}/>
+    )
 }
 
 export default App;
