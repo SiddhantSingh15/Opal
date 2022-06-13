@@ -20,7 +20,8 @@ pipeline {
         stage('build docker image') {
             steps {
                 // sh "docker build -t frontend:${BUILD_ID} ."
-                sh "echo build ${BUILD_ID} complete"
+                // sh "echo build ${BUILD_ID} complete"
+                sh "echo image tag: ${IMAGE_TAG}"
             }
         }
     }
