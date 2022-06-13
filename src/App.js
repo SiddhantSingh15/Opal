@@ -32,6 +32,18 @@ function App() {
       this.handleResults = this.handleResults.bind(this);
       this.handleLoadTags = this.handleLoadTags.bind(this);
       this.handleGetTagsByIds = this.handleGetTagsByIds.bind(this);
+      this.handleAddSearchParams = this.handleAddSearchParams.bind(this);
+      this.handleRemoveSearchParams = this.handleRemoveSearchParams.bind(this);
+    }
+
+    handleAddSearchParams(params) {
+      this.setState({searchParams: this.state.searchParams.concat(params)})
+    }
+
+    handleRemoveSearchParams(params) {
+      this.setState({searchParams: 
+        this.state.searchParams
+        .filter((searchParam) => !params.includes(searchParam))})
     }
 
     handleLoadTags(tags) {
@@ -50,7 +62,6 @@ function App() {
       switch (this.state.page) {
         case "search":
           return <Search 
-                    handleResults={this.handleResults}
                     app={this}/>
         case "results":
           return <Results

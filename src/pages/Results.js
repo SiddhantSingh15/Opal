@@ -5,18 +5,16 @@ import Tag from "../components/Tag";
 import useFetch from "../hooks/useFetch";
 import {ReactComponent as PreviewIcon} from "../assets/preview.svg"
 
-const Results = ({handleGetTagsByIds,app}) => {
+const Results = ({app}) => {
   
-  const {data, isPending, error} =  useFetch("http://localhost:8000/files");
-
   class Results extends React.Component {
     constructor(props) {
       super(props);
       this.handleDisplayResults = this.handleDisplayResults.bind(this);
       this.handleDisplaySearching = this.handleDisplaySearching.bind(this);
       this.handleDisplaySearchParams = this.handleDisplaySearchParams.bind(this);
+      this.data = props.data
     }
-
 
     handleDisplaySearchParams() {
       return (
@@ -25,7 +23,7 @@ const Results = ({handleGetTagsByIds,app}) => {
             (param,key) => {
               return (
                 <Tag tagData={param}
-                     handleClick={() => alert("You haven't implimented this yet")}
+                     handleClick={() => this.props.app.handleRemoveSearchParams([param])}
                 />)})}
         </React.Fragment>
       )
@@ -64,10 +62,12 @@ const Results = ({handleGetTagsByIds,app}) => {
                   <div key = {7 + 10*key} className="results-element-tags">
                   {/* load in tags for respective result */}
                   {
-                    handleGetTagsByIds(result.tags).map((tag,key) => {
+                    this.props.app.handleGetTagsByIds(result.tags)
+                    .filter((tag) => !this.props.app.state.searchParams.includes(tag))
+                    .map((tag,key) => {
                       return (
                       <React.Fragment key = {key}>
-                        <Tag tagData={tag} handleClick={() => alert("You haven't implimented this yet")}/>
+                        <Tag tagData={tag} handleClick={() => this.props.app.handleAddSearchParams([tag])}/>
                       </React.Fragment>
                       )
                     })
@@ -104,7 +104,9 @@ const Results = ({handleGetTagsByIds,app}) => {
     }
   }
 
-  return (<Results/>);
+  const {data, isPending, error} =  useFetch("http://localhost:8000/files");
+
+  return (<Results data={data} app={app}/>);
 }
 
 export default Results;

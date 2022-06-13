@@ -8,7 +8,7 @@ import { ReactComponent as TagIcon } from "../assets/tag.svg"
 import { ReactComponent as OpalLogo } from "../assets/opal.svg"
 
 
-const Search = ({handleResults, app}) => {
+const Search = ({app}) => {
 
   class Search extends React.Component {
 
@@ -20,8 +20,6 @@ const Search = ({handleResults, app}) => {
       };
       this.handleChange = this.handleChange.bind(this);
       this.handleClear = this.handleClear.bind(this);
-      this.handleAddParam = this.handleAddParam.bind(this);
-      this.handleRemoveParam = this.handleRemoveParam.bind(this);
       this.getParamOptions = this.getParamOptions.bind(this);
     }
 
@@ -42,20 +40,6 @@ const Search = ({handleResults, app}) => {
     // Clear the search input
     handleClear(event) {
       this.setState({ value: "" });
-    }
-
-    // Add a search parameters you have already selected
-    handleAddParam(param, event) {
-      if (!app.state.searchParams.includes(param)) {
-        app.setState({ searchParams: app.state.searchParams.concat([param]) });
-        // Dunno if should clear here it is a bit annoying need to force refresh if i do
-        this.handleClear();
-      }
-    }
-
-    // Remove a search parameters you have already selected
-    handleRemoveParam(paramToRemove, event) {
-      app.setState({ searchParams: app.state.searchParams.filter((param) => param != paramToRemove) })
     }
 
     getParamOptions(event) {
@@ -80,14 +64,14 @@ const Search = ({handleResults, app}) => {
           <OpalLogo className="searchLogo" />
           <div className="search">
             {/* Currently Selected Tags */}
-            {app.state.searchParams.length != 0 && (
+            {this.props.app.state.searchParams.length != 0 && (
               <div className="searchParams">
-                {app.state.searchParams.map((param, key) => {
+                {this.props.app.state.searchParams.map((param, key) => {
                   return (
                     <React.Fragment key = {key}>
                       <Tag
                         tagData={param}
-                        handleClick={() => this.handleRemoveParam(param)} />
+                        handleClick={() => this.props.app.handleRemoveSearchParams([param])} />
                     </React.Fragment>
                   )
                 })}
@@ -105,7 +89,7 @@ const Search = ({handleResults, app}) => {
 
               <div className="searchIcon">
                 {this.state.value.length === 0 ?
-                  <SearchIcon id="searchBtn" onClick={handleResults} /> :
+                  <SearchIcon id="searchBtn" onClick={this.props.app.handleResults} /> :
                   <CloseIcon id="clearBtn" onClick={this.handleClear} />}
               </div>
             </div>
@@ -118,11 +102,16 @@ const Search = ({handleResults, app}) => {
                     <div key={key} className="searchOption">
                       <Tag
                         tagData={param}
-                        handleClick={() => this.handleAddParam(param)} />
+                        handleClick={() => {
+                          this.props.app.handleAddSearchParams([param]);
+                          this.handleClear();
+                        }} />
                       {/* on clicking the x it converts the param to a exclude param */}
-                      <button className='excludeSearchOptionButton' onClick={() => {
-                        { param.include = false }
-                        return this.handleAddParam(param)
+                      <button className='excludeSearchOptionButton'
+                        onClick={() => {
+                          param.include = false;
+                          this.props.app.handleAddSearchParams([param]);
+                          this.handleClear();
                       }}>
                         <CloseIcon />
                       </button>
@@ -137,7 +126,7 @@ const Search = ({handleResults, app}) => {
     }
   }
 
-  return (<Search />)
+  return (<Search app={app}/>)
 }
 
 export default Search;
