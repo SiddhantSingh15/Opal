@@ -11,9 +11,8 @@ env:
   APP_NAME: frontend
   REGION: us-east1
   TAG: latest
-  # IMAGE_TAG: ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT }}/${{ env.ARTIFACT_REGISTRY }}/${{ env.APP_NAME }}:${{ env.TAG }}
-  # DOCKER_SECRET: secrets.DOCKER_SECRET
-  # DOCKER_ID: secrets.DOCKER_ID
+  # Can't use it cs Actions is retarded and can't use ENV_VARS inside env
+  # IMAGE_TAG: $REGION-docker.pkg.dev/$PROJECT_NAME/$ARTIFACT_REGISTRY/$APP_NAME:$TAG
     
 jobs:
   setup:
@@ -35,30 +34,25 @@ jobs:
         run: |
           npm install
           npm ci
-      
-      - name: echo finish
-        run: |
-          echo "Job finished!"
-          echo $PROJECT
-          echo $REGION-docker.pkg.dev/$PROJECT/$ARTIFACT_REGISTRY/$APP_NAME:$TAG
 
-  # build:
-  #   runs-on: ubuntu-latest
-  #   needs: setup
-  #   steps:
-  #     - name: checkout-repo
-  #       uses: actions/checkout@v2
+  build:
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
+      - name: checkout-repo
+        uses: actions/checkout@v2
 
-  #     - run: npm run build
+      - run: npm run build
 
-  # test:
-  #   runs-on: ubuntu-latest
-  #   needs: build
-  #   steps:
-  #     - name: checkout-repo
-  #       uses: actions/checkout@v2
+  test:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: checkout-repo
+        uses: actions/checkout@v2
 
-  #     - run: npm run test
+      # Run in non-interactive mode
+      - run: npm run test
   
   # deploy:
   #   runs-on: ubuntu-latest
