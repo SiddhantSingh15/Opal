@@ -1,7 +1,5 @@
 import { Container, Typography, Box, Stack, Chip } from "@mui/material";
 import React from "react";
-import Result from "../components/Result";
-import styles from "../styles";
 import "./Results.css";
 import Tag from "../components/Tag";
 import useFetch from "../hooks/useFetch";
@@ -21,14 +19,12 @@ const Results = ({handleGetTagsByIds,app}) => {
 
     handleDisplaySearchParams() {
       return (
-        <div>
+        <React.Fragment>
           {app.state.searchParams.map(
             (param,key) => {
               return (
-                <React.Fragment key = {key}>
-                  <Tag tagData={param}/>
-                </React.Fragment>)})}
-        </div>
+                <Tag tagData={param}/>)})}
+        </React.Fragment>
       )
     }
 
@@ -45,26 +41,25 @@ const Results = ({handleGetTagsByIds,app}) => {
       return( 
         <div className="results-table">
           <div className="grid-title">
-            <div>Name</div>
-            <div>Language</div>
-            <div>Topic</div>
-            <div>Source</div>
-            <div>Date</div>
-            <div>Gov Law</div>
+            <div className="grid-element">Name</div>
+            <div className="grid-element">Language</div>
+            <div className="grid-element">Topic</div>
+            <div className="grid-element">Source</div>
+            <div className="grid-element">Date</div>
+            <div className="grid-element">Gov Law</div>
           </div>
           {data.map((result,key) => {
             return (
-              <button key = {0 + 10*key} >
+              <div className = "grid-row" key = {0 + 10*key} >
                 <div key = {1 + 10*key} className="grid-element"><p>{result.name}</p></div>
                 <div key = {2 + 10*key} className="grid-element"><p>{result.language}</p></div>
                 <div key = {3 + 10*key} className="grid-element"><p>{result.topic}</p></div>
                 <div key = {4 + 10*key} className="grid-element"><p>{result.source}</p></div>
                 <div key = {5 + 10*key} className="grid-element"><p>{result.date}</p></div>
                 <div key = {6 + 10*key} className="grid-element"><p>{result.govlaw}</p></div>
-                <div key = {7 + 10*key} className="grid-tags">
+                <div key = {7 + 10*key} className="results-element-tags">
                 {/* load in tags for respective result */}
                 {
-                  // Finish this when we load data strait into a list of objects
                   handleGetTagsByIds(result.tags).map((tag,key) => {
                     return (
                     <React.Fragment key = {key}>
@@ -74,7 +69,7 @@ const Results = ({handleGetTagsByIds,app}) => {
                   })
                 }
                 </div>
-              </button>)
+              </div>)
           }
           )}
         </div>
@@ -85,7 +80,14 @@ const Results = ({handleGetTagsByIds,app}) => {
       return (
         <div className="results-body">
           {/* Refactor this when not tired */}
-          {this.handleDisplaySearchParams()}
+          
+          <div className = "results-search">
+            <h1>Results for:</h1>
+            <div className = "results-search-params">
+              {this.handleDisplaySearchParams()}
+            </div>
+          </div>
+          
           {!data && this.handleDisplaySearching()}
           {data && this.handleDisplayResults()}
       </div>

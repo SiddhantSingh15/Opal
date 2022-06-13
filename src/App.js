@@ -17,11 +17,14 @@ function App() {
 
       super(props); 
       this.state = { 
-        page: "search",
-        searchParams: [],
+        // page: "search",
+        // searchParams: [],
         // For dev
-        // page: "results",
-        // searchParams: [new SearchParam("tag1","doc-type",true,null),new SearchParam("tag2","doc-type",true,null)],
+        page: "results",
+        searchParams: [new SearchParam("tag1","doc-type",true,null),
+                       new SearchParam("tag2","doc-type",true,null),
+                       new SearchParam("tag1","doc-type",true,null),
+                       new SearchParam("tag2","doc-type",true,null)],     
         tags: this.handleLoadTags(props.tags)
       };
 
