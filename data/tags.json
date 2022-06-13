@@ -199,5 +199,104 @@
 			"colour": "black"
     }
 
-  ]
+  ],
+	"files":[
+		{
+			"name": "Brandywine Global SEC Filing",
+			"language": "English",
+			"type": "Other",
+			"topic": "OTC Derivatives",
+			"source": "Other",
+			"date": "20/11/2000",
+			"govlaw": "New York",
+			"access": "Public",
+			"status": "Executed",
+			"tags": [1,2,3]
+		},
+		{
+			"name": "Wiskycider International SEC Filing",
+			"language": "English",
+			"type": "Other",
+			"topic": "OTC Derivatives",
+			"source": "Other",
+			"date": "13/02/2005",
+			"govlaw": "England and Wales",
+			"access": "Public",
+			"status": "Executed",
+			"tags": [1,2,3]
+			
+		},
+		{
+			"name": "Portchardonnay Mondial SEC Filing",
+			"language": "French",
+			"type": "Other",
+			"topic": "OTC Derivatives",
+			"source": "Other",
+			"date": "14/09/2019",
+			"govlaw": "France",
+			"access": "Public",
+			"status": "Executed",
+			"tags": [1,2,3]
+		},
+		{
+			"name": "Beer & Beer Weltweit SEC Filing",
+			"language": "German",
+			"type": "Other",
+			"topic": "OTC Derivatives",
+			"source": "Other",
+			"date": "14/09/2019",
+			"govlaw": "Germany",
+			"access": "Public",
+			"status": "Executed",
+			"tags": [1,2,3]
+		},
+		{
+			"name": "Brandywine Global SEC Filing",
+			"language": "English",
+			"type": "Other",
+			"topic": "OTC Derivatives",
+			"source": "Other",
+			"date": "20/11/2000",
+			"govlaw": "New York",
+			"access": "Public",
+			"status": "Executed",
+			"tags": [1,2,3]
+		},
+		{
+			"name": "Wiskycider International SEC Filing",
+			"language": "English",
+			"type": "Other",
+			"topic": "OTC Derivatives",
+			"source": "Other",
+			"date": "13/02/2005",
+			"govlaw": "England and Wales",
+			"access": "Public",
+			"status": "Executed",
+			"tags": [1,2,3]
+		},
+		{
+			"name": "Portchardonnay Mondial SEC Filing",
+			"language": "French",
+			"type": "Other",
+			"topic": "OTC Derivatives",
+			"source": "Other",
+			"date": "14/09/2019",
+			"govlaw": "France",
+			"access": "Public",
+			"status": "Executed",
+			"tags": [1,2,3]
+		},
+		{
+			"name": "Beer & Beer Weltweit SEC Filing",
+			"language": "German",
+			"type": "Other",
+			"topic": "OTC Derivatives",
+			"source": "Other",
+			"date": "14/09/2019",
+			"govlaw": "Germany",
+			"access": "Public",
+			"status": "Executed",
+			"tags": [1,2,3]
+		}
+	]
 }

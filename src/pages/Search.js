@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Tag from '../components/Tag.js';
+import SearchParam from '../Utils.js'
 import "./Search.css"
 import { ReactComponent as SearchIcon } from "../assets/magnifier.svg"
 import { ReactComponent as CloseIcon } from "../assets/close.svg"
@@ -9,16 +10,7 @@ import { ReactComponent as OpalLogo } from "../assets/opal.svg"
 
 const Search = ({data ,handleResults , app}) => {
 
-  class SearchParam {
-    constructor(name, type, include, obj) {
-      this.name = name;
-      this.type = type;
-      this.include = include;
-      this.obj = obj;
-    }
-  }
-
-  class SearchBar extends React.Component {
+  class Search extends React.Component {
 
     constructor(props) {
       super(props);
@@ -147,7 +139,7 @@ const Search = ({data ,handleResults , app}) => {
     }
   }
 
-  return (<SearchBar />)
+  return (<Search />)
 }
 
 export default Search;
