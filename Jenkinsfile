@@ -8,15 +8,10 @@ pipeline {
     }
   }
   stages {
-    stage('Build') {
-      steps {  // no container directive is needed as the maven container is the default
-        sh "mvn clean install"   
-      }
-    }
-    stage('Build Docker Image') {
+    stage('check docker version') {
       steps {
-        container('docker') {  
-          sh "docker version"  // when we run docker in this step, we're running it via a shell on the docker build-pod container, 
+        container('gcloud') {  
+          sh "echo $(gcloud version)"  // when we run docker in this step, we're running it via a shell on the docker build-pod container, 
         }
       }
     }
