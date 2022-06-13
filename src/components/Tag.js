@@ -28,10 +28,10 @@ const Tag = ({tagData,handleClick}) => {
 	}
 
 	return ( 
-		<button className="tag" onClick={handleClick} >
+		<div className="tag" onClick={handleClick}>
 			{renderTagIcon(tagData.type)}
 			{tagData.include === true ? <p>{tagData.name}</p> : <s>{tagData.name}</s>}
-		</button>
+		</div>
 	);
 }
  

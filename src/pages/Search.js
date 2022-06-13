@@ -8,7 +8,7 @@ import { ReactComponent as TagIcon } from "../assets/tag.svg"
 import { ReactComponent as OpalLogo } from "../assets/opal.svg"
 
 
-const Search = ({tags ,handleResults , app}) => {
+const Search = ({handleResults, app}) => {
 
   class Search extends React.Component {
 
@@ -16,7 +16,7 @@ const Search = ({tags ,handleResults , app}) => {
       super(props);
       this.state = {
         value: "",
-        filteredOptions: (tags ? tags : []),
+        filteredOptions: (app.state.tags ? app.state.tags : []),
       };
       this.handleChange = this.handleChange.bind(this);
       this.handleClear = this.handleClear.bind(this);
@@ -30,7 +30,7 @@ const Search = ({tags ,handleResults , app}) => {
       this.setState({ value: event.target.value });
       // The options tags being shown as search param options
       this.setState({
-        filteredOptions: tags.filter((tag) => {
+        filteredOptions: app.state.tags.filter((tag) => {
           return (
             // Show tags that are related to search query and ignore already included tags 
             tag.name.toLowerCase().includes(event.target.value.toLowerCase())) &&

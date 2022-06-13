@@ -22,14 +22,13 @@ function App() {
         // For dev
         // page: "results",
         // searchParams: [new SearchParam("tag1","doc-type",true,null),new SearchParam("tag2","doc-type",true,null)],
-        tags: (props.tags ? props.tags : []),
-        //Test data
-        loadedTags: this.handleLoadTags(props.tags)
+        tags: this.handleLoadTags(props.tags)
       };
 
       this.handleRenderBody = this.handleRenderBody.bind(this);
       this.handleResults = this.handleResults.bind(this);
       this.handleLoadTags = this.handleLoadTags.bind(this);
+      this.handleGetTagsByIds = this.handleGetTagsByIds.bind(this);
     }
 
     handleLoadTags(tags) {
@@ -40,15 +39,19 @@ function App() {
       }
     }
 
+    handleGetTagsByIds(ids) {
+      return this.state.tags.filter(tag => ids.includes(tag.obj.id))
+    }
+
     handleRenderBody(event) {
       switch (this.state.page) {
         case "search":
           return <Search 
-                    tags={this.state.loadedTags}
                     handleResults={this.handleResults}
                     app={this}/>
         case "results":
           return <Results
+                    handleGetTagsByIds={this.handleGetTagsByIds}
                     app={this}/>
         default:
           return <div></div>

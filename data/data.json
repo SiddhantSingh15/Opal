@@ -223,7 +223,7 @@
 			"govlaw": "England and Wales",
 			"access": "Public",
 			"status": "Executed",
-			"tags": [1,2,3]
+			"tags": [2,5]
 			
 		},
 		{
@@ -236,7 +236,7 @@
 			"govlaw": "France",
 			"access": "Public",
 			"status": "Executed",
-			"tags": [1,2,3]
+			"tags": [9,14]
 		},
 		{
 			"name": "Beer & Beer Weltweit SEC Filing",
@@ -248,7 +248,7 @@
 			"govlaw": "Germany",
 			"access": "Public",
 			"status": "Executed",
-			"tags": [1,2,3]
+			"tags": [2,12]
 		},
 		{
 			"name": "Brandywine Global SEC Filing",
@@ -260,7 +260,7 @@
 			"govlaw": "New York",
 			"access": "Public",
 			"status": "Executed",
-			"tags": [1,2,3]
+			"tags": [17,15]
 		},
 		{
 			"name": "Wiskycider International SEC Filing",
@@ -284,7 +284,7 @@
 			"govlaw": "France",
 			"access": "Public",
 			"status": "Executed",
-			"tags": [1,2,3]
+			"tags": [19,18]
 		},
 		{
 			"name": "Beer & Beer Weltweit SEC Filing",
@@ -296,7 +296,7 @@
 			"govlaw": "Germany",
 			"access": "Public",
 			"status": "Executed",
-			"tags": [1,2,3]
+			"tags": [10]
 		}
 	]
 }
