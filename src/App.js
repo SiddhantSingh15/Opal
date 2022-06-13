@@ -34,16 +34,21 @@ function App() {
       this.handleGetTagsByIds = this.handleGetTagsByIds.bind(this);
       this.handleAddSearchParams = this.handleAddSearchParams.bind(this);
       this.handleRemoveSearchParams = this.handleRemoveSearchParams.bind(this);
+      this. handleGoToPage = this.handleGoToPage.bind(this);
+    }
+
+    handleGoToPage(page) {
+      this.setState({page: page});
     }
 
     handleAddSearchParams(params) {
-      this.setState({searchParams: this.state.searchParams.concat(params)})
+      this.setState({searchParams: this.state.searchParams.concat(params)});
     }
 
     handleRemoveSearchParams(params) {
       this.setState({searchParams: 
         this.state.searchParams
-        .filter((searchParam) => !params.includes(searchParam))})
+        .filter((searchParam) => !params.includes(searchParam))});
     }
 
     handleLoadTags(tags) {
@@ -73,14 +78,14 @@ function App() {
     }
 
     handleResults(event) {
-      this.setState({page: "results"})
+      this.handleGoToPage("results");
     }
 
     render() {
       return (
         <div className="app">
           <div>
-            <NavBar searchEnabled={false} />
+            <NavBar app={this} />
             {this.handleRenderBody()}
           </div>
         </div>

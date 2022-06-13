@@ -3,20 +3,19 @@ import {ReactComponent as OpalLogo} from "../assets/opal.svg"
 import "./NavBar.css";
 import NavSearchBar  from "../components/NavSearchBar";
 
-const NavBar = ({searchEnabled}) => {
+const NavBar = ({app}) => {
   return (
 		<div className='navbar'>
-			{searchEnabled && 
+			{app.state.page != "search" && 
 				<div className='navbar__search'>
-					<OpalLogo className = 'navbar__logo'/>
-					<NavSearchBar/>
+					<OpalLogo className = 'navbar__logo' onClick={() => app.handleGoToPage("search")}/>
 				</div>
 			}
 			<div className="navbar__links">
 				<ul>
-					<li><a href="/">Search</a></li>
-					<li><a href="/tags">Tags</a></li>
-					<li><a href="/repo">Repository</a></li>
+					<p onClick={() => app.handleGoToPage("search")} >Search</p>
+					<p>Tags</p>
+					<p>Repository</p>
 				</ul>
 			</div>
 		</div>

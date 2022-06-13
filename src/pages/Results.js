@@ -19,12 +19,16 @@ const Results = ({app}) => {
     handleDisplaySearchParams() {
       return (
         <React.Fragment>
-          {app.state.searchParams.map(
+          {this.props.app.state.searchParams.map(
             (param,key) => {
               return (
-                <Tag tagData={param}
-                     handleClick={() => this.props.app.handleRemoveSearchParams([param])}
-                />)})}
+                <React.Fragment key={key}>
+                  <Tag
+                    tagData={param}
+                    handleClick={() => this.props.app.handleRemoveSearchParams([param])}
+                  />
+                </React.Fragment>
+                )})}
         </React.Fragment>
       )
     }
@@ -51,15 +55,15 @@ const Results = ({app}) => {
           </div>
           {data.map((result,key) => {
             return (
-              <div className = "grid-row">
-                <div className = "grid-row-properties" key = {0 + 10*key} >
-                  <div key = {1 + 10*key} className="grid-element"><p>{result.name}</p></div>
-                  <div key = {2 + 10*key} className="grid-element"><p>{result.language}</p></div>
-                  <div key = {3 + 10*key} className="grid-element"><p>{result.topic}</p></div>
-                  <div key = {4 + 10*key} className="grid-element"><p>{result.source}</p></div>
-                  <div key = {5 + 10*key} className="grid-element"><p>{result.date}</p></div>
-                  <div key = {6 + 10*key} className="grid-element"><p>{result.govlaw}</p></div>
-                  <div key = {7 + 10*key} className="results-element-tags">
+              <div  key = {0 + 10*key}  className = "grid-row">
+                <div key = {1 + 10*key} className = "grid-row-properties"  >
+                  <div key = {2 + 10*key} className="grid-element"><p>{result.name}</p></div>
+                  <div key = {3 + 10*key} className="grid-element"><p>{result.language}</p></div>
+                  <div key = {4 + 10*key} className="grid-element"><p>{result.topic}</p></div>
+                  <div key = {5 + 10*key} className="grid-element"><p>{result.source}</p></div>
+                  <div key = {6 + 10*key} className="grid-element"><p>{result.date}</p></div>
+                  <div key = {7 + 10*key} className="grid-element"><p>{result.govlaw}</p></div>
+                  <div key = {8 + 10*key} className="results-element-tags">
                   {/* load in tags for respective result */}
                   {
                     this.props.app.handleGetTagsByIds(result.tags)
@@ -74,7 +78,7 @@ const Results = ({app}) => {
                   }
                   </div>
                 </div>
-                <div key = {7 + 10*key} className="grid-row-buttons" onClick={() => alert("You haven't implimented this yet")}>
+                <div key = {9 + 10*key} className="grid-row-buttons" onClick={() => alert("You haven't implimented this yet")}>
                     <PreviewIcon/>
                   </div>
               </div>
