@@ -11,8 +11,8 @@ env:
   APP_NAME: frontend
   REGION: us-east1
   TAG: latest
-  IMAGE_TAG: ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT }}/${{ env.ARTIFACT_REGISTRY }}/${{ env.APP_NAME }}:${{ env.TAG }} 
-   # DOCKER_SECRET: secrets.DOCKER_SECRET
+  # IMAGE_TAG: ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT }}/${{ env.ARTIFACT_REGISTRY }}/${{ env.APP_NAME }}:${{ env.TAG }}
+  # DOCKER_SECRET: secrets.DOCKER_SECRET
   # DOCKER_ID: secrets.DOCKER_ID
     
 jobs:
@@ -39,7 +39,8 @@ jobs:
       - name: echo finish
         run: |
           echo "Job finished!"
-          echo $IMAGE_TAG
+          echo $PROJECT
+          echo $REGION-docker.pkg.dev/$PROJECT/$ARTIFACT_REGISTRY/$APP_NAME:$TAG
 
   # build:
   #   runs-on: ubuntu-latest
