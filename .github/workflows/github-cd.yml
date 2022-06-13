@@ -6,16 +6,22 @@ on:
 
 # Set env variables
 env:
-  APP_NAME: ${{ 'opal' }}
-  DOCKER_SECRET: ${{ secrets.DOCKER_SECRET }}
-  DOCKER_ID: ${{ secrets.DOCKER_ID }}
+  PROJECT_NAME: lawyer-document-search
+  ARTIFACT_REGISTRY: frontend
+  APP_NAME: frontend
+  REGION: us-east1
+  TAG: latest
+  IMAGE_TAG: $REGION-docker.pkg.dev/$PROJECT/$ARTIFACT_REGISTRY/$APP_NAME:$TAG
+  # DOCKER_SECRET: secrets.DOCKER_SECRET
+  # DOCKER_ID: secrets.DOCKER_ID
     
 jobs:
   setup:
     name: Setup environment 
     runs-on: ubuntu-latest
     steps:
-      #Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      #Checks-out your repository under $GITHUB_WORKSPACE and sets WORKDIR to 
+      # the repo so you can access files.
       - name: checkout-repo
         uses: actions/checkout@v2
 
@@ -31,7 +37,9 @@ jobs:
           npm ci
       
       - name: echo finish
-        run: echo "Job finished!"
+        run: |
+          echo "Job finished!"
+          echo $IMAGE_TAG
 
   # build:
   #   runs-on: ubuntu-latest
