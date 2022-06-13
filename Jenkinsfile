@@ -11,9 +11,9 @@ pipeline {
 
     stages {
         //Checkout Code from Git
-        stage('Clone Repo') {
+        stage('Checkout repo') {
             steps {
-                checkout scm
+                git "https://github.com/SiddhantSingh15/opal.git"
             }
         }
 
