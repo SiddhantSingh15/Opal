@@ -9,10 +9,10 @@ spec:
       imagePullPolicy: Always # use cache or pull image for agent
       resources:  # limits the resources your build contaienr
         requests:
-          memory: "8Gi"
-          cpu: "500m"
+          memory: "2Gi"
+          cpu: "200m"
         limits:
-          memory: "8Gi"
+          memory: "2Gi"
     - name: docker
       image: docker:18.06.1
       command: ["tail", "-f", "/dev/null"]
