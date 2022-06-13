@@ -22,7 +22,9 @@ function App() {
         // For dev
         // page: "results",
         // searchParams: [new SearchParam("tag1","doc-type",true,null),new SearchParam("tag2","doc-type",true,null)],
-        tags: props.tags//this.handleLoadTags(props.tag)
+        tags: (props.tags ? props.tags : []),
+        //Test data
+        loadedTags: this.handleLoadTags(props.tags)
       };
 
       this.handleRenderBody = this.handleRenderBody.bind(this);
@@ -31,21 +33,25 @@ function App() {
     }
 
     handleLoadTags(tags) {
-      console.log(tags.map(tag => new SearchParam(tag.name, tag.class, true, tag)));
+      if (tags) {
+        return tags.map(tag => new SearchParam(tag.name, tag.class, true, tag));
+      } else {
+        return []
+      }
     }
 
     handleRenderBody(event) {
       switch (this.state.page) {
         case "search":
           return <Search 
-                    data={this.state.tags}
+                    tags={this.state.loadedTags}
                     handleResults={this.handleResults}
                     app={this}/>
         case "results":
           return <Results
                     app={this}/>
         default:
-          return <Search data={this.state.tags}/>
+          return <div></div>
       }
     }
 
@@ -54,7 +60,6 @@ function App() {
     }
 
     render() {
-      {this.handleLoadTags(this.state.tags)}
       return (
         <div className="app">
           <div>

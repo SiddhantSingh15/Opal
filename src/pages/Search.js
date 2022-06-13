@@ -8,7 +8,7 @@ import { ReactComponent as TagIcon } from "../assets/tag.svg"
 import { ReactComponent as OpalLogo } from "../assets/opal.svg"
 
 
-const Search = ({data ,handleResults , app}) => {
+const Search = ({tags ,handleResults , app}) => {
 
   class Search extends React.Component {
 
@@ -16,7 +16,7 @@ const Search = ({data ,handleResults , app}) => {
       super(props);
       this.state = {
         value: "",
-        filteredOptions: (data ? data : []),
+        filteredOptions: (tags ? tags : []),
       };
       this.handleChange = this.handleChange.bind(this);
       this.handleClear = this.handleClear.bind(this);
@@ -30,12 +30,11 @@ const Search = ({data ,handleResults , app}) => {
       this.setState({ value: event.target.value });
       // The options tags being shown as search param options
       this.setState({
-        filteredOptions: data.filter((tag) => {
+        filteredOptions: tags.filter((tag) => {
           return (
             // Show tags that are related to search query and ignore already included tags 
             tag.name.toLowerCase().includes(event.target.value.toLowerCase())) &&
-            !(app.state.searchParams.filter((param) => param.type === "tag")
-              .map((param) => param.obj.id)).includes(tag.id)
+            !app.state.searchParams.map((param) => param.obj).includes(tag.obj)
         })
       });
     }
@@ -62,7 +61,6 @@ const Search = ({data ,handleResults , app}) => {
     getParamOptions(event) {
       //Takes the first 6 params (not sorted atm in order of relevance)
       const paramOptions = this.state.filteredOptions
-        .map(tag => new SearchParam(tag.name, tag.class, true, tag))
         .slice(0,6)
 
       // Current Search value is not already a tag

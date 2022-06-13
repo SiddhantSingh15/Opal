@@ -31,7 +31,7 @@ const useFetch = (url) => {
 				}
 			})
 			// Artificial Timeout 
-		},0);
+		},1000);
 
 		return () => abortCont.abort()
 	}, [url]);
