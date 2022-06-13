@@ -3,6 +3,7 @@ import React from "react";
 import "./Results.css";
 import Tag from "../components/Tag";
 import useFetch from "../hooks/useFetch";
+import {ReactComponent as PreviewIcon} from "../assets/preview.svg"
 
 const Results = ({handleGetTagsByIds,app}) => {
   
@@ -23,7 +24,9 @@ const Results = ({handleGetTagsByIds,app}) => {
           {app.state.searchParams.map(
             (param,key) => {
               return (
-                <Tag tagData={param}/>)})}
+                <Tag tagData={param}
+                     handleClick={() => alert("You haven't implimented this yet")}
+                />)})}
         </React.Fragment>
       )
     }
@@ -50,26 +53,32 @@ const Results = ({handleGetTagsByIds,app}) => {
           </div>
           {data.map((result,key) => {
             return (
-              <div className = "grid-row" key = {0 + 10*key} >
-                <div key = {1 + 10*key} className="grid-element"><p>{result.name}</p></div>
-                <div key = {2 + 10*key} className="grid-element"><p>{result.language}</p></div>
-                <div key = {3 + 10*key} className="grid-element"><p>{result.topic}</p></div>
-                <div key = {4 + 10*key} className="grid-element"><p>{result.source}</p></div>
-                <div key = {5 + 10*key} className="grid-element"><p>{result.date}</p></div>
-                <div key = {6 + 10*key} className="grid-element"><p>{result.govlaw}</p></div>
-                <div key = {7 + 10*key} className="results-element-tags">
-                {/* load in tags for respective result */}
-                {
-                  handleGetTagsByIds(result.tags).map((tag,key) => {
-                    return (
-                    <React.Fragment key = {key}>
-                      <Tag tagData={tag}/>
-                    </React.Fragment>
-                    )
-                  })
-                }
+              <div className = "grid-row">
+                <div className = "grid-row-properties" key = {0 + 10*key} >
+                  <div key = {1 + 10*key} className="grid-element"><p>{result.name}</p></div>
+                  <div key = {2 + 10*key} className="grid-element"><p>{result.language}</p></div>
+                  <div key = {3 + 10*key} className="grid-element"><p>{result.topic}</p></div>
+                  <div key = {4 + 10*key} className="grid-element"><p>{result.source}</p></div>
+                  <div key = {5 + 10*key} className="grid-element"><p>{result.date}</p></div>
+                  <div key = {6 + 10*key} className="grid-element"><p>{result.govlaw}</p></div>
+                  <div key = {7 + 10*key} className="results-element-tags">
+                  {/* load in tags for respective result */}
+                  {
+                    handleGetTagsByIds(result.tags).map((tag,key) => {
+                      return (
+                      <React.Fragment key = {key}>
+                        <Tag tagData={tag} handleClick={() => alert("You haven't implimented this yet")}/>
+                      </React.Fragment>
+                      )
+                    })
+                  }
+                  </div>
                 </div>
-              </div>)
+                <div key = {7 + 10*key} className="grid-row-buttons" onClick={() => alert("You haven't implimented this yet")}>
+                    <PreviewIcon/>
+                  </div>
+              </div>
+              )
           }
           )}
         </div>
