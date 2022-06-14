@@ -40,7 +40,7 @@ const Results = ({app}) => {
 
     handleDisplaySearching() {
       return (
-        <div>
+        <div className="searching-notification">
           <h1>Searching</h1>
           <div className="loader"></div>
         </div>

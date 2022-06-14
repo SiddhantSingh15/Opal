@@ -16,11 +16,14 @@ const Search = ({app}) => {
       super(props);
       this.state = {
         value: "",
+        selectedTagX: 0,
+        selectedTagY: 0,
         filteredOptions: (app.state.tags ? app.state.tags : []),
       };
+
       this.handleChange = this.handleChange.bind(this);
       this.handleClear = this.handleClear.bind(this);
-      this.getParamOptions = this.getParamOptions.bind(this);
+      this.handleKeyDown = this.handleKeyDown.bind(this);
     }
 
     // Changes in the text inputted into the search
@@ -28,33 +31,74 @@ const Search = ({app}) => {
       this.setState({ value: event.target.value });
       // The options tags being shown as search param options
       this.setState({
-        filteredOptions: app.state.tags.filter((tag) => {
-          return (
-            // Show tags that are related to search query and ignore already included tags 
-            tag.name.toLowerCase().includes(event.target.value.toLowerCase())) &&
-            !app.state.searchParams.map((param) => param.obj).includes(tag.obj)
-        })
+        filteredOptions: app.state.tags
+          // Yes i am aware this is disgusting
+          .filter((tag) => {
+            return (
+              // Show tags that are related to search query and ignore already included tags 
+              tag.name.toLowerCase().
+              includes(event.target.value.toLowerCase()))
+              && 
+              !app.state.searchParams
+              .map((param) => param.obj)
+              .includes(tag.obj)})
+          // Takes 6 suggested tags
+          .slice(0,6)
+          // If raw text is not already in the options it adds it
+          .concat(
+            (!app.state.searchParams
+            .filter((param) => (param.type === "search"))
+            .map((param) => param.obj)
+            .includes(event.target.value)) ?
+              [new SearchParam('"' + event.target.value + '"', "search", true, event.target.value)] :
+              []
+          )
       });
+    }
+
+    handleKeyDown(event) {
+      if (this.state.value.length>0) {
+        switch (event.key) {
+          case "Enter":
+            if(this.state.filteredOptions.length !=0) {
+              this.props.app.handleAddSearchParams([this.state.filteredOptions[0]]);
+            }
+            this.handleClear()
+            this.props.app.handleResults()
+            break;
+          case "Tab":
+            if(this.state.filteredOptions.length !=0) {
+              this.props.app.handleAddSearchParams([this.state.filteredOptions[0]]);
+            }
+            break;
+          case "Backspace":
+            if(this.state.value === "") {
+              if (this.props.app.state.searchParams.length > 0) {
+                this.props.app.handleRemoveSearchParams([app.state.searchParams.pop()]);
+              }
+            }
+            break;
+      }
+
+        // case "ArrowUp":
+        //   this.setState({selectedTagY: (this.state.selectedTagY === 0 ?
+        //     0 :
+        //     this.state.selectedTagY-1)})
+        //     break;
+        // case "ArrowDown":
+        //   this.setState({selectedTagY: (this.state.selectedTagY >= this.state.filteredOptions.length &&
+        //     this.state.value != "" ?
+        //     this.state.filteredOptions.length : 
+        //     this.state.selectedTagY+1)})
+        //     break;
+      }
+      // console.log(event.key)
+      //console.log("X:" + this.state.selectedTagX + " Y: " + this.state.selectedTagY)
     }
 
     // Clear the search input
     handleClear(event) {
       this.setState({ value: "" });
-    }
-
-    getParamOptions(event) {
-      //Takes the first 6 params (not sorted atm in order of relevance)
-      const paramOptions = this.state.filteredOptions
-        .slice(0,6)
-
-      // Current Search value is not already a tag
-      if (!app.state.searchParams
-        .filter((param) => (param.type === "search"))
-        .map((param) => param.obj)
-        .includes(this.state.value)) {
-        paramOptions.unshift(new SearchParam('"' + this.state.value + '"', "search", true, this.state.value))
-      }
-      return paramOptions
     }
 
     render() {
@@ -81,12 +125,13 @@ const Search = ({app}) => {
             {/* Input bar */}
             <div className="searchInputs">
               <input
+                autoComplete="off"
                 type="text"
                 placeholder={"Search"}
                 value={this.state.value}
                 id="searchBar"
-                onChange={this.handleChange} />
-
+                onChange={this.handleChange}
+                onKeyDown={this.handleKeyDown}/>
               <div className="searchIcon">
                 {this.state.value.length === 0 ?
                   <SearchIcon id="searchBtn" onClick={this.props.app.handleResults} /> :
@@ -97,7 +142,7 @@ const Search = ({app}) => {
             {/* Search options - Tags */}
             {this.state.value.length != 0 && (
               <div className="searchOptions">
-                {this.getParamOptions().map((param, key) => {
+                {this.state.filteredOptions.map((param, key) => {
                   return (
                     <div key={key} className="searchOption">
                       <Tag
