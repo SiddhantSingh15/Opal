@@ -5,6 +5,8 @@ import useFetch from "../hooks/useFetch";
 import {ReactComponent as PreviewIcon} from "../assets/preview.svg"
 import Modal from "react-modal"
 
+Modal.setAppElement("#root");
+
 const Results = ({app}) => {
   
   class Results extends React.Component {
@@ -85,7 +87,7 @@ const Results = ({app}) => {
                   }
                   </div>
                 </div>
-                <div key = {9 + 10*key} className="grid-row-buttons" onClick={() => alert("You haven't implimented this yet")}>
+                <div key = {9 + 10*key} className="grid-row-buttons" onClick={this.handleToggleModal}>
                     <PreviewIcon/>
                   </div>
               </div>
@@ -100,18 +102,22 @@ const Results = ({app}) => {
       return (
         <div className="results-body">
 
+          {/* Modal test */}
           <Modal
             isOpen={this.state.isOpen}
-            onRequestClose={this.toggleModal}
-            contentLabel="my dialog"
-          />
-          
+            onRequestClose={this.handleToggleModal}
+            contentLabel="my dialog">
+            <div>My modal dialog.</div>
+            <button onClick={this.handleToggleModal}>Close modal</button>
+          </Modal>
           <div className = "results-search">
             <h1>Results for:</h1>
             <div className = "results-search-params">
               {this.handleDisplaySearchParams()}
             </div>
           </div>
+          
+
           
           {!this.props.data && this.handleDisplaySearching()}
           {this.props.data && this.handleDisplayResults()}

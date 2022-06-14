@@ -8,8 +8,6 @@ import Results from "./pages/Results";
 import useFetch from "./hooks/useFetch";
 import "typeface-open-sans"
 
-
-
 function App() {
 
 
@@ -79,6 +77,7 @@ function App() {
     render() {
       return (
         <div className="app">
+
           <div>
             <NavBar app={this} />
             {this.handleRenderBody()}
