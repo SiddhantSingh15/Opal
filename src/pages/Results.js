@@ -1,24 +1,23 @@
 import React from "react";
 import "./Results.css";
 import Tag from "../components/Tag";
+import DocumentView from "../components/DocumentView.js"
 import useFetch from "../hooks/useFetch";
 import {ReactComponent as PreviewIcon} from "../assets/preview.svg"
-import Modal from "react-modal"
 
-Modal.setAppElement("#root");
 
 const Results = ({app}) => {
   
   class Results extends React.Component {
     constructor(props) {
       super(props);
-      this.state = {
-        isOpen:false,
-      }
+      // this.state = {
+      //   viewingDoc: false
+      // }
       this.handleDisplayResults = this.handleDisplayResults.bind(this);
       this.handleDisplaySearching = this.handleDisplaySearching.bind(this);
       this.handleDisplaySearchParams = this.handleDisplaySearchParams.bind(this);
-      this.handleToggleModal = this.handleToggleModal.bind(this);
+
     }
 
     handleDisplaySearchParams() {
@@ -45,10 +44,6 @@ const Results = ({app}) => {
           <div className="loader"></div>
         </div>
       )
-    }
-
-    handleToggleModal() {
-      this.setState({isOpen: !this.state.isOpen})
     }
 
     handleDisplayResults() {
@@ -87,7 +82,7 @@ const Results = ({app}) => {
                   }
                   </div>
                 </div>
-                <div key = {9 + 10*key} className="grid-row-buttons" onClick={this.handleToggleModal}>
+                <div key = {9 + 10*key} className="grid-row-buttons" onClick={() => alert("Implement this")}>
                     <PreviewIcon/>
                   </div>
               </div>
@@ -102,14 +97,10 @@ const Results = ({app}) => {
       return (
         <div className="results-body">
 
-          {/* Modal test */}
-          <Modal
-            isOpen={this.state.isOpen}
-            onRequestClose={this.handleToggleModal}
-            contentLabel="my dialog">
-            <div>My modal dialog.</div>
-            <button onClick={this.handleToggleModal}>Close modal</button>
-          </Modal>
+
+          {/* Popup for previewing the document */}
+          <DocumentView/>
+
           <div className = "results-search">
             <h1>Results for:</h1>
             <div className = "results-search-params">
