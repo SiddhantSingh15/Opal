@@ -17,7 +17,8 @@ function App() {
 
       super(props); 
       this.state = { 
-        page: "results",//"search",
+
+        page: "search",
         searchParams: [],
         tags: this.handleLoadTags(props.tags)
       };
