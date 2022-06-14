@@ -58,28 +58,31 @@ const Search = ({app}) => {
 
     handleKeyDown(event) {
       if (this.state.value.length>0) {
-        switch (event.key) {
-          case "Enter":
-            if(this.state.filteredOptions.length !=0) {
-              this.props.app.handleAddSearchParams([this.state.filteredOptions[0]]);
-            }
-            this.handleClear()
-            this.props.app.handleResults()
-            break;
-          case "Tab":
-            if(this.state.filteredOptions.length !=0) {
-              this.props.app.handleAddSearchParams([this.state.filteredOptions[0]]);
-            }
-            break;
-          case "Backspace":
-            if(this.state.value === "") {
-              if (this.props.app.state.searchParams.length > 0) {
-                this.props.app.handleRemoveSearchParams([app.state.searchParams.pop()]);
-              }
-            }
-            break;
-      }
 
+      }
+      switch (event.key) {
+        case "Enter":
+          if(this.state.filteredOptions.length !=0) {
+            this.props.app.handleAddSearchParams([this.state.filteredOptions[0]]);
+          }
+          this.handleClear()
+          this.props.app.handleResults()
+          break;
+        case "Tab":
+          event.preventDefault()
+          if((this.state.filteredOptions.length !=0) &&
+            this.state.value.length !=0) {
+            this.props.app.handleAddSearchParams([this.state.filteredOptions[0]]);
+            this.handleClear()
+          }
+          break;
+        case "Backspace":
+          if(this.state.value === "") {
+            if (this.props.app.state.searchParams.length > 0) {
+              this.props.app.handleRemoveSearchParams([app.state.searchParams.pop()]);
+            }
+          }
+          break;
         // case "ArrowUp":
         //   this.setState({selectedTagY: (this.state.selectedTagY === 0 ?
         //     0 :
@@ -125,6 +128,7 @@ const Search = ({app}) => {
             {/* Input bar */}
             <div className="searchInputs">
               <input
+                autoFocus
                 autoComplete="off"
                 type="text"
                 placeholder={"Search"}

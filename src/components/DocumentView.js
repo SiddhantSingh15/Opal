@@ -9,9 +9,7 @@ Modal.setAppElement("#root");
 class DocumentView extends React.Component {
 	constructor(props) {
 		super(props);
-	}
-
-
+	} 	
 	render() {
 		return (
 			<Modal
