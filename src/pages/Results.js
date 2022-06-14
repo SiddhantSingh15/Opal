@@ -11,12 +11,13 @@ const Results = ({app}) => {
   class Results extends React.Component {
     constructor(props) {
       super(props);
-      // this.state = {
-      //   viewingDoc: false
-      // }
+      this.state = {
+         viewingDoc:false
+      }
       this.handleDisplayResults = this.handleDisplayResults.bind(this);
       this.handleDisplaySearching = this.handleDisplaySearching.bind(this);
       this.handleDisplaySearchParams = this.handleDisplaySearchParams.bind(this);
+      this.handleToggleDocumentView = this.handleToggleDocumentView.bind(this);
 
     }
 
@@ -82,7 +83,7 @@ const Results = ({app}) => {
                   }
                   </div>
                 </div>
-                <div key = {9 + 10*key} className="grid-row-buttons" onClick={() => alert("Implement this")}>
+                <div key = {9 + 10*key} className="grid-row-buttons" onClick={this.handleToggleDocumentView}>
                     <PreviewIcon/>
                   </div>
               </div>
@@ -93,13 +94,19 @@ const Results = ({app}) => {
       )
     }
 
+    handleToggleDocumentView() {
+      this.setState({viewingDoc: !this.state.viewingDoc})
+    }
+
     render() {
       return (
         <div className="results-body">
 
 
           {/* Popup for previewing the document */}
-          <DocumentView/>
+          <DocumentView
+            isOpen={this.state.viewingDoc} 
+            toggleModal={this.handleToggleDocumentView}/>
 
           <div className = "results-search">
             <h1>Results for:</h1>
