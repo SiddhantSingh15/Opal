@@ -30,6 +30,7 @@ pipeline {
       }
     }
     stage('build and push prod image with cloud builder') {
+      when { branch 'master' }
       steps {
         container('gcloud') {  
           sh "PYTHONUNBUFFERED=1 gcloud builds submit -t ${PROD_IMAGE_TAG} ."  
