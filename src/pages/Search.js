@@ -5,57 +5,61 @@ import "./Search.css"
 import { ReactComponent as SearchIcon } from "../assets/magnifier.svg"
 import { ReactComponent as CloseIcon } from "../assets/close.svg"
 import { ReactComponent as OpalLogo } from "../assets/opal.svg"
-
+import axios from "axios";
 
 
   class Search extends React.Component {
 
   constructor(props) {
     super(props);
+    this.numTagsDisplayed = 9;
+
     this.state = {
-      value: "",
-      selectedTagX: 0,
-      selectedTagY: 0,
+     
+      inputValue: "",
       filteredOptions: (this.props.app.state.tags ? this.props.app.state.tags : []),
+      tags: []
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleClear = this.handleClear.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
+    this.fetchTagsAsync = this.fetchTagsAsync.bind(this);
+
+    this.renderSuggestionBox = this.renderSuggestionBox.bind(this);
+
+    this.loadTags = this.loadTags.bind(this);
+    this.getSearchParamSuggestions = this.getSearchParamSuggestions.bind(this);
+  }
+
+  async fetchTagsAsync(searchBarValue) {
+    const url = "http://localhost:8000/api/v1/tags/" + searchBarValue;
+    try {
+      const response = await axios.get(url);
+      this.setState({tags: 
+        this.loadTags(response.data.tags)})
+    } catch (e) {
+        console.log(e);
+    }
+  }
+  
+  loadTags(tags) {
+    return tags
+            .map(tag => new SearchParam(tag.id,tag.name, tag.class, true, tag))
   }
 
   // Changes in the text inputted into the search
   handleChange(event) {
-    this.setState({ value: event.target.value });
-    // The options tags being shown as search param options
-    this.setState({
-      filteredOptions: this.props.app.state.tags
-        // Yes i am aware this is disgusting
-        .filter((tag) => {
-          return (
-            // Show tags that are related to search query and ignore already included tags 
-            tag.name.toLowerCase()
-            .includes(event.target.value.toLowerCase()))
-            && 
-            !this.props.app.state.searchParams
-            .map((param) => param.id)
-            .includes(tag.id)})
-        // Takes 6 suggested tags
-        .slice(0,6)
-        // If raw text is not already in the options it adds it
-        .concat(
-          (!this.props.app.state.searchParams
-          .filter((param) => (param.type === "search"))
-          .map((param) => param.obj)
-          .includes(event.target.value)) ?
-            [new SearchParam(event.target.value,'"' + event.target.value + '"', "search", true, event.target.value)] :
-            []
-        )
-    });
+    if (event.target.value.length!==0) {
+      this.fetchTagsAsync(event.target.value);
+    } else {
+      this.setState({tags:[]})
+    }
+    this.setState({ inputValue: event.target.value});
   }
 
   handleKeyDown(event) {
-    if (this.state.value.length>0) {
+    if (this.state.inputValue.length>0) {
 
     }
     switch (event.key) {
@@ -69,13 +73,13 @@ import { ReactComponent as OpalLogo } from "../assets/opal.svg"
       case "Tab":
         event.preventDefault()
         if((this.state.filteredOptions.length !==0) &&
-          this.state.value.length !==0) {
+          this.state.inputValue.length !==0) {
           this.props.app.handleAddSearchParams([this.state.filteredOptions[0]]);
           this.handleClear()
         }
         break;
       case "Backspace":
-        if(this.state.value === "") {
+        if(this.state.inputValue === "") {
           if (this.props.app.state.searchParams.length > 0) {
             this.props.app.handleRemoveSearchParams([this.props.app.state.searchParams.pop()]);
           }
@@ -83,23 +87,76 @@ import { ReactComponent as OpalLogo } from "../assets/opal.svg"
         break;
       default:
         break;
-      // case "ArrowUp":
-      //   this.setState({selectedTagY: (this.state.selectedTagY === 0 ?
-      //     0 :
-      //     this.state.selectedTagY-1)})
-      //     break;
-      // case "ArrowDown":
-      //   this.setState({selectedTagY: (this.state.selectedTagY >= this.state.filteredOptions.length &&
-      //     this.state.value !== "" ?
-      //     this.state.filteredOptions.length : 
-      //     this.state.selectedTagY+1)})
-      //     break;
     }
   }
 
   // Clear the search input
   handleClear(event) {
-    this.setState({ value: "" });
+    this.setState({ inputValue: ""});
+  }
+
+  getSearchParamSuggestions () {
+    return this.state.tags
+            .slice(0,this.numTagsDisplayed);
+  }
+
+  inSearchParams(id) {
+    return this.props.app.state.searchParams
+      .map(param => param.id).includes(id)
+  }
+
+  renderSuggestionBox() {
+    if (this.state.inputValue.length != 0) {
+      return (
+        <React.Fragment>
+          {/* Display the current value in the input bar */}
+          {!this.inSearchParams(this.state.inputValue) &&
+          this.state.inputValue.length != 0 &&
+          <div 
+            className="searchTextOption"
+            onClick={() => this.props.app.handleAddSearchParams([
+              new SearchParam(
+                this.state.inputValue,
+                '"' + this.state.inputValue +  '"',
+                "search",
+                true,
+                null
+              )
+            ])}>
+            <SearchIcon/>
+            <p>"{this.state.inputValue}"</p>
+          </div>
+          }
+          
+          {/* Display k number of most relevant tags */}
+          {this.state.tags.length !== 0 &&
+          <div className="searchOptions">
+              {this.getSearchParamSuggestions()
+              .map((param, key) => {
+                return (
+                  <div key={key} className="searchOption">
+                    <Tag
+                      tagData={param}
+                      handleClick={() => {
+                        this.props.app.handleAddSearchParams([structuredClone(param)]);
+                        this.handleClear();
+                      }} />
+                    {/* on clicking the x it converts the param to a exclude param */}
+                    <button className='excludeSearchOptionButton'
+                      onClick={() => {
+                        const searchParam = structuredClone(param);
+                        searchParam.include = false;
+                        this.props.app.handleAddSearchParams([searchParam]);
+                        this.handleClear();
+                    }}>
+                      <CloseIcon />
+                    </button>
+                  </div>)})}
+            </div>
+          }
+        </React.Fragment>
+      )
+    }
   }
 
   render() {
@@ -130,46 +187,17 @@ import { ReactComponent as OpalLogo } from "../assets/opal.svg"
               autoComplete="off"
               type="text"
               placeholder={"Search"}
-              value={this.state.value}
-              id="searchBar"
+              value={this.state.inputValue}
               onChange={this.handleChange}
-              onKeyDown={this.handleKeyDown}/>
+              onKeyDown={this.handleKeyDown}
+              className="SearchBar"/>
             <div className="searchIcon">
-              {this.state.value.length === 0 ?
+              {this.state.inputValue.length === 0 ?
                 <SearchIcon id="searchBtn" onClick={this.props.app.handleResults} /> :
                 <CloseIcon id="clearBtn" onClick={this.handleClear} />}
             </div>
           </div>
-
-          {/* Search options - Tags */}
-          {(this.state.value.length !== 0 &&
-          this.state.filteredOptions.length !== 0) &&
-          (
-            <div className="searchOptions">
-              {this.state.filteredOptions.map((param, key) => {
-                const searchParam = structuredClone(param);
-                return (
-                  <div key={key} className="searchOption">
-                    <Tag
-                      tagData={searchParam}
-                      handleClick={() => {
-                        this.props.app.handleAddSearchParams([searchParam]);
-                        this.handleClear();
-                      }} />
-                    {/* on clicking the x it converts the param to a exclude param */}
-                    <button className='excludeSearchOptionButton'
-                      onClick={() => {
-                        searchParam.include = false;
-                        this.props.app.handleAddSearchParams([searchParam]);
-                        this.handleClear();
-                    }}>
-                      <CloseIcon />
-                    </button>
-                  </div>
-                )
-              })}
-            </div>
-          )}
+          {this.renderSuggestionBox()}
         </div>
       </div>
     );

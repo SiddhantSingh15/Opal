@@ -24,31 +24,16 @@ function App() {
 
       this.handleRenderBody = this.handleRenderBody.bind(this);
       this.handleResults = this.handleResults.bind(this);
-      this.handleLoadTags = this.handleLoadTags.bind(this);
       this.handleGetTagsByIds = this.handleGetTagsByIds.bind(this);
       this.handleAddSearchParams = this.handleAddSearchParams.bind(this);
       this.handleRemoveSearchParams = this.handleRemoveSearchParams.bind(this);
       this.handleGoToPage = this.handleGoToPage.bind(this);
-      this.fetchTagsAsync = this.fetchTagsAsync.bind(this);
       this.fetchResultsAsync = this.fetchResultsAsync.bind(this);
     }
 
 
     componentDidMount() {
-      this.fetchTagsAsync("http://localhost:9000/tags");
       
-      // console.log(fetch("http://localhost:8000/api/v1/document/")
-      // .then(res => res.json())
-      // .then(res => console.log(res))
-      // .catch(e => console.log(e)))
-
-      // axios.post("http://localhost:8000/api/v1/document/", {
-      //   "tags": [],
-      //   "keywords": [],
-      //   "fields": {}
-      // })
-      // .then(function (response) {console.log(response);}).catch(function (error) {console.log(error);});
-      // this.timer = setInterval(() => this.fetchTagsAsync("http://localhost:9000/tags"), 5000);
     }
 
     componentWillUnmount() {
@@ -56,16 +41,6 @@ function App() {
       // this.timer = null;
     }
   
-    async fetchTagsAsync(url) {
-      try {
-        const response = await axios.get(url);
-        this.setState({tags: 
-          this.handleLoadTags(response.data)})
-      } catch (e) {
-          console.log(e);
-      }
-    }
-
     async fetchResultsAsync(url) {
       this.setState({results:null})
       try {
@@ -94,13 +69,6 @@ function App() {
       this.fetchResultsAsync("http://localhost:9000/files");
     }
 
-    handleLoadTags(tags) {
-      if (tags) {
-        return tags.map(tag => new SearchParam(tag.id,tag.name, tag.class, true, tag));
-      } else {
-        return []
-      }
-    }
 
     handleGetTagsByIds(ids) {
       return this.state.tags.filter(tag => ids.includes(tag.id))
