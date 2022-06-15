@@ -1,11 +1,9 @@
 import "./App.css";
 import React from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import SearchParam from './Utils.js'
 import NavBar from "./components/NavBar";
 import Search from "./pages/Search";
 import Results from "./pages/Results";
-import useFetch from "./hooks/useFetch";
 import "typeface-open-sans"
 import axios from "axios";
 

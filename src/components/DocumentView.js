@@ -7,9 +7,7 @@ Modal.setAppElement("#root");
 
 
 class DocumentView extends React.Component {
-	constructor(props) {
-		super(props);
-	} 	
+
 	render() {
 		return (
 			<Modal
@@ -19,7 +17,10 @@ class DocumentView extends React.Component {
 				contentLabel="My dialog"
 				className="mymodal">
 				<CloseIcon className="closeIcon" onClick={this.props.toggleModal}/>
-				<iframe className="document" src ="./document.html"/>
+				<iframe
+					title="documentPreview"
+				 	className="document" 
+					src ="./document.html"/>
 			</Modal>
 		)
 	}

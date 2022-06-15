@@ -2,7 +2,6 @@ import React from "react";
 import "./Results.css";
 import Tag from "../components/Tag";
 import DocumentView from "../components/DocumentView.js"
-import useFetch from "../hooks/useFetch";
 import {ReactComponent as PreviewIcon} from "../assets/preview.svg"
 
 
@@ -102,6 +101,7 @@ class Results extends React.Component {
   }
 
   render() {
+    this.props.app.fetchResultsAsync("http://localhost:9000/files");
     return (
       <div className="results-body">
 

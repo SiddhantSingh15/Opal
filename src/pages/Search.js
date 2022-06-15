@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Tag from '../components/Tag.js';
 import SearchParam from '../Utils.js'
 import "./Search.css"
 import { ReactComponent as SearchIcon } from "../assets/magnifier.svg"
 import { ReactComponent as CloseIcon } from "../assets/close.svg"
-import { ReactComponent as TagIcon } from "../assets/tag.svg"
 import { ReactComponent as OpalLogo } from "../assets/opal.svg"
 
 
@@ -35,8 +34,8 @@ import { ReactComponent as OpalLogo } from "../assets/opal.svg"
         .filter((tag) => {
           return (
             // Show tags that are related to search query and ignore already included tags 
-            tag.name.toLowerCase().
-            includes(event.target.value.toLowerCase()))
+            tag.name.toLowerCase()
+            .includes(event.target.value.toLowerCase()))
             && 
             !this.props.app.state.searchParams
             .map((param) => param.id)
@@ -61,7 +60,7 @@ import { ReactComponent as OpalLogo } from "../assets/opal.svg"
     }
     switch (event.key) {
       case "Enter":
-        if(this.state.filteredOptions.length !=0) {
+        if(this.state.filteredOptions.length !==0) {
           this.props.app.handleAddSearchParams([this.state.filteredOptions[0]]);
         }
         this.handleClear()
@@ -69,8 +68,8 @@ import { ReactComponent as OpalLogo } from "../assets/opal.svg"
         break;
       case "Tab":
         event.preventDefault()
-        if((this.state.filteredOptions.length !=0) &&
-          this.state.value.length !=0) {
+        if((this.state.filteredOptions.length !==0) &&
+          this.state.value.length !==0) {
           this.props.app.handleAddSearchParams([this.state.filteredOptions[0]]);
           this.handleClear()
         }
@@ -82,6 +81,8 @@ import { ReactComponent as OpalLogo } from "../assets/opal.svg"
           }
         }
         break;
+      default:
+        break;
       // case "ArrowUp":
       //   this.setState({selectedTagY: (this.state.selectedTagY === 0 ?
       //     0 :
@@ -89,7 +90,7 @@ import { ReactComponent as OpalLogo } from "../assets/opal.svg"
       //     break;
       // case "ArrowDown":
       //   this.setState({selectedTagY: (this.state.selectedTagY >= this.state.filteredOptions.length &&
-      //     this.state.value != "" ?
+      //     this.state.value !== "" ?
       //     this.state.filteredOptions.length : 
       //     this.state.selectedTagY+1)})
       //     break;
@@ -108,7 +109,7 @@ import { ReactComponent as OpalLogo } from "../assets/opal.svg"
         <OpalLogo className="searchLogo" />
         <div className="search">
           {/* Currently Selected Tags */}
-          {this.props.app.state.searchParams.length != 0 && (
+          {this.props.app.state.searchParams.length !== 0 && (
             <div className="searchParams">
               {this.props.app.state.searchParams.map((param, key) => {
                 return (
@@ -141,8 +142,8 @@ import { ReactComponent as OpalLogo } from "../assets/opal.svg"
           </div>
 
           {/* Search options - Tags */}
-          {(this.state.value.length != 0 &&
-          this.state.filteredOptions.length != 0) &&
+          {(this.state.value.length !== 0 &&
+          this.state.filteredOptions.length !== 0) &&
           (
             <div className="searchOptions">
               {this.state.filteredOptions.map((param, key) => {
