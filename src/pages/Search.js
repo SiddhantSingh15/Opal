@@ -5,6 +5,7 @@ import "./Search.css"
 import { ReactComponent as SearchIcon } from "../assets/magnifier.svg"
 import { ReactComponent as CloseIcon } from "../assets/close.svg"
 import { ReactComponent as OpalLogo } from "../assets/opal.svg"
+import { ReactComponent as DotDotDot } from "../assets/dotdotdot.svg"
 import axios from "axios";
 
 
@@ -36,8 +37,7 @@ import axios from "axios";
     const url = "http://localhost:8000/api/v1/tags/" + searchBarValue;
     try {
       const response = await axios.get(url);
-      this.setState({tags: 
-        this.loadTags(response.data.tags)})
+      this.setState({tags: this.loadTags(response.data.tags)})
     } catch (e) {
         console.log(e);
     }
@@ -97,6 +97,9 @@ import axios from "axios";
 
   getSearchParamSuggestions () {
     return this.state.tags
+            //Filters out tags already in the search query
+            .filter(tag => !this.props.app.state.searchParams
+              .map(param => param.id).includes(tag.id))
             .slice(0,this.numTagsDisplayed);
   }
 
@@ -106,53 +109,77 @@ import axios from "axios";
   }
 
   renderSuggestionBox() {
-    if (this.state.inputValue.length != 0) {
+    const paramSuggestions = this.getSearchParamSuggestions();
+    if (this.state.inputValue.length !== 0) {
       return (
         <React.Fragment>
+
           {/* Display the current value in the input bar */}
           {!this.inSearchParams(this.state.inputValue) &&
-          this.state.inputValue.length != 0 &&
-          <div 
-            className="searchTextOption"
-            onClick={() => this.props.app.handleAddSearchParams([
-              new SearchParam(
-                this.state.inputValue,
-                '"' + this.state.inputValue +  '"',
-                "search",
-                true,
-                null
-              )
-            ])}>
-            <SearchIcon/>
-            <p>"{this.state.inputValue}"</p>
+          this.state.inputValue.length !== 0 &&
+          <div className="searchTextOption">
+              <div className="searchTextOptionTag"
+              onClick={() => {this.props.app.handleAddSearchParams([
+                new SearchParam(
+                  this.state.inputValue,
+                  '"' + this.state.inputValue +  '"',
+                  "search",
+                  true,
+                  null
+                )
+              ])
+              this.handleClear()}}>
+              <SearchIcon/>
+              <p>"{this.state.inputValue}"</p>
+            </div>
+
+            <CloseIcon 
+                className='excludeSearchOptionButton'
+                onClick={() => {
+                  this.props.app.handleAddSearchParams([
+                    new SearchParam(
+                      this.state.inputValue,
+                      '"' + this.state.inputValue +  '"',
+                      "search",
+                      false,
+                      null
+                    )
+                  ]);
+                  this.handleClear();}}
+                />
           </div>
           }
           
           {/* Display k number of most relevant tags */}
           {this.state.tags.length !== 0 &&
           <div className="searchOptions">
-              {this.getSearchParamSuggestions()
+              {paramSuggestions
               .map((param, key) => {
                 return (
                   <div key={key} className="searchOption">
+
                     <Tag
                       tagData={param}
                       handleClick={() => {
                         this.props.app.handleAddSearchParams([structuredClone(param)]);
                         this.handleClear();
                       }} />
-                    {/* on clicking the x it converts the param to a exclude param */}
-                    <button className='excludeSearchOptionButton'
+
+                    <CloseIcon 
+                      className='excludeSearchOptionButton'
                       onClick={() => {
                         const searchParam = structuredClone(param);
                         searchParam.include = false;
                         this.props.app.handleAddSearchParams([searchParam]);
-                        this.handleClear();
-                    }}>
-                      <CloseIcon />
-                    </button>
+                        this.handleClear();}}
+
+                      />
                   </div>)})}
-            </div>
+          </div>}
+
+          {/* Show the number of tags hidden */}
+          {paramSuggestions.length === this.numTagsDisplayed &&
+          <DotDotDot className="dotdotdot"/>
           }
         </React.Fragment>
       )
@@ -162,6 +189,7 @@ import axios from "axios";
   render() {
     return (
       <div className='body'>
+
         {/* The Logo*/}
         <OpalLogo className="searchLogo" />
         <div className="search">
@@ -197,7 +225,10 @@ import axios from "axios";
                 <CloseIcon id="clearBtn" onClick={this.handleClear} />}
             </div>
           </div>
+
+          {/* Suggested Options */}
           {this.renderSuggestionBox()}
+
         </div>
       </div>
     );

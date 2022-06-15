@@ -1,6 +1,5 @@
 import "./App.css";
 import React from "react";
-import SearchParam from './Utils.js'
 import NavBar from "./components/NavBar";
 import Search from "./pages/Search";
 import Results from "./pages/Results";
