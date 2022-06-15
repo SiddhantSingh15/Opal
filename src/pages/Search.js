@@ -95,8 +95,6 @@ const Search = ({app}) => {
         //     this.state.selectedTagY+1)})
         //     break;
       }
-      // console.log(event.key)
-      //console.log("X:" + this.state.selectedTagX + " Y: " + this.state.selectedTagY)
     }
 
     // Clear the search input
@@ -144,7 +142,9 @@ const Search = ({app}) => {
             </div>
 
             {/* Search options - Tags */}
-            {this.state.value.length != 0 && (
+            {(this.state.value.length != 0 &&
+            this.state.filteredOptions.length != 0) &&
+            (
               <div className="searchOptions">
                 {this.state.filteredOptions.map((param, key) => {
                   return (
