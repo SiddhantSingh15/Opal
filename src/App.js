@@ -1,13 +1,10 @@
 import "./App.css";
 import React from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import SearchParam from './Utils.js'
 import NavBar from "./components/NavBar";
 import Search from "./pages/Search";
 import Results from "./pages/Results";
-import useFetch from "./hooks/useFetch";
 import "typeface-open-sans"
-import { PropaneSharp } from "@mui/icons-material";
+import axios from "axios";
 
 
 function App() {
@@ -15,53 +12,63 @@ function App() {
 
   class MainApp extends React.Component {
     constructor(props) {
-
+      
       super(props); 
       this.state = { 
         page: "search",
         searchParams: [],
-        // For dev
-        // page: "results",
-        // searchParams: [new SearchParam("tag1","doc-type",true,null),
-        //                new SearchParam("tag2","doc-type",true,null),
-        //                new SearchParam("tag1","doc-type",true,null),
-        //                new SearchParam("tag2","doc-type",true,null)],     
-        tags: this.handleLoadTags(props.tags)
+        tags: [],
+        results: []
       };
 
       this.handleRenderBody = this.handleRenderBody.bind(this);
       this.handleResults = this.handleResults.bind(this);
-      this.handleLoadTags = this.handleLoadTags.bind(this);
       this.handleGetTagsByIds = this.handleGetTagsByIds.bind(this);
       this.handleAddSearchParams = this.handleAddSearchParams.bind(this);
       this.handleRemoveSearchParams = this.handleRemoveSearchParams.bind(this);
-      this. handleGoToPage = this.handleGoToPage.bind(this);
+      this.handleGoToPage = this.handleGoToPage.bind(this);
+      this.fetchResultsAsync = this.fetchResultsAsync.bind(this);
     }
 
+    async fetchResultsAsync() {
+      const url = "http://localhost:8000/api/v1/document/"
+      this.setState({results:null})
+      try {
+        const response = await axios.post(url,{
+          tags: this.state.searchParams
+            .filter(param=>(param.type === "tag"))
+            .map(param => param.id)
+          // Add key words and fields when they work
+        });
+        this.setState({results: 
+          response.data.docs})
+      } catch (e) {
+          console.log(e);
+      }
+    }
+  
     handleGoToPage(page) {
       this.setState({page: page});
     }
 
     handleAddSearchParams(params) {
-      this.setState({searchParams: this.state.searchParams.concat(params)});
+      this.setState({searchParams: this.state.searchParams.concat(params)},
+        this.fetchResultsAsync
+      );
     }
 
     handleRemoveSearchParams(params) {
       this.setState({searchParams: 
         this.state.searchParams
-        .filter((searchParam) => !params.includes(searchParam))});
+        .filter((searchParam) => 
+        !params.map(params => params.id).includes(searchParam.id))},
+        this.fetchResultsAsync
+      );
     }
 
-    handleLoadTags(tags) {
-      if (tags) {
-        return tags.map(tag => new SearchParam(tag.name, tag.class, true, tag));
-      } else {
-        return []
-      }
-    }
 
     handleGetTagsByIds(ids) {
-      return this.state.tags.filter(tag => ids.includes(tag.obj.id))
+      return this.state.tags.filter(tag => ids.includes(tag.id))
     }
 
     handleRenderBody(event) {
@@ -71,7 +78,6 @@ function App() {
                     app={this}/>
         case "results":
           return <Results
-                    handleGetTagsByIds={this.handleGetTagsByIds}
                     app={this}/>
         default:
           return <div></div>
@@ -94,11 +100,8 @@ function App() {
     }
   }
 
-  //Load this on construction
-  const {data: tags, isPending, error} =  useFetch("http://localhost:8000/tags");
-
   return (
-    <MainApp tags={tags}/>
+    <MainApp/>
     )
 }
 

@@ -28,10 +28,17 @@ const Tag = ({tagData,handleClick}) => {
 	}
 
 	return ( 
-		<div className="tag" onClick={handleClick}>
-			{renderTagIcon(tagData.type)}
-			{tagData.include === true ? <p>{tagData.name}</p> : <s>{tagData.name}</s>}
-		</div>
+		<React.Fragment>
+			{tagData.include !== true}
+			<div className="tag" onClick={handleClick}>
+				{renderTagIcon(tagData.type)}
+				{tagData.include === true ?
+				<p>{tagData.name}</p> :
+				<s>{tagData.name}</s>
+				}
+				
+			</div>
+		</React.Fragment>
 	);
 }
  
