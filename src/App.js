@@ -7,6 +7,7 @@ import Search from "./pages/Search";
 import Results from "./pages/Results";
 import useFetch from "./hooks/useFetch";
 import "typeface-open-sans"
+import axios from "axios";
 
 
 function App() {
@@ -14,13 +15,13 @@ function App() {
 
   class MainApp extends React.Component {
     constructor(props) {
-
+      
       super(props); 
       this.state = { 
-
         page: "search",
         searchParams: [],
-        tags: this.handleLoadTags(props.tags)
+        tags: [],
+        results: []
       };
 
       this.handleRenderBody = this.handleRenderBody.bind(this);
@@ -29,9 +30,49 @@ function App() {
       this.handleGetTagsByIds = this.handleGetTagsByIds.bind(this);
       this.handleAddSearchParams = this.handleAddSearchParams.bind(this);
       this.handleRemoveSearchParams = this.handleRemoveSearchParams.bind(this);
-      this. handleGoToPage = this.handleGoToPage.bind(this);
+      this.handleGoToPage = this.handleGoToPage.bind(this);
+      this.fetchTagsAsync = this.fetchTagsAsync.bind(this);
+      this.fetchResultsAsync = this.fetchResultsAsync.bind(this);
     }
 
+
+    componentDidMount() {
+      this.fetchTagsAsync("http://localhost:9000/tags");
+      
+      // axios.post("http://localhost:8000/api/v1/document/", {
+      //   "tags": [],
+      //   "keywords": [],
+      //   "fields": {}
+      // })
+      // .then(function (response) {console.log(response);}).catch(function (error) {console.log(error);});
+      // this.timer = setInterval(() => this.fetchTagsAsync("http://localhost:9000/tags"), 5000);
+    }
+
+    componentWillUnmount() {
+      // clearInterval(this.timer);
+      // this.timer = null;
+    }
+  
+    async fetchTagsAsync(url) {
+      try {
+        const response = await axios.get(url);
+        this.setState({tags: 
+          this.handleLoadTags(response.data)})
+      } catch (e) {
+          console.log(e);
+      }
+    }
+
+    async fetchResultsAsync(url) {
+      try {
+        const response = await axios.get(url);
+        this.setState({results: 
+          response.data})
+      } catch (e) {
+          console.log(e);
+      }
+    }
+  
     handleGoToPage(page) {
       this.setState({page: page});
     }
@@ -89,11 +130,8 @@ function App() {
     }
   }
 
-  //Load this on construction
-  const {data: tags, isPending, error} =  useFetch("http://localhost:8000/tags");
-
   return (
-    <MainApp tags={tags}/>
+    <MainApp/>
     )
 }
 
