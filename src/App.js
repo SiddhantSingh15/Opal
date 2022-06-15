@@ -31,7 +31,7 @@ function App() {
     }
 
     async fetchResultsAsync() {
-      const url = "http://35.231.0.227/api/v1/document/"
+      const url = "http://35.231.0.227:8000/api/v1/document/"
       this.setState({results:null})
       try {
         const response = await axios.post(url,{

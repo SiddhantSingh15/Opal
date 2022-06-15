@@ -34,7 +34,7 @@ import axios from "axios";
   }
 
   async fetchTagsAsync(searchBarValue) {
-    const url = "http://35.231.0.227/api/v1/tags/" + searchBarValue;
+    const url = "http://35.231.0.227:8000/api/v1/tags/" + searchBarValue;
     try {
       const response = await axios.get(url);
       this.setState({tags: this.loadTags(response.data.tags)})
