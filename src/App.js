@@ -39,6 +39,11 @@ function App() {
     componentDidMount() {
       this.fetchTagsAsync("http://localhost:9000/tags");
       
+      // console.log(fetch("http://localhost:8000/api/v1/document/")
+      // .then(res => res.json())
+      // .then(res => console.log(res))
+      // .catch(e => console.log(e)))
+
       // axios.post("http://localhost:8000/api/v1/document/", {
       //   "tags": [],
       //   "keywords": [],
@@ -84,19 +89,20 @@ function App() {
     handleRemoveSearchParams(params) {
       this.setState({searchParams: 
         this.state.searchParams
-        .filter((searchParam) => !params.includes(searchParam))});
+        .filter((searchParam) => 
+        !params.map(params => params.id).includes(searchParam.id))});
     }
 
     handleLoadTags(tags) {
       if (tags) {
-        return tags.map(tag => new SearchParam(tag.name, tag.class, true, tag));
+        return tags.map(tag => new SearchParam(tag.id,tag.name, tag.class, true, tag));
       } else {
         return []
       }
     }
 
     handleGetTagsByIds(ids) {
-      return this.state.tags.filter(tag => ids.includes(tag.obj.id))
+      return this.state.tags.filter(tag => ids.includes(tag.id))
     }
 
     handleRenderBody(event) {
@@ -118,6 +124,7 @@ function App() {
     }
 
     render() {
+      console.log(this.state.searchParams)
       return (
         <div className="app">
 

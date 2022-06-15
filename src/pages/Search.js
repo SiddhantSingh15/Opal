@@ -39,8 +39,8 @@ import { ReactComponent as OpalLogo } from "../assets/opal.svg"
             includes(event.target.value.toLowerCase()))
             && 
             !this.props.app.state.searchParams
-            .map((param) => param.obj)
-            .includes(tag.obj)})
+            .map((param) => param.id)
+            .includes(tag.id)})
         // Takes 6 suggested tags
         .slice(0,6)
         // If raw text is not already in the options it adds it
@@ -49,7 +49,7 @@ import { ReactComponent as OpalLogo } from "../assets/opal.svg"
           .filter((param) => (param.type === "search"))
           .map((param) => param.obj)
           .includes(event.target.value)) ?
-            [new SearchParam('"' + event.target.value + '"', "search", true, event.target.value)] :
+            [new SearchParam(event.target.value,'"' + event.target.value + '"', "search", true, event.target.value)] :
             []
         )
     });
@@ -146,19 +146,20 @@ import { ReactComponent as OpalLogo } from "../assets/opal.svg"
           (
             <div className="searchOptions">
               {this.state.filteredOptions.map((param, key) => {
+                const searchParam = structuredClone(param);
                 return (
                   <div key={key} className="searchOption">
                     <Tag
-                      tagData={param}
+                      tagData={searchParam}
                       handleClick={() => {
-                        this.props.app.handleAddSearchParams([param]);
+                        this.props.app.handleAddSearchParams([searchParam]);
                         this.handleClear();
                       }} />
                     {/* on clicking the x it converts the param to a exclude param */}
                     <button className='excludeSearchOptionButton'
                       onClick={() => {
-                        param.include = false;
-                        this.props.app.handleAddSearchParams([param]);
+                        searchParam.include = false;
+                        this.props.app.handleAddSearchParams([searchParam]);
                         this.handleClear();
                     }}>
                       <CloseIcon />

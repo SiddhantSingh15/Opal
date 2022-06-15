@@ -1,5 +1,6 @@
 class SearchParam {
-	constructor(name, type, include, obj) {
+	constructor(id,name, type, include, obj) {
+		this.id = id;
 		this.name = name;
 		this.type = type;
 		this.include = include;
