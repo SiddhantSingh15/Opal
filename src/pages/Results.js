@@ -20,7 +20,7 @@ class Results extends React.Component {
   }
 
   componentDidMount() { 
-    this.props.app.fetchResultsAsync("http://localhost:9000/files");
+    // this.props.app.fetchResultsAsync("http://localhost:9000/files");
   }
 
   handleDisplaySearchParams() {
@@ -101,10 +101,9 @@ class Results extends React.Component {
   }
 
   render() {
-    this.props.app.fetchResultsAsync("http://localhost:9000/files");
+    
     return (
       <div className="results-body">
-
 
         {/* Popup for previewing the document */}
         <DocumentView
@@ -117,8 +116,6 @@ class Results extends React.Component {
             {this.handleDisplaySearchParams()}
           </div>
         </div>
-        
-
         
         {!this.props.app.state.results && this.handleDisplaySearching()}
         {this.props.app.state.results && this.handleDisplayResults()}

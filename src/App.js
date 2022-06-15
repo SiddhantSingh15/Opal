@@ -67,6 +67,7 @@ function App() {
     }
 
     async fetchResultsAsync(url) {
+      this.setState({results:null})
       try {
         const response = await axios.get(url);
         this.setState({results: 
@@ -82,6 +83,7 @@ function App() {
 
     handleAddSearchParams(params) {
       this.setState({searchParams: this.state.searchParams.concat(params)});
+      this.fetchResultsAsync("http://localhost:9000/files");
     }
 
     handleRemoveSearchParams(params) {
@@ -89,6 +91,7 @@ function App() {
         this.state.searchParams
         .filter((searchParam) => 
         !params.map(params => params.id).includes(searchParam.id))});
+      this.fetchResultsAsync("http://localhost:9000/files");
     }
 
     handleLoadTags(tags) {
@@ -122,7 +125,6 @@ function App() {
     }
 
     render() {
-      console.log(this.state.searchParams)
       return (
         <div className="app">
 
