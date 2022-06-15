@@ -53,7 +53,7 @@ class Results extends React.Component {
     return( 
       <div className="results-table">
         <div className="grid-title">
-          <div className="grid-element">Name</div>
+          <div className="grid-element">Title</div>
           <div className="grid-element">Language</div>
           <div className="grid-element">Topic</div>
           <div className="grid-element">Source</div>
@@ -64,16 +64,16 @@ class Results extends React.Component {
           return (
             <div  key = {0 + 10*key}  className = "grid-row">
               <div key = {1 + 10*key} className = "grid-row-properties"  >
-                <div key = {2 + 10*key} className="grid-element"><p>{result.name}</p></div>
-                <div key = {3 + 10*key} className="grid-element"><p>{result.language}</p></div>
-                <div key = {4 + 10*key} className="grid-element"><p>{result.topic}</p></div>
-                <div key = {5 + 10*key} className="grid-element"><p>{result.source}</p></div>
-                <div key = {6 + 10*key} className="grid-element"><p>{result.date}</p></div>
-                <div key = {7 + 10*key} className="grid-element"><p>{result.govlaw}</p></div>
+                <div key = {2 + 10*key} className="grid-element"><p>{result.fields.title}</p></div>
+                <div key = {3 + 10*key} className="grid-element"><p>{result.fields.language}</p></div>
+                <div key = {4 + 10*key} className="grid-element"><p>{result.fields.topic}</p></div>
+                <div key = {5 + 10*key} className="grid-element"><p>{result.fields.source}</p></div>
+                <div key = {6 + 10*key} className="grid-element"><p>{result.fields.date}</p></div>
+                <div key = {7 + 10*key} className="grid-element"><p>{result.fields.govlaw}</p></div>
                 <div key = {8 + 10*key} className="results-element-tags">
                 {/* load in tags for respective result */}
                 {
-                  this.props.app.handleGetTagsByIds(result.tags)
+                  this.props.app.handleGetTagsByIds(result.fields.tags)
                   .filter((tag) => !this.props.app.state.searchParams.includes(tag))
                   .map((tag,key) => {
                     return (

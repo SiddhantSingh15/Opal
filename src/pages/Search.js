@@ -45,7 +45,7 @@ import axios from "axios";
   
   loadTags(tags) {
     return tags
-            .map(tag => new SearchParam(tag.id,tag.name, tag.class, true, tag))
+            .map(tag => new SearchParam(tag.id,tag.name, "tag", true, tag))
   }
 
   // Changes in the text inputted into the search

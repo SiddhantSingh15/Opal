@@ -30,22 +30,18 @@ function App() {
       this.fetchResultsAsync = this.fetchResultsAsync.bind(this);
     }
 
-
-    componentDidMount() {
-      
-    }
-
-    componentWillUnmount() {
-      // clearInterval(this.timer);
-      // this.timer = null;
-    }
-  
-    async fetchResultsAsync(url) {
+    async fetchResultsAsync() {
+      const url = "http://localhost:8000/api/v1/document/"
       this.setState({results:null})
       try {
-        const response = await axios.get(url);
+        const response = await axios.post(url,{
+          tags: this.state.searchParams
+            .filter(param=>(param.type === "tag"))
+            .map(param => param.id)
+          // Add key words and fields when they work
+        });
         this.setState({results: 
-          response.data})
+          response.data.docs})
       } catch (e) {
           console.log(e);
       }
@@ -56,16 +52,18 @@ function App() {
     }
 
     handleAddSearchParams(params) {
-      this.setState({searchParams: this.state.searchParams.concat(params)});
-      this.fetchResultsAsync("http://localhost:9000/files");
+      this.setState({searchParams: this.state.searchParams.concat(params)},
+        this.fetchResultsAsync
+      );
     }
 
     handleRemoveSearchParams(params) {
       this.setState({searchParams: 
         this.state.searchParams
         .filter((searchParam) => 
-        !params.map(params => params.id).includes(searchParam.id))});
-      this.fetchResultsAsync("http://localhost:9000/files");
+        !params.map(params => params.id).includes(searchParam.id))},
+        this.fetchResultsAsync
+      );
     }
 
 
@@ -80,7 +78,6 @@ function App() {
                     app={this}/>
         case "results":
           return <Results
-                    handleGetTagsByIds={this.handleGetTagsByIds}
                     app={this}/>
         default:
           return <div></div>
@@ -94,7 +91,6 @@ function App() {
     render() {
       return (
         <div className="app">
-
           <div>
             <NavBar app={this} />
             {this.handleRenderBody()}
