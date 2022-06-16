@@ -10,18 +10,14 @@ class Results extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-        viewingDoc:false
+        viewingDoc:false 
     }
     this.handleDisplayResults = this.handleDisplayResults.bind(this);
     this.handleDisplaySearching = this.handleDisplaySearching.bind(this);
     this.handleDisplaySearchParams = this.handleDisplaySearchParams.bind(this);
     this.handleToggleDocumentView = this.handleToggleDocumentView.bind(this);
-
   }
 
-  componentDidMount() { 
-    // this.props.app.fetchResultsAsync("http://localhost:9000/files");
-  }
 
   handleDisplaySearchParams() {
     return (
@@ -72,7 +68,7 @@ class Results extends React.Component {
                 <div key = {7 + 10*key} className="grid-element"><p>{result.fields.govlaw}</p></div>
                 <div key = {8 + 10*key} className="results-element-tags">
                 {/* load in tags for respective result */}
-                {
+                {/* {
                   this.props.app.handleGetTagsByIds(result.fields.tags)
                   .filter((tag) => !this.props.app.state.searchParams.includes(tag))
                   .map((tag,key) => {
@@ -82,7 +78,7 @@ class Results extends React.Component {
                     </React.Fragment>
                     )
                   })
-                }
+                } */}
                 </div>
               </div>
               <div key = {9 + 10*key} className="grid-row-buttons" onClick={this.handleToggleDocumentView}>

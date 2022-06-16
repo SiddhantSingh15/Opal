@@ -31,7 +31,7 @@ const Tag = ({tagData,handleClick}) => {
 		<React.Fragment>
 			{tagData.include !== true}
 			<div className="tag" onClick={handleClick}>
-				{renderTagIcon(tagData.type)}
+				{renderTagIcon(tagData.obj.type)}
 				{tagData.include === true ?
 				<p>{tagData.name}</p> :
 				<s>{tagData.name}</s>

@@ -16,10 +16,8 @@ import axios from "axios";
     this.numTagsDisplayed = 9;
 
     this.state = {
-     
       inputValue: "",
-      filteredOptions: (this.props.app.state.tags ? this.props.app.state.tags : []),
-      tags: []
+      tagSuggestions: []
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -37,14 +35,14 @@ import axios from "axios";
     const url = "http://35.231.0.227:8000/api/v1/tags/" + searchBarValue;
     try {
       const response = await axios.get(url);
-      this.setState({tags: this.loadTags(response.data.tags)})
+      this.setState({tagSuggestions: this.loadTags(response.data.tags)})
     } catch (e) {
         console.log(e);
     }
   }
   
-  loadTags(tags) {
-    return tags
+  loadTags(tagSuggestions) {
+    return tagSuggestions
             .map(tag => new SearchParam(tag.id,tag.name, "tag", true, tag))
   }
 
@@ -53,7 +51,7 @@ import axios from "axios";
     if (event.target.value.length!==0) {
       this.fetchTagsAsync(event.target.value);
     } else {
-      this.setState({tags:[]})
+      this.setState({tagSuggestions:[]})
     }
     this.setState({ inputValue: event.target.value});
   }
@@ -64,17 +62,17 @@ import axios from "axios";
     }
     switch (event.key) {
       case "Enter":
-        if(this.state.filteredOptions.length !==0) {
-          this.props.app.handleAddSearchParams([this.state.filteredOptions[0]]);
+        if(this.state.tagSuggestions.length !==0) {
+          this.props.app.handleAddSearchParams([this.state.tagSuggestions[0]]);
         }
         this.handleClear()
         this.props.app.handleResults()
         break;
       case "Tab":
         event.preventDefault()
-        if((this.state.filteredOptions.length !==0) &&
+        if((this.state.tagSuggestions.length !==0) &&
           this.state.inputValue.length !==0) {
-          this.props.app.handleAddSearchParams([this.state.filteredOptions[0]]);
+          this.props.app.handleAddSearchParams([this.state.tagSuggestions[0]]);
           this.handleClear()
         }
         break;
@@ -96,7 +94,7 @@ import axios from "axios";
   }
 
   getSearchParamSuggestions () {
-    return this.state.tags
+    return this.state.tagSuggestions
             //Filters out tags already in the search query
             .filter(tag => !this.props.app.state.searchParams
               .map(param => param.id).includes(tag.id))
@@ -151,7 +149,7 @@ import axios from "axios";
           }
           
           {/* Display k number of most relevant tags */}
-          {this.state.tags.length !== 0 &&
+          {this.state.tagSuggestions.length !== 0 &&
           <div className="searchOptions">
               {paramSuggestions
               .map((param, key) => {
