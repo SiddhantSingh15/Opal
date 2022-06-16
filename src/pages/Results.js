@@ -3,25 +3,20 @@ import "./Results.css";
 import Tag from "../components/Tag";
 import DocumentView from "../components/DocumentView.js"
 import {ReactComponent as PreviewIcon} from "../assets/preview.svg"
-
-
+import SearchParam from '../Utils.js'
 
 class Results extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-        viewingDoc:false
+        viewingDoc:false 
     }
     this.handleDisplayResults = this.handleDisplayResults.bind(this);
     this.handleDisplaySearching = this.handleDisplaySearching.bind(this);
     this.handleDisplaySearchParams = this.handleDisplaySearchParams.bind(this);
     this.handleToggleDocumentView = this.handleToggleDocumentView.bind(this);
-
   }
 
-  componentDidMount() { 
-    // this.props.app.fetchResultsAsync("http://localhost:9000/files");
-  }
 
   handleDisplaySearchParams() {
     return (
@@ -72,17 +67,20 @@ class Results extends React.Component {
                 <div key = {7 + 10*key} className="grid-element"><p>{result.fields.govlaw}</p></div>
                 <div key = {8 + 10*key} className="results-element-tags">
                 {/* load in tags for respective result */}
-                {
-                  this.props.app.handleGetTagsByIds(result.fields.tags)
-                  .filter((tag) => !this.props.app.state.searchParams.includes(tag))
-                  .map((tag,key) => {
+                {result.tags.map((tagID,key) => {
+                  const tag = this.props.app.getResultsTag(tagID);
+                  if (tag !== null &&
+                    !this.props.app.state.searchParams.map(param => param.id).includes(tagID)) {
+                    const searchParam = new SearchParam(tag.id,tag.name,"tag",true,tag)
                     return (
-                    <React.Fragment key = {key}>
-                      <Tag tagData={tag} handleClick={() => this.props.app.handleAddSearchParams([tag])}/>
-                    </React.Fragment>
+                      <React.Fragment key = {key}>
+                        <Tag tagData={searchParam} handleClick={() => this.props.app.handleAddSearchParams([searchParam])}/>
+                      </React.Fragment>
                     )
-                  })
-                }
+                  }
+                  return <React.Fragment key = {key}/>
+                })}
+
                 </div>
               </div>
               <div key = {9 + 10*key} className="grid-row-buttons" onClick={this.handleToggleDocumentView}>
