@@ -69,8 +69,8 @@ class Results extends React.Component {
                 {/* load in tags for respective result */}
                 {result.tags.map((tagID,key) => {
                   const tag = this.props.app.getResultsTag(tagID);
-                  // console.log(tag);
-                  if (tag !== null) {
+                  if (tag !== null &&
+                    !this.props.app.state.searchParams.map(param => param.id).includes(tagID)) {
                     const searchParam = new SearchParam(tag.id,tag.name,"tag",true,tag)
                     return (
                       <React.Fragment key = {key}>
@@ -78,7 +78,7 @@ class Results extends React.Component {
                       </React.Fragment>
                     )
                   }
-                  return <React.Fragment/>
+                  return <React.Fragment key = {key}/>
                 })}
 
                 </div>

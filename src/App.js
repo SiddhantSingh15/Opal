@@ -44,22 +44,20 @@ function App() {
           fields: {}
         });
         this.setState({results: resultsResponse.data.docs},
-          ()=>{this.fetchResultTagsAsync()})
+          ()=>{this.fetchResultTagsAsync(resultsResponse.data.docs)})
       } catch (e) {
           console.log(e);
       }
 
     }
     
-    async fetchResultTagsAsync() {
+    async fetchResultTagsAsync(results) {
       const tagsAddress = "http://35.231.0.227:8000/api/v1/tags/";
       //Loads union of the tags of each result
       try {
         const tagsResponse = await axios.post(tagsAddress,
-            Array.from(new Set(this.state.results
-                                .flatMap(result => result.tags)))
+            this.getTagUniqueIds(results)
           );
-          console.log(tagsResponse);
           this.setState({resultsTags:tagsResponse.data.tags});
       } catch (e) {
           console.log(e);
