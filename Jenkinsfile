@@ -21,14 +21,6 @@ pipeline {
     }
   }
   stages {
-    stage('check kubectl works') {
-      when { branch 'master' }
-      steps {
-        container('kubectl') {
-          sh "kubectl set image --namespace=frontend deployment/frontend-prod frontend-1=gcr.io/lawyer-document-search/frontend:57"
-        }
-      }
-    }
     stage('build and push dev image with cloud builder') {
       when { branch 'dev' }
       steps {
@@ -49,8 +41,7 @@ pipeline {
       when { branch 'master' }
       steps {
         container('kubectl') {
-          //sh "kubectl config set-context --current --namespace=frontend"
-          sh "kubectl set image deployment/frontend-prod frontend-1=${PROD_IMAGE_TAG}"
+          sh "kubectl set image --namespace=frontend deployment/frontend-prod frontend-1=${PROD_IMAGE_TAG}"
         }
       }
     }
