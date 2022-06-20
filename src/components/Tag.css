@@ -1,4 +1,4 @@
-.tagIcon {
+.tag .icon {
   max-height: 20px;
 }
 
@@ -16,7 +16,6 @@
   border-color: transparent;
 }
 
-
 .tag:hover {
   cursor: pointer;
   background-color: grey;
@@ -29,6 +28,7 @@
   font-weight: bold;
   font-size: 15px;
 }
+
 .tag s {
   margin: auto;
   padding-left: 5px;

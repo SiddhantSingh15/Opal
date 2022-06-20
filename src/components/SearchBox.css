@@ -1,58 +1,24 @@
 
-.body {
-  padding-top: 200px;
-  display: flex;
-  flex-direction: column;
-  margin: auto;
-  align-items: center;
-}
-.paramText {
-  display: flex;
-  border-radius: 15px;
-  margin-top: 5px;
-  margin-left: 2px;
-  margin-right: 2px;
-  padding: 8px;
-  background-color: black;
-  color: white;
-  flex-direction: row;
-}
-
-.searchLogo {
-  max-height: 70px;
-  margin-bottom: 15px;
-}
-
-.searchSuggestionBox {
+.search .suggestions {
 	border-bottom-left-radius: 15px;
 	border-bottom-right-radius: 15px;
 	display: flex;
 	flex-direction: column;
 }
 
-.searchParams {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  padding-left: 5px;
-  padding-right: 5px;
-  margin-top: 10px;
-  padding-bottom: 5px;
-  border-bottom: 1px dotted grey;
-}
 
-.searchIcon {
+.search .input-bar .icon {
   height: 60px;
   width: 50px;
   display: grid;
   place-items: center;
 }
 
-.searchInputs {
+.search .input-bar {
   margin-top: 0px;
   display: flex;
+  align-items: center;
 }
-
 
 .search input {
   border: 0;
@@ -63,20 +29,20 @@
   background-color: transparent;
 }
 
-input:focus {
+.search input:focus {
   outline: none;
 }
-.searchIcon svg {
-  font-size: 35px;
+.search .input-bar .icon {
+  max-height: 25px;
 }
 
-.searchOptions {
+.search .suggestions .tags-box {
   border-top: 1px dotted grey;
   padding-top: 2px;
   padding-bottom: 2px;
 }
 
-.searchOption {
+.search .suggestions .tags-box .tag-option {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -88,7 +54,7 @@ input:focus {
   background-color: transparent;
 }
 
-.searchTextOption {
+.search .suggestions .text-option {
   border-top: 1px dotted grey;
   display: flex;
   justify-content: space-between;
@@ -98,28 +64,25 @@ input:focus {
   padding-right: 10px;
 }
 
-.searchTextOptionTag {
+.search .suggestions .text-option .box {
   display: flex;
   flex-direction: row;
   padding-top: 7px;
   padding-bottom: 7px;
 }
 
-.searchTextOptionTag p {
+.search .suggestions .text-option .box p {
   font-weight: bold;
   font-size: 15px;
 }
 
-.excludeSearchOptionButton {
+.search .suggestions .text-option .icon {
   background-color: transparent;
   border-color: transparent;
 }
 
-.dataResult::-webkit-scrollbar {
-  display: none;
-}
 
-.dotdotdot {
+.search .suggestions .dotdotdot {
   margin: auto;
   max-width: 40px;
 }

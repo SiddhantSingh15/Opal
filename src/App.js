@@ -1,7 +1,7 @@
 import "./App.css";
 import React from "react";
 import NavBar from "./components/NavBar";
-import Search from "./pages/Search";
+import Search from "./pages/Home";
 import Results from "./pages/Results";
 import "typeface-open-sans"
 import axios from "axios";
@@ -13,7 +13,7 @@ function App() {
   class MainApp extends React.Component {
 
     state = { 
-      page: "search",
+      page: "home",
       searchParams: [],
       results: [],
       resultsTags: []
@@ -91,7 +91,7 @@ function App() {
 
     handleRenderBody = () => {
       switch (this.state.page) {
-        case "search":
+        case "home":
           return <Search 
                     app={this}/>
         case "results":

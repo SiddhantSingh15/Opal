@@ -5,18 +5,9 @@ import "./NavBar.css";
 const NavBar = ({app}) => {
   return (
 		<div className='navbar'>
-			{app.state.page !== "search" && 
-				<div className='navbar__search'>
-					<OpalLogo className = 'navbar__logo' onClick={() => app.handleGoToPage("search")}/>
-				</div>
+			{app.state.page !== "home" && 
+			<OpalLogo className = 'logo' onClick={() => app.handleGoToPage("home")}/>
 			}
-			<div className="navbar__links">
-				<ul>
-					{/* <p onClick={() => app.handleGoToPage("search")} >Search</p> */}
-					{/* <p>Tags</p>
-					<p>Repository</p> */}
-				</ul>
-			</div>
 		</div>
   )
 }

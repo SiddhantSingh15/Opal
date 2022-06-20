@@ -16,18 +16,18 @@ const Tag = ({tagData,handleClick}) => {
 				switch(tag.obj.type) {
 
 					case "gov-law":
-						return <GovLawIcon className='tagIcon' fill="white"/>
+						return <GovLawIcon className='icon' fill="white"/>
 					case "doc-type":
-						return <DocTypeIcon className='tagIcon' fill="white"/>
+						return <DocTypeIcon className='icon' fill="white"/>
 					case "language":
-						return <LanguageIcon className='tagIcon' fill="white"/>
+						return <LanguageIcon className='icon' fill="white"/>
 					case "classification":
-						return <ClassificationIcon className='tagIcon' fill="white"/>
+						return <ClassificationIcon className='icon' fill="white"/>
 					default:
-						return <TagIcon className='tagIcon' fill="white"/>
+						return <TagIcon className='icon' fill="white"/>
 				}
 			case "search":
-				return <SearchIcon className='tagIcon' fill="white"/>
+				return <SearchIcon className='icon' fill="white"/>
 			default:
 				return <React.Fragment/>
 		} 

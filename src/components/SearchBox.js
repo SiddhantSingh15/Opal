@@ -100,12 +100,12 @@ import axios from "axios";
     const paramSuggestions = this.getSearchParamSuggestions();
 		if (this.state.inputValue.length !== 0) {
 			return (
-				<div className="searchSuggestionBox">
+				<div className="suggestions">
 					{/* Display the current value in the input bar */}
 					{!this.inSearchParams(this.state.inputValue) &&
 					this.state.inputValue.length !== 0 &&
-					<div className="searchTextOption">
-							<div className="searchTextOptionTag"
+					<div className="text-option">
+							<div className="box"
 							onClick={() => {this.props.app.handleAddSearchParams([
 								new SearchParam(
 									this.state.inputValue,
@@ -121,7 +121,7 @@ import axios from "axios";
 						</div>
 
 						<CloseIcon 
-								className='excludeSearchOptionButton'
+								className='icon'
 								onClick={() => {
 									this.props.app.handleAddSearchParams([
 										new SearchParam(
@@ -139,11 +139,11 @@ import axios from "axios";
 					
 					{/* Display k number of most relevant tags */}
 					{this.state.tagSuggestions.length !== 0 &&
-					<div className="searchOptions">
+					<div className="tags-box">
 							{paramSuggestions
 							.map((param, key) => {
 								return (
-									<div key={key} className="searchOption">
+									<div key={key} className="tag-option">
 
 										<Tag
 											tagData={param}
@@ -153,7 +153,7 @@ import axios from "axios";
 											}} />
 
 										<CloseIcon 
-											className='excludeSearchOptionButton'
+											className='icon'
 											onClick={() => {
 												const searchParam = structuredClone(param);
 												searchParam.include = false;
@@ -192,7 +192,7 @@ import axios from "axios";
 				)} */}
 
 				{/* Input bar */}
-				<div className="searchInputs">
+				<div className="input-bar">
 					<input
 						autoFocus
 						autoComplete="off"
@@ -200,13 +200,11 @@ import axios from "axios";
 						placeholder={"Search"}
 						value={this.state.inputValue}
 						onChange={this.handleChange}
-						onKeyDown={this.handleKeyDown}
-						className="SearchBar"/>
-					<div className="searchIcon">
+						onKeyDown={this.handleKeyDown}/>
+
 						{this.state.inputValue.length === 0 ?
-							<SearchIcon id="searchBtn" onClick={this.props.app.handleResults} /> :
-							<CloseIcon id="clearBtn" onClick={this.handleClear} />}
-					</div>
+							<SearchIcon  className="icon" onClick={this.props.app.handleResults} /> :
+							<CloseIcon  className="icon" onClick={this.handleClear} />}
 				</div>
 
 				{/* Suggested Options */}

@@ -15,11 +15,11 @@ class DocumentView extends React.Component {
 				onRequestClose={this.props.toggleModal}
 				overlayClassName="myoverlay"
 				contentLabel="My dialog"
-				className="mymodal">
-				<CloseIcon className="closeIcon" onClick={this.props.toggleModal}/>
+				className="viewer-modal">
+				<CloseIcon className="icon" onClick={this.props.toggleModal}/>
 				<iframe
 					title="documentPreview"
-				 	className="document" 
+					className="document" 
 					src ="./document.html"/>
 			</Modal>
 		)

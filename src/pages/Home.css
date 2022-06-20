@@ -1,5 +1,5 @@
 
-.body {
+.home {
   padding-top: 200px;
   display: flex;
   flex-direction: column;
@@ -7,7 +7,7 @@
   align-items: center;
 }
 
-.search {
+.home .search-box {
   display: flex;
   flex-direction: column;
   max-width: 1000px;
@@ -17,7 +17,7 @@
   border: 1px solid grey;
 }
 
-.searchLogo {
+.home .searchLogo {
   max-height: 70px;
   margin-bottom: 15px;
 }

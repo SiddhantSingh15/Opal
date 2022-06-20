@@ -1,17 +1,17 @@
 import React from 'react';
-import "./Search.css"
+import "./Home.css"
 import { ReactComponent as OpalLogo } from "../assets/opal.svg"
 import SearchBox from '../components/SearchBox.js';
 
 
-  class Search extends React.Component {
+  class Home extends React.Component {
 
   render() {
     return (
-      <div className='body'>
+      <div className='home'>
         {/* The Logo*/}
         <OpalLogo className="searchLogo" />
-        <div className="search">
+        <div className="search-box">
           <SearchBox app={this.props.app}/>
         </div>
       </div>
@@ -20,4 +20,4 @@ import SearchBox from '../components/SearchBox.js';
   }
 }
 
-export default Search;
+export default Home;
