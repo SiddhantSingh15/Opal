@@ -22,8 +22,7 @@
   margin-top: 20px;
   display: flex;
   flex-direction: column;
-  max-width: 1000px;
-  min-width: 600px;
+  width: 600px;
   border-radius: 15px;
   background-color: white;
 }
@@ -31,6 +30,17 @@
 .searchLogo {
   max-height: 70px;
   margin-bottom: 15px;
+}
+
+.searchSuggestionBox {
+	border-radius: 15px;
+	width: 600px;
+	margin-top: 70px;
+	position: absolute;
+	overflow: hidden;
+	background-color: white;
+	display: flex;
+	flex-direction: column;
 }
 
 .searchParams {

@@ -13,22 +13,13 @@ import axios from "axios";
 
     state = {
       inputValue: "",
-      tagSuggestions: [],
-			showSuggestions: false
+      tagSuggestions: []
     };
 
   constructor(props) {
     super(props);
     this.numTagsDisplayed = 9;
   }
-
-	showSuggestions = () => {
-		this.setState({showSuggestions: true});
-	}
-
-	hideSuggestions = () => {
-		this.setState({showSuggestions: false});
-	}
 
   fetchTagsAsync = async (searchBarValue) => {
     const url = "http://35.231.0.227:8000/api/v1/tags/" + searchBarValue;
@@ -108,7 +99,7 @@ import axios from "axios";
   renderSuggestionBox = () => {
     const paramSuggestions = this.getSearchParamSuggestions();
 		return (
-			<React.Fragment>
+			<div className="searchSuggestionBox">
 				{/* Display the current value in the input bar */}
 				{!this.inSearchParams(this.state.inputValue) &&
 				this.state.inputValue.length !== 0 &&
@@ -176,7 +167,7 @@ import axios from "axios";
 				{paramSuggestions.length === this.numTagsDisplayed &&
 				<DotDotDot className="dotdotdot"/>
 				}
-			</React.Fragment>
+			</div>
 		)
     
   }

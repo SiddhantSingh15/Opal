@@ -13,6 +13,7 @@ import SearchBox from '../components/SearchBox.js';
         <OpalLogo className="searchLogo" />
         <SearchBox app={this.props.app}/>
       </div>
+
     );
   }
 }
