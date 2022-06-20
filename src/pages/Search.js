@@ -11,27 +11,17 @@ import axios from "axios";
 
   class Search extends React.Component {
 
-  constructor(props) {
-    super(props);
-    this.numTagsDisplayed = 9;
-
-    this.state = {
+    state = {
       inputValue: "",
       tagSuggestions: []
     };
 
-    this.handleChange = this.handleChange.bind(this);
-    this.handleClear = this.handleClear.bind(this);
-    this.handleKeyDown = this.handleKeyDown.bind(this);
-    this.fetchTagsAsync = this.fetchTagsAsync.bind(this);
-
-    this.renderSuggestionBox = this.renderSuggestionBox.bind(this);
-
-    this.loadTags = this.loadTags.bind(this);
-    this.getSearchParamSuggestions = this.getSearchParamSuggestions.bind(this);
+  constructor(props) {
+    super(props);
+    this.numTagsDisplayed = 9;
   }
 
-  async fetchTagsAsync(searchBarValue) {
+  fetchTagsAsync = async (searchBarValue) => {
     const url = "http://35.231.0.227:8000/api/v1/tags/" + searchBarValue;
     try {
       const response = await axios.get(url);
@@ -41,13 +31,13 @@ import axios from "axios";
     }
   }
   
-  loadTags(tagSuggestions) {
+  loadTags = (tagSuggestions) => {
     return tagSuggestions
             .map(tag => new SearchParam(tag.id,tag.name, "tag", true, tag))
   }
 
   // Changes in the text inputted into the search
-  handleChange(event) {
+  handleChange = (event) => {
     if (event.target.value.length!==0) {
       this.fetchTagsAsync(event.target.value);
     } else {
@@ -56,7 +46,7 @@ import axios from "axios";
     this.setState({ inputValue: event.target.value});
   }
 
-  handleKeyDown(event) {
+  handleKeyDown = (event) => {
     if (this.state.inputValue.length>0) {
 
     }
@@ -89,11 +79,11 @@ import axios from "axios";
   }
 
   // Clear the search input
-  handleClear(event) {
+  handleClear = () => {
     this.setState({ inputValue: ""});
   }
 
-  getSearchParamSuggestions () {
+  getSearchParamSuggestions = () => {
     return this.state.tagSuggestions
             //Filters out tags already in the search query
             .filter(tag => !this.props.app.state.searchParams
@@ -101,12 +91,12 @@ import axios from "axios";
             .slice(0,this.numTagsDisplayed);
   }
 
-  inSearchParams(id) {
+  inSearchParams = (id) => {
     return this.props.app.state.searchParams
       .map(param => param.id).includes(id)
   }
 
-  renderSuggestionBox() {
+  renderSuggestionBox = () => {
     const paramSuggestions = this.getSearchParamSuggestions();
     if (this.state.inputValue.length !== 0) {
       return (

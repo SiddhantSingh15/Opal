@@ -12,7 +12,7 @@ const NavBar = ({app}) => {
 			}
 			<div className="navbar__links">
 				<ul>
-					<p onClick={() => app.handleGoToPage("search")} >Search</p>
+					{/* <p onClick={() => app.handleGoToPage("search")} >Search</p> */}
 					{/* <p>Tags</p>
 					<p>Repository</p> */}
 				</ul>

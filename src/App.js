@@ -11,28 +11,15 @@ function App() {
 
 
   class MainApp extends React.Component {
-    constructor(props) {
-      
-      super(props); 
-      this.state = { 
-        page: "search",
-        searchParams: [],
-        results: [],
-        resultsTags: []
-      };
 
-      this.handleRenderBody = this.handleRenderBody.bind(this);
-      this.handleResults = this.handleResults.bind(this);
-      this.handleAddSearchParams = this.handleAddSearchParams.bind(this);
-      this.handleRemoveSearchParams = this.handleRemoveSearchParams.bind(this);
-      this.handleGoToPage = this.handleGoToPage.bind(this);
-      this.fetchResultsAsync = this.fetchResultsAsync.bind(this);
+    state = { 
+      page: "search",
+      searchParams: [],
+      results: [],
+      resultsTags: []
+    };
 
-      this.getTagUniqueIds = this.getTagUniqueIds.bind(this);
-      this.getResultsTag = this.getResultsTag.bind(this);
-    }
-
-    async fetchResultsAsync() {
+    fetchResultsAsync = async () => {
       const documentAddress = "http://35.231.0.227:8000/api/v1/document/";
       // Loads the json results
       try {
@@ -51,7 +38,7 @@ function App() {
 
     }
     
-    async fetchResultTagsAsync(results) {
+    fetchResultTagsAsync = async (results) => {
       const tagsAddress = "http://35.231.0.227:8000/api/v1/tags/";
       //Loads union of the tags of each result
       try {
@@ -64,12 +51,12 @@ function App() {
       }
     }
 
-    getTagUniqueIds(results) {
+    getTagUniqueIds = (results) => {
       //Replace this later
       return Array.from(new Set(results.flatMap(result => result.tags)));
     }
 
-    getResultsTag(tagID) {
+    getResultsTag = (tagID) => {
       const tagList = this.state.resultsTags.filter(tag => (tag.id === tagID));
       if (tagList.length !== 0) {
         return tagList[0]
@@ -79,11 +66,11 @@ function App() {
       
     }
 
-    handleGoToPage(page) {
+    handleGoToPage = (page) => {
       this.setState({page: page});
     }
 
-    handleAddSearchParams(params) {
+    handleAddSearchParams = (params) => {
       this.setState({searchParams: this.state.searchParams.concat(params)},
         () => {
           this.fetchResultsAsync();
@@ -91,7 +78,7 @@ function App() {
       );
     }
 
-    handleRemoveSearchParams(params) {
+    handleRemoveSearchParams = (params) => {
       this.setState({searchParams: 
         this.state.searchParams
         .filter((searchParam) => 
@@ -102,7 +89,7 @@ function App() {
       );
     }
 
-    handleRenderBody(event) {
+    handleRenderBody = () => {
       switch (this.state.page) {
         case "search":
           return <Search 
@@ -115,7 +102,7 @@ function App() {
       }
     }
 
-    handleResults(event) {
+    handleResults = () => {
       this.handleGoToPage("results");
     }
 
