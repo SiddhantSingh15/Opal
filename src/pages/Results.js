@@ -6,19 +6,12 @@ import {ReactComponent as PreviewIcon} from "../assets/preview.svg"
 import SearchParam from '../Utils.js'
 
 class Results extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-        viewingDoc:false 
-    }
-    this.handleDisplayResults = this.handleDisplayResults.bind(this);
-    this.handleDisplaySearching = this.handleDisplaySearching.bind(this);
-    this.handleDisplaySearchParams = this.handleDisplaySearchParams.bind(this);
-    this.handleToggleDocumentView = this.handleToggleDocumentView.bind(this);
+
+  state = {
+    viewingDoc:false 
   }
 
-
-  handleDisplaySearchParams() {
+  handleDisplaySearchParams = () => {
     return (
       <React.Fragment>
         {this.props.app.state.searchParams.map(
@@ -35,7 +28,7 @@ class Results extends React.Component {
     )
   }
 
-  handleDisplaySearching() {
+  handleDisplaySearching = () => {
     return (
       <div className="searching-notification">
         <h1>Searching</h1>
@@ -44,7 +37,7 @@ class Results extends React.Component {
     )
   }
 
-  handleDisplayResults() {
+  handleDisplayResults = () => {
     return( 
       <div className="results-table">
         <div className="grid-title">
@@ -80,7 +73,6 @@ class Results extends React.Component {
                   }
                   return <React.Fragment key = {key}/>
                 })}
-
                 </div>
               </div>
               <div key = {9 + 10*key} className="grid-row-buttons" onClick={this.handleToggleDocumentView}>
@@ -94,7 +86,7 @@ class Results extends React.Component {
     )
   }
 
-  handleToggleDocumentView() {
+  handleToggleDocumentView = () => {
     this.setState({viewingDoc: !this.state.viewingDoc})
   }
 
