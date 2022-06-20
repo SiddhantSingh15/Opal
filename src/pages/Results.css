@@ -22,8 +22,6 @@
   border-bottom: 1px solid grey;
 }
 
-
-
 .grid-row {
   display: grid;
   border-bottom: 1px solid grey;
@@ -61,10 +59,19 @@
   max-height: 50px;
 }
 
+.search-box {
+  position: absolute;
+  margin-top: 20px;
+  border-radius: 16px;
+  background: rgb(230, 225, 225);
+  min-width: 600px;
+}
+
 .results-info-bar {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  margin-bottom: 25px;
 }
 
 .results-search {
@@ -72,6 +79,7 @@
   padding-right: 5px;
   margin-top: 10px;
   margin-bottom: 10px;
+  margin-left: 620px;
 }
 
 .results-search-params {

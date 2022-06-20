@@ -5,6 +5,7 @@ import DocumentView from "../components/DocumentView.js"
 import {ReactComponent as PreviewIcon} from "../assets/preview.svg"
 import {ReactComponent as BackArrow} from "../assets/backarrow.svg"
 import SearchParam from '../Utils.js'
+import SearchBox from "../components/SearchBox";
 
 class Results extends React.Component {
 
@@ -102,6 +103,9 @@ class Results extends React.Component {
           toggleModal={this.handleToggleDocumentView}/>
 
         <div className="results-info-bar">
+          <div className="search-box">
+            <SearchBox app={this.props.app}/>
+          </div>
           <div className = "results-search">
             <h1>Results for:</h1>
             <div className = "results-search-params">

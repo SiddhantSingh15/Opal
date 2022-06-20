@@ -5,7 +5,6 @@ import "./SearchBox.css"
 import { ReactComponent as SearchIcon } from "../assets/magnifier.svg"
 import { ReactComponent as CloseIcon } from "../assets/close.svg"
 import { ReactComponent as DotDotDot } from "../assets/dotdotdot.svg"
-import Modal from "react-modal"
 import axios from "axios";
 
 
@@ -81,6 +80,7 @@ import axios from "axios";
   // Clear the search input
   handleClear = () => {
     this.setState({ inputValue: ""});
+		this.props.app.handleGoToPage("results");
   }
 
   getSearchParamSuggestions = () => {
@@ -98,85 +98,86 @@ import axios from "axios";
 
   renderSuggestionBox = () => {
     const paramSuggestions = this.getSearchParamSuggestions();
-		return (
-			<div className="searchSuggestionBox">
-				{/* Display the current value in the input bar */}
-				{!this.inSearchParams(this.state.inputValue) &&
-				this.state.inputValue.length !== 0 &&
-				<div className="searchTextOption">
-						<div className="searchTextOptionTag"
-						onClick={() => {this.props.app.handleAddSearchParams([
-							new SearchParam(
-								this.state.inputValue,
-								'"' + this.state.inputValue +  '"',
-								"search",
-								true,
-								null
-							)
-						])
-						this.handleClear()}}>
-						<SearchIcon/>
-						<p>"{this.state.inputValue}"</p>
+		if (this.state.inputValue.length !== 0) {
+			return (
+				<div className="searchSuggestionBox">
+					{/* Display the current value in the input bar */}
+					{!this.inSearchParams(this.state.inputValue) &&
+					this.state.inputValue.length !== 0 &&
+					<div className="searchTextOption">
+							<div className="searchTextOptionTag"
+							onClick={() => {this.props.app.handleAddSearchParams([
+								new SearchParam(
+									this.state.inputValue,
+									'"' + this.state.inputValue +  '"',
+									"search",
+									true,
+									null
+								)
+							])
+							this.handleClear()}}>
+							<SearchIcon/>
+							<p>"{this.state.inputValue}"</p>
+						</div>
+
+						<CloseIcon 
+								className='excludeSearchOptionButton'
+								onClick={() => {
+									this.props.app.handleAddSearchParams([
+										new SearchParam(
+											this.state.inputValue,
+											'"' + this.state.inputValue +  '"',
+											"search",
+											false,
+											null
+										)
+									]);
+									this.handleClear();}}
+								/>
 					</div>
+					}
+					
+					{/* Display k number of most relevant tags */}
+					{this.state.tagSuggestions.length !== 0 &&
+					<div className="searchOptions">
+							{paramSuggestions
+							.map((param, key) => {
+								return (
+									<div key={key} className="searchOption">
 
-					<CloseIcon 
-							className='excludeSearchOptionButton'
-							onClick={() => {
-								this.props.app.handleAddSearchParams([
-									new SearchParam(
-										this.state.inputValue,
-										'"' + this.state.inputValue +  '"',
-										"search",
-										false,
-										null
-									)
-								]);
-								this.handleClear();}}
-							/>
+										<Tag
+											tagData={param}
+											handleClick={() => {
+												this.props.app.handleAddSearchParams([structuredClone(param)]);
+												this.handleClear();
+											}} />
+
+										<CloseIcon 
+											className='excludeSearchOptionButton'
+											onClick={() => {
+												const searchParam = structuredClone(param);
+												searchParam.include = false;
+												this.props.app.handleAddSearchParams([searchParam]);
+												this.handleClear();}}
+
+											/>
+									</div>)})}
+					</div>}
+
+					{/* Show the number of tags hidden */}
+					{paramSuggestions.length === this.numTagsDisplayed &&
+					<DotDotDot className="dotdotdot"/>
+					}
 				</div>
-				}
-				
-				{/* Display k number of most relevant tags */}
-				{this.state.tagSuggestions.length !== 0 &&
-				<div className="searchOptions">
-						{paramSuggestions
-						.map((param, key) => {
-							return (
-								<div key={key} className="searchOption">
-
-									<Tag
-										tagData={param}
-										handleClick={() => {
-											this.props.app.handleAddSearchParams([structuredClone(param)]);
-											this.handleClear();
-										}} />
-
-									<CloseIcon 
-										className='excludeSearchOptionButton'
-										onClick={() => {
-											const searchParam = structuredClone(param);
-											searchParam.include = false;
-											this.props.app.handleAddSearchParams([searchParam]);
-											this.handleClear();}}
-
-										/>
-								</div>)})}
-				</div>}
-
-				{/* Show the number of tags hidden */}
-				{paramSuggestions.length === this.numTagsDisplayed &&
-				<DotDotDot className="dotdotdot"/>
-				}
-			</div>
-		)
-    
+			)
+		}
   }
 
   render() {
     return (
 			<div className="search">
 				{/* Currently Selected Tags */}
-				{this.props.app.state.searchParams.length !== 0 && (
+				{/* {this.props.app.state.searchParams.length !== 0 && (
 					<div className="searchParams">
 						{this.props.app.state.searchParams.map((param, key) => {
 							return (
@@ -188,7 +189,7 @@ import axios from "axios";
 							)
 						})}
 					</div>
-				)}
+				)} */}
 
 				{/* Input bar */}
 				<div className="searchInputs">
