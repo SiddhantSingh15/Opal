@@ -16,13 +16,15 @@
   margin-bottom: 5px;
   padding: 5px;
   font-weight: bold;
-  border-bottom: 1px solid grey;
 }
 
 .results .table .row {
   display: grid;
-  border-bottom: 1px solid grey;
   grid-template-columns: repeat(7, 1fr);
+  box-shadow:  rgba(149, 157, 165, 0.264) 0px 0px 15px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  border-radius: 15px;
 }
 
 .results .table .fields {
@@ -61,34 +63,32 @@
   font-size: 15px;
 }
 
-.results .info-bar .back-icon {
-  max-height: 50px;
-}
-
-.results .search-box {
-  position: absolute;
-  margin-top: 20px;
-  border-radius: 16px;
-  background: rgb(230, 225, 225);
-  min-width: 600px;
-}
 
 .results .info-bar {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-  margin-bottom: 25px;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
-.results .info-bar .box {
-  padding-left: 5px;
-  padding-right: 5px;
+.results .info-bar .back-icon {
+  max-height: 50px;
+  margin-left: auto;
+}
+
+.results  .info-bar .search-box {
   margin-top: 10px;
-  margin-bottom: 10px;
-  margin-left: 620px;
+  border-radius: 16px;
+  background: transparent;
+  width: 600px;
+  margin-top: auto;
+  margin-bottom: auto;
+  box-shadow: rgba(149, 157, 165, 0.264) 0px 0px 15px;
 }
 
-.results .info-bar .box .params {
+
+.results .info-bar .params {
+  margin-left: 20px;
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;

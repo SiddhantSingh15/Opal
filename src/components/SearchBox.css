@@ -1,12 +1,4 @@
 
-.search .suggestions {
-	border-bottom-left-radius: 15px;
-	border-bottom-right-radius: 15px;
-	display: flex;
-	flex-direction: column;
-}
-
-
 .search .input-bar .icon {
   height: 60px;
   width: 50px;
@@ -36,6 +28,18 @@
   max-height: 25px;
 }
 
+.search .suggestions {
+  margin-top: 10px;
+	border-radius: 15px;
+	display: flex;
+	flex-direction: column;
+  position: absolute;
+  background: white;
+  width: 600px;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+
 .search .suggestions .tags-box {
   border-top: 1px dotted grey;
   padding-top: 2px;
@@ -55,7 +59,6 @@
 }
 
 .search .suggestions .text-option {
-  border-top: 1px dotted grey;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -64,7 +67,7 @@
   padding-right: 10px;
 }
 
-.search .suggestions .text-option .box {
+.search .suggestions .text-option .text-option-tag {
   display: flex;
   flex-direction: row;
   padding-top: 7px;

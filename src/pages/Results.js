@@ -106,11 +106,8 @@ class Results extends React.Component {
           <div className="search-box">
             <SearchBox app={this.props.app}/>
           </div>
-          <div className = "box">
-            <h1>Results for:</h1>
-            <div className = "params">
+          <div className = "params">
               {this.handleDisplaySearchParams()}
-            </div>
           </div>
             <BackArrow 
               className="back-icon"

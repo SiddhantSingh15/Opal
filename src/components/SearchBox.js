@@ -105,7 +105,7 @@ import axios from "axios";
 					{!this.inSearchParams(this.state.inputValue) &&
 					this.state.inputValue.length !== 0 &&
 					<div className="text-option">
-							<div className="box"
+							<div className="text-option-tag"
 							onClick={() => {this.props.app.handleAddSearchParams([
 								new SearchParam(
 									this.state.inputValue,
