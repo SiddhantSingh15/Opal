@@ -22,12 +22,15 @@
   border-bottom: 1px solid grey;
 }
 
-
-
 .grid-row {
   display: grid;
   border-bottom: 1px solid grey;
   grid-template-columns: repeat(7, 1fr);
+}
+
+.grid-row:hover {
+  cursor: pointer;
+  background: rgba(230, 230, 230, 0.5);
 }
 
 .grid-row-properties {
@@ -53,7 +56,7 @@
 .grid-element {
   margin-right: auto;
   padding-left: 2px;
-  padding-right:2px;
+  padding-right: 2px;
   font-size: 15px;
 }
 
@@ -104,6 +107,10 @@
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
