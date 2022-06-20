@@ -3,6 +3,7 @@ import "./Results.css";
 import Tag from "../components/Tag";
 import DocumentView from "../components/DocumentView.js"
 import {ReactComponent as PreviewIcon} from "../assets/preview.svg"
+import {ReactComponent as BackArrow} from "../assets/backarrow.svg"
 import SearchParam from '../Utils.js'
 
 class Results extends React.Component {
@@ -100,11 +101,16 @@ class Results extends React.Component {
           isOpen={this.state.viewingDoc} 
           toggleModal={this.handleToggleDocumentView}/>
 
-        <div className = "results-search">
-          <h1>Results for:</h1>
-          <div className = "results-search-params">
-            {this.handleDisplaySearchParams()}
+        <div className="results-info-bar">
+          <div className = "results-search">
+            <h1>Results for:</h1>
+            <div className = "results-search-params">
+              {this.handleDisplaySearchParams()}
+            </div>
           </div>
+          <BackArrow 
+            className="back-icon"
+            onClick={() => this.props.app.handleGoToPage("search")}/>
         </div>
         
         {!this.props.app.state.results && this.handleDisplaySearching()}

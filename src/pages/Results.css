@@ -23,6 +23,7 @@
 }
 
 
+
 .grid-row {
   display: grid;
   border-bottom: 1px solid grey;
@@ -54,6 +55,16 @@
   padding-left: 2px;
   padding-right:2px;
   font-size: 15px;
+}
+
+.back-icon {
+  max-height: 50px;
+}
+
+.results-info-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .results-search {
