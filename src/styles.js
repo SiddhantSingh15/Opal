@@ -14,8 +14,10 @@ const styles = {
   coloredBox: {
     background: "lightgray",
   },
-  buttonGradient: {
-    backgroundImage: "linear-gradient(to right, #944ada, #26caa1)",
+  button: {
+    width: "100%",
+    top: "10px",
+    height: "35px",
   },
 };
 
