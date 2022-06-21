@@ -10,28 +10,35 @@ import "./Tag.css"
 
 const Tag = ({tagData,handleClick}) => {
 
-	const renderTagIcon = (type) => {
-		switch(type) {
+	const renderTagIcon = (tag) => {
+		switch (tag.type) {
+			case "tag":
+				switch(tag.obj.type) {
+
+					case "gov-law":
+						return <GovLawIcon className='icon' fill="white"/>
+					case "doc-type":
+						return <DocTypeIcon className='icon' fill="white"/>
+					case "language":
+						return <LanguageIcon className='icon' fill="white"/>
+					case "classification":
+						return <ClassificationIcon className='icon' fill="white"/>
+					default:
+						return <TagIcon className='icon' fill="white"/>
+				}
 			case "search":
-				return <SearchIcon className='tagIcon' fill="white"/>
-			case "gov-law":
-				return <GovLawIcon className='tagIcon' fill="white"/>
-			case "doc-type":
-				return <DocTypeIcon className='tagIcon' fill="white"/>
-			case "language":
-				return <LanguageIcon className='tagIcon' fill="white"/>
-			case "classification":
-				return <ClassificationIcon className='tagIcon' fill="white"/>
+				return <SearchIcon className='icon' fill="white"/>
 			default:
-				return <TagIcon className='tagIcon' fill="white"/>
-		}
+				return <React.Fragment/>
+		} 
+
 	}
 
 	return ( 
 		<React.Fragment>
 			{tagData.include !== true}
 			<div className="tag" onClick={handleClick}>
-				{renderTagIcon(tagData.obj.type)}
+				{renderTagIcon(tagData)}
 				{tagData.include === true ?
 				<p>{tagData.name}</p> :
 				<s>{tagData.name}</s>

@@ -7,48 +7,7 @@
     align-items: center;
 }
 
-.navbar p {
-    margin-right: 20px;
-    text-decoration: inherit;
-    color: rgba(0, 0, 0, 0.87);
-    font-size: 15px;
-}
-
-.navbar a:hover {
-    text-decoration: underline;
-}
-
-
-.navbar__logo{
+.navbar .logo{
 	max-height: 30px;
 	max-width: 111px;
-}
-
-.navbar__search {
-    display: flex;
-    gap: 20px;
-    vertical-align: left;
-    align-items: center;
-}
-
-.navbar__links{
-    margin-left: auto;
-}
-
-.navbar__links ul{
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-}
-
-.navbar__links p{
-    float: left;
-    color: white;
-    font-size: 20px;
-    font-weight: bold;
-    font-family: 'Open Sans';
-}
-.navbar__links a:hover{
-    text-decoration: none;
-    color: grey;
 }
