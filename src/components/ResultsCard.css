@@ -1,0 +1,18 @@
+
+.results-card {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  box-shadow:  rgba(149, 157, 165, 0.264) 0px 0px 15px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  border-radius: 15px;
+}
+
+
+
+ .results-card .buttons {
+  margin-left: auto;
+  margin-right: 20px;
+  display: flex;
+  align-items: center;
+}
