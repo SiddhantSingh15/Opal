@@ -46,10 +46,10 @@ class Results extends React.Component {
         <div className="grid-title">
           <div className="grid-element">Title</div>
           <div className="grid-element">Language</div>
-          <div className="grid-element">Topic</div>
-          <div className="grid-element">Source</div>
-          <div className="grid-element">Date</div>
+          <div className="grid-element">Type</div>
           <div className="grid-element">Gov Law</div>
+          <div className="grid-element">Date</div>
+          <div className="grid-element">Access</div>
         </div>
         {this.props.app.state.results.map((result, key) => {
           return (

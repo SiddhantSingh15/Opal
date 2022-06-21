@@ -74,16 +74,16 @@ export class Result extends Component {
             <p>{result.fields.language}</p>
           </div>
           <div className="grid-element">
-            <p>{result.fields.topic}</p>
+            <p>{result.fields.type}</p>
           </div>
           <div className="grid-element">
-            <p>{result.fields.source}</p>
+            <p>{result.fields.govlaw}</p>
           </div>
           <div className="grid-element">
             <p>{result.fields.date}</p>
           </div>
           <div className="grid-element">
-            <p>{result.fields.govlaw}</p>
+            <p>{result.fields.access}</p>
           </div>
           <div className="results-element-tags">
             {this.state.originalTags.map((tag, key) => {
