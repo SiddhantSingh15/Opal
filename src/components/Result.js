@@ -1,9 +1,8 @@
 import React, { Component } from "react";
 import config from "../config";
-import { Backdrop, Button, Stack } from "@mui/material";
+import { Backdrop, Button} from "@mui/material";
 import styles from "../styles";
 import Summary from "./Summary";
-import { ReactComponent as PreviewIcon } from "../assets/preview.svg";
 import Tag from "./Tag";
 import SearchParam from "../Utils";
 

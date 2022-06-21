@@ -1,7 +1,6 @@
 import { Button, Card, Typography, Box } from "@mui/material";
 import React from "react";
 import styles from "../styles";
-import { ReactComponent as PreviewIcon } from "../assets/preview.svg";
 
 export default function Summary({ title, summary, display }) {
   return (
