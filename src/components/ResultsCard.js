@@ -1,5 +1,4 @@
 import React from "react";
-import Tag from "../components/Tag";
 import SearchParam from "../Utils.js";
 import "./ResultsCard.css";
 import Summary from "./Summary.js";
@@ -37,6 +36,15 @@ class ResultsCard extends React.Component {
     return new SearchParam(key, value, "field", true, { [key]: value, key });
   };
 
+  // Checks if we are currently searching by that param
+  paramActive = (param) => {
+    for (const p of this.props.app.state.searchParams) {
+      if (p.id === param.id && p.type === param.type) {
+        return true;
+      }
+    }
+  };
+
   render() {
     const { fields } = this.props.result;
     const fieldParams = {};
@@ -57,6 +65,7 @@ class ResultsCard extends React.Component {
           <div className="element">
             <Searchable
               param={language}
+              active={this.paramActive(language)}
               handleClick={() =>
                 this.props.app.handleAddSearchParams([language])
               }
@@ -65,24 +74,28 @@ class ResultsCard extends React.Component {
           <div className="element">
             <Searchable
               param={type}
+              active={this.paramActive(type)}
               handleClick={() => this.props.app.handleAddSearchParams([type])}
             />
           </div>
           <div className="element">
             <Searchable
               param={access}
+              active={this.paramActive(access)}
               handleClick={() => this.props.app.handleAddSearchParams([access])}
             />
           </div>
           <div className="element">
             <Searchable
               param={date}
+              active={this.paramActive(date)}
               handleClick={() => this.props.app.handleAddSearchParams([date])}
             />
           </div>
           <div className="element">
             <Searchable
               param={govlaw}
+              active={this.paramActive(govlaw)}
               handleClick={() => this.props.app.handleAddSearchParams([govlaw])}
             />
           </div>

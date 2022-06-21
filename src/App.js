@@ -32,7 +32,6 @@ function App() {
             break;
         }
       }
-      console.log(fields, tags);
 
       try {
         const resultsResponse = await axios.post(documentAddress, {
