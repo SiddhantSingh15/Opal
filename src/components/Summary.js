@@ -4,10 +4,6 @@ import styles from "../styles";
 import { ReactComponent as PreviewIcon } from "../assets/preview.svg";
 
 export default function Summary({ title, summary, display }) {
-  // if (!display) {
-  //   return null;
-  // }
-
   return (
     <Card
       sx={{
