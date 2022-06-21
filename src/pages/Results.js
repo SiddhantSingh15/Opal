@@ -52,7 +52,11 @@ class Results extends React.Component {
           <div className="element">Gov Law</div>
         </div>
         {this.props.app.state.results.map((result,key) => {
-          return (<ResultsCard key={key} app={this.props.app} result={result} handlePreview={this.handleToggleDocumentView}/>)
+          return (<ResultsCard 
+            key={key} 
+            app={this.props.app} 
+            result={result} 
+            handleToggleDocumentView={this.handleToggleDocumentView}/>)
         }
         )}
       </div>

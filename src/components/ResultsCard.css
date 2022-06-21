@@ -2,13 +2,15 @@
 .results-card {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  box-shadow:  rgba(149, 157, 165, 0.264) 0px 0px 15px;
+	box-shadow:  rgba(149, 157, 165, 0.264) 0px 0px 15px;	
   margin-top: 5px;
   margin-bottom: 5px;
   border-radius: 15px;
 }
 
-
+.results-card:hover {
+	border:rgba(149, 157, 165, 0.264) 0px 0px 0px;
+}
 
  .results-card .buttons {
   margin-left: auto;

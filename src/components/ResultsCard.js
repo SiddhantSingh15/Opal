@@ -4,10 +4,16 @@ import SearchParam from '../Utils.js'
 import "./ResultsCard.css"
 
 class ResultsCard extends React.Component {
-	
+
+  handleResultsCardClick = (e) => {
+    if (["fields","tags", "element","results-card"].includes(e.target.className)) {
+      this.props.handleToggleDocumentView();
+    }
+  };
+
 	render() {
 		return ( 
-			<div className = "results-card" onClick={this.props.handlePreview}>
+			<div className = "results-card" onClick={this.handleResultsCardClick}>
 				<div className = "fields"  >
 					<div className="element"><p>{this.props.result.fields.title}</p></div>
 					<div className="element"><p>{this.props.result.fields.language}</p></div>
