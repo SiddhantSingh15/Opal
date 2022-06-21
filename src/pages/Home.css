@@ -7,14 +7,26 @@
   align-items: center;
 }
 
-.home .search-box {
+.home .search-widget {
+  width: 600px;
+}
+
+.home .search-widget .search-params {
+  display: flex;
+  flex-wrap: wrap;
+  border-radius: 15px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-bottom: 1px dotted grey;
+  background: white;
+  padding: 5px;
+}
+
+.home .search-widget .search-box {
   display: flex;
   flex-direction: column;
-  max-width: 1000px;
-  min-width: 600px;
   border-radius: 15px;
   background-color: white;
-  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 
 .home .searchLogo {

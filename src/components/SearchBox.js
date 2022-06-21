@@ -51,11 +51,11 @@ import axios from "axios";
     }
     switch (event.key) {
       case "Enter":
-        // if(this.state.tagSuggestions.length !==0) {
-        //   this.props.app.handleAddSearchParams([this.state.tagSuggestions[0]]);
-        // }
-        // this.handleClear()
-        this.props.app.handleResults()
+        if(this.state.tagSuggestions.length !==0 && this.state.inputValue !==0) {
+          this.props.app.handleAddSearchParams([this.state.tagSuggestions[0]]);
+        }
+        this.handleClear()
+				this.props.app.handleGoToPage("results")	
         break;
       case "Tab":
         event.preventDefault()
@@ -80,7 +80,6 @@ import axios from "axios";
   // Clear the search input
   handleClear = () => {
     this.setState({ inputValue: ""});
-		this.props.app.handleGoToPage("results");
   }
 
   getSearchParamSuggestions = () => {
@@ -176,20 +175,6 @@ import axios from "axios";
   render() {
     return (
 			<div className="search">
-				{/* Currently Selected Tags */}
-				{/* {this.props.app.state.searchParams.length !== 0 && (
-					<div className="searchParams">
-						{this.props.app.state.searchParams.map((param, key) => {
-							return (
-								<React.Fragment key = {key}>
-									<Tag
-										tagData={param}
-										handleClick={() => this.props.app.handleRemoveSearchParams([param])} />
-								</React.Fragment>
-							)
-						})}
-					</div>
-				)} */}
 
 				{/* Input bar */}
 				<div className="input-bar">
