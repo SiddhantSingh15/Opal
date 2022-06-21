@@ -2,13 +2,34 @@ import React from "react";
 import Tag from "../components/Tag";
 import SearchParam from '../Utils.js'
 import "./ResultsCard.css"
+import Summary from "./Summary.js"
+import { Backdrop, Button} from "@mui/material";
+import styles from "../styles";
 
 class ResultsCard extends React.Component {
+
+	state = {
+		showSummary: false
+	}
 
   handleResultsCardClick = (e) => {
     if (["fields","tags", "element","results-card"].includes(e.target.className)) {
       this.props.handleToggleDocumentView();
     }
+  };
+
+
+	
+  handleCloseSummary = () => {
+    this.setState({
+      showSummary: false,
+    });
+  };
+
+  handleToggleSummary = () => {
+    this.setState({
+			showSummary: !this.state.showSummary,
+    });
   };
 
 	render() {
@@ -38,6 +59,32 @@ class ResultsCard extends React.Component {
 					})}
 					</div>
 				</div>
+        <Button
+          variant="contained"
+          sx={styles.button}
+          onClick={this.handleToggleSummary}
+          className="clickable buttons"
+        >
+          SUMMARY
+        </Button>
+        <Backdrop
+          className="clickable"
+          sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+          open={this.state.showSummary}
+          onClick={this.handleCloseSummary}
+        >
+          <Summary
+            summary=" Excepteur aliquip laboris et incididunt tempor amet aute dolor amet
+        culpa et amet. Nostrud culpa veniam minim occaecat culpa officia qui.
+        Irure commodo laborum laborum nisi. Occaecat voluptate adipisicing
+        consequat duis dolor occaecat dolor ipsum duis. Est dolore labore
+        voluptate pariatur eiusmod duis pariatur est aliqua. Consequat aliquip
+        anim officia aute dolore veniam minim ullamco. Sint quis fugiat veniam
+        eu non. Est nostrud officia ex nostrud. Commodo consectetur exercitation
+        adipisicing voluptate."
+            title={this.props.result.fields.title}
+          />
+        </Backdrop>
 			</div>
 			)
 	}

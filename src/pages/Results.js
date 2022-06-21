@@ -2,9 +2,7 @@ import React from "react";
 import "./Results.css";
 import Tag from "../components/Tag";
 import DocumentView from "../components/DocumentView.js"
-import {ReactComponent as PreviewIcon} from "../assets/preview.svg"
 import {ReactComponent as BackArrow} from "../assets/backarrow.svg"
-import SearchParam from '../Utils.js'
 import SearchBox from "../components/SearchBox";
 import ResultsCard from "../components/ResultsCard";
 

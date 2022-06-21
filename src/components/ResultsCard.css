@@ -9,8 +9,9 @@
 }
 
 .results-card:hover {
-	border:rgba(149, 157, 165, 0.264) 0px 0px 0px;
+	background: rgb(225, 225, 225);
 }
+
 
  .results-card .buttons {
   margin-left: auto;
