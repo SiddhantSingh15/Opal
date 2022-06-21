@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import config from "../config";
+import { Backdrop, Button, Stack } from "@mui/material";
+import styles from "../styles";
+import Summary from "./Summary";
 import { ReactComponent as PreviewIcon } from "../assets/preview.svg";
 import Tag from "./Tag";
 import SearchParam from "../Utils";
@@ -8,6 +11,7 @@ export class Result extends Component {
   state = {
     tags: [],
     originalTags: [],
+    showPreview: false,
   };
 
   /* Given a list of tag IDs, returns the ones that are not included in the
@@ -35,11 +39,33 @@ export class Result extends Component {
     this.getOriginalTags(this.props.result.tags);
   };
 
+  handleClosePreview = () => {
+    this.setState({
+      showPreview: false,
+    });
+  };
+
+  handleToggle = () => {
+    this.setState({
+      showPreview: !this.state.showPreview,
+    });
+  };
+
+  /* Shows document preview if not clicked on summary button. */
+  handleResultClick = (e) => {
+    console.log(e.target);
+    if (
+      !e.target.getAttribute("class") ||
+      !e.target.getAttribute("class").includes("clickable")
+    ) {
+      this.props.handleToggleDocumentView();
+    }
+  };
+
   render() {
     const { result } = this.props;
-
     return (
-      <div className="grid-row">
+      <div className="grid-row" onClick={this.handleResultClick}>
         <div className="grid-row-properties">
           <div className="grid-element">
             <p>{result.fields.title}</p>
@@ -73,7 +99,7 @@ export class Result extends Component {
                   <Tag
                     tagData={searchParam}
                     handleClick={() =>
-                      this.props.app.handleAddSearchParams([searchParam])
+                      this.props.handleAddSearchParams([searchParam])
                     }
                   />
                 </React.Fragment>
@@ -81,12 +107,32 @@ export class Result extends Component {
             })}
           </div>
         </div>
-        <div
-          className="grid-row-buttons"
-          onClick={this.handleToggleDocumentView}
+        <Button
+          variant="contained"
+          sx={styles.button}
+          onClick={this.handleToggle}
+          className="clickable"
         >
-          <PreviewIcon />
-        </div>
+          SUMMARY
+        </Button>
+        <Backdrop
+          className="clickable"
+          sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+          open={this.state.showPreview}
+          onClick={this.handleClosePreview}
+        >
+          <Summary
+            summary=" Excepteur aliquip laboris et incididunt tempor amet aute dolor amet
+        culpa et amet. Nostrud culpa veniam minim occaecat culpa officia qui.
+        Irure commodo laborum laborum nisi. Occaecat voluptate adipisicing
+        consequat duis dolor occaecat dolor ipsum duis. Est dolore labore
+        voluptate pariatur eiusmod duis pariatur est aliqua. Consequat aliquip
+        anim officia aute dolore veniam minim ullamco. Sint quis fugiat veniam
+        eu non. Est nostrud officia ex nostrud. Commodo consectetur exercitation
+        adipisicing voluptate."
+            title={result.fields.title}
+          />
+        </Backdrop>
       </div>
     );
   }

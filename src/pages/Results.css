@@ -26,6 +26,7 @@
   display: grid;
   border-bottom: 1px solid grey;
   grid-template-columns: repeat(7, 1fr);
+  position: relative;
 }
 
 .grid-row:hover {

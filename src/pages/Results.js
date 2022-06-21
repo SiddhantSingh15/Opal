@@ -57,6 +57,8 @@ class Results extends React.Component {
               result={result}
               key={key}
               searchParams={this.props.app.state.searchParams}
+              handleToggleDocumentView={this.handleToggleDocumentView}
+              handleAddSearchParams={this.props.app.handleAddSearchParams}
             />
           );
         })}
