@@ -1,25 +1,25 @@
 import React from "react";
 import Tag from "../components/Tag";
-import SearchParam from '../Utils.js'
-import "./ResultsCard.css"
-import Summary from "./Summary.js"
-import { Backdrop, Button} from "@mui/material";
+import SearchParam from "../Utils.js";
+import "./ResultsCard.css";
+import Summary from "./Summary.js";
+import { Backdrop, Button } from "@mui/material";
 import styles from "../styles";
+import Searchable from "./Searchable";
 
 class ResultsCard extends React.Component {
-
-	state = {
-		showSummary: false
-	}
+  state = {
+    showSummary: false,
+  };
 
   handleResultsCardClick = (e) => {
-    if (["fields","tags", "element","results-card"].includes(e.target.className)) {
+    if (
+      ["fields", "tags", "element", "results-card"].includes(e.target.className)
+    ) {
       this.props.handleToggleDocumentView();
     }
   };
 
-
-	
   handleCloseSummary = () => {
     this.setState({
       showSummary: false,
@@ -28,37 +28,96 @@ class ResultsCard extends React.Component {
 
   handleToggleSummary = () => {
     this.setState({
-			showSummary: !this.state.showSummary,
+      showSummary: !this.state.showSummary,
     });
   };
 
-	render() {
-		return ( 
-			<div className = "results-card" onClick={this.handleResultsCardClick}>
-				<div className = "fields"  >
-					<div className="element"><p>{this.props.result.fields.title}</p></div>
-					<div className="element"><p>{this.props.result.fields.language}</p></div>
-					<div className="element"><p>{this.props.result.fields.topic}</p></div>
-					<div className="element"><p>{this.props.result.fields.source}</p></div>
-					<div className="element"><p>{this.props.result.fields.date}</p></div>
-					<div className="element"><p>{this.props.result.fields.govlaw}</p></div>
-					<div className="tags">
-					{/* load in tags for respective result */}
-					{this.props.result.tags.map((tagID,key) => {
-						const tag = this.props.app.getResultsTag(tagID);
-						if (tag !== null &&
-							!this.props.app.state.searchParams.map(param => param.id).includes(tagID)) {
-							const searchParam = new SearchParam(tag.id,tag.name,"tag",true,tag)
-							return (
-								<React.Fragment key = {key}>
-									<Tag tagData={searchParam} handleClick={() => this.props.app.handleAddSearchParams([searchParam])}/>
-								</React.Fragment>
-							)
-						}
-						return <React.Fragment key = {key}/>
-					})}
-					</div>
-				</div>
+  // Given a result field constructs the search param
+  getSearchParam = (key, value) => {
+    return new SearchParam(key, value, "field", true, { [key]: value, key });
+  };
+
+  render() {
+    const { fields } = this.props.result;
+    const fieldParams = {};
+    for (const field in fields) {
+      const param = this.getSearchParam(field, fields[field]);
+      fieldParams[field] = param;
+    }
+
+    // console.log(this.props.result);
+    const { type, access, language, date, govlaw } = fieldParams;
+
+    return (
+      <div className="results-card" onClick={this.handleResultsCardClick}>
+        <div className="fields">
+          <div className="element">
+            <p>{this.props.result.fields.title}</p>
+          </div>
+          <div className="element">
+            <Searchable
+              param={language}
+              handleClick={() =>
+                this.props.app.handleAddSearchParams([language])
+              }
+            />
+          </div>
+          <div className="element">
+            <Searchable
+              param={type}
+              handleClick={() => this.props.app.handleAddSearchParams([type])}
+            />
+          </div>
+          <div className="element">
+            <Searchable
+              param={access}
+              handleClick={() => this.props.app.handleAddSearchParams([access])}
+            />
+          </div>
+          <div className="element">
+            <Searchable
+              param={date}
+              handleClick={() => this.props.app.handleAddSearchParams([date])}
+            />
+          </div>
+          <div className="element">
+            <Searchable
+              param={govlaw}
+              handleClick={() => this.props.app.handleAddSearchParams([govlaw])}
+            />
+          </div>
+          <div className="tags">
+            {/* load in tags for respective result */}
+            {this.props.result.tags.map((tagID, key) => {
+              const tag = this.props.app.getResultsTag(tagID);
+              if (
+                tag !== null &&
+                !this.props.app.state.searchParams
+                  .map((param) => param.id)
+                  .includes(tagID)
+              ) {
+                const searchParam = new SearchParam(
+                  tag.id,
+                  tag.name,
+                  "tag",
+                  true,
+                  tag
+                );
+                return (
+                  <React.Fragment key={key}>
+                    <Searchable
+                      param={searchParam}
+                      handleClick={() =>
+                        this.props.app.handleAddSearchParams([searchParam])
+                      }
+                    />
+                  </React.Fragment>
+                );
+              }
+              return <React.Fragment key={key} />;
+            })}
+          </div>
+        </div>
         <Button
           variant="contained"
           sx={styles.button}
@@ -85,10 +144,9 @@ class ResultsCard extends React.Component {
             title={this.props.result.fields.title}
           />
         </Backdrop>
-			</div>
-			)
-	}
+      </div>
+    );
+  }
 }
 
 export default ResultsCard;
-
