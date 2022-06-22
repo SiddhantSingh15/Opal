@@ -20,7 +20,6 @@ export default function Results() {
         isOpen={viewingDoc}
         toggleModal={handleToggleDocumentView}
       />
-
       <div className="info-bar">
         <div className="search-box">{/* <SearchBox /> */}</div>
         <div className="params">{/* <SearchParams /> */}</div>
@@ -29,7 +28,6 @@ export default function Results() {
           onClick={() => this.props.app.handleGoToPage("home")}
         />
       </div>
-
       <ResultList handleToggleDocumentView={handleToggleDocumentView} />
     </div>
   );
