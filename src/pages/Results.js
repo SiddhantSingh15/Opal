@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import DocumentView from "../components/DocumentView";
 import ResultList from "../components/ResultList";
 import { ReactComponent as BackArrow } from "../assets/backarrow.svg";
-import SearchParams from "../components/SearchParams";
-import SearchBox from "../components/SearchBox";
 import "./Results.css";
 
 export default function Results() {

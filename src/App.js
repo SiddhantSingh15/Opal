@@ -17,7 +17,7 @@ function App() {
     };
 
     fetchResultsAsync = async () => {
-      const documentAddress = "http://35.231.0.227:8000/api/v1/document/";
+      const documentAddress = "http://localhost:8000/api/v1/document/";
       // Loads the json results
       const tags = [];
       const fields = {};
