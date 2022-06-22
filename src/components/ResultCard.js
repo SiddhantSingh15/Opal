@@ -35,25 +35,25 @@ export default function ResultCard({ result, handleToggleDocumentView }) {
         <div className="element">
           <Searchable
             type="field"
-            key="language"
+            id="language"
             value={result.fields.language}
           />
         </div>
         <div className="element">
-          <Searchable type="field" key="type" value={result.fields.type} />
+          <Searchable type="field" id="type" value={result.fields.type} />
         </div>
         <div className="element">
-          <Searchable type="field" key="access" value={result.fields.access} />
+          <Searchable type="field" id="access" value={result.fields.access} />
         </div>
         <div className="element">
-          <Searchable type="field" key="date" value={result.fields.date} />
+          <Searchable type="field" id="date" value={result.fields.date} />
         </div>
         <div className="element">
-          <Searchable type="field" key="govlaw" value={result.fields.govlaw} />
+          <Searchable type="field" id="govlaw" value={result.fields.govlaw} />
         </div>
         <div className="tags">
-          {tags.map((tag) => (
-            <Searchable type="tag" key={tag.id} value={tag.value} />
+          {tags.map((tag, key) => (
+            <Searchable key={key} type="tag" id={tag.id} value={tag.value} />
           ))}
         </div>
       </div>

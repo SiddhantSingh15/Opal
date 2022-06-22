@@ -5,6 +5,7 @@ import Search from "./pages/Home";
 import Results from "./pages/Results";
 import "typeface-open-sans";
 import axios from "axios";
+import { Routes, Route } from "react-router-dom";
 
 function App() {
   class MainApp extends React.Component {
@@ -137,7 +138,10 @@ function App() {
         <div className="app">
           <div>
             <NavBar app={this} />
-            {this.handleRenderBody()}
+            <Routes>
+              <Route path="/results" element={<Results app={this} />} />
+            </Routes>
+            {/* {this.handleRenderBody()} */}
           </div>
         </div>
       );

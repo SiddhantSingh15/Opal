@@ -6,16 +6,21 @@ import { ReactComponent as GovLawIcon } from "../assets/govlaw.svg";
 import { ReactComponent as DocTypeIcon } from "../assets/doc.svg";
 import { ReactComponent as LanguageIcon } from "../assets/language.svg";
 import { ReactComponent as ClassificationIcon } from "../assets/lock.svg";
+import useAddParam from "../hooks/useAddParam";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 /** Return a SEARCH PARAMETER (something we can search by): TAG, FIELD
  * @param {bool} active whether we are currently searching by this parameter
  */
-export default function Searchable({ type, key, value }) {
+export default function Searchable({ type, id, value }) {
+  const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
+
   const renderTagIcon = () => {
     switch (type) {
       case "tag":
       case "field":
-        switch (key) {
+        switch (id) {
           case "govlaw":
             return <GovLawIcon className="icon" fill="white" />;
           case "type":
@@ -34,8 +39,10 @@ export default function Searchable({ type, key, value }) {
     }
   };
 
-  const handleClick = () => {
-    alert("clicked");
+  // Adds parameter to the search query and reloads the page
+  const addParam = () => {
+    setSearchParams({ shit: "true" });
+    window.location = window.location.href;
   };
 
   const active = false;
@@ -45,7 +52,7 @@ export default function Searchable({ type, key, value }) {
       <p>{value}</p>
     </div>
   ) : (
-    <div className="tag" onClick={handleClick}>
+    <div className="tag" onClick={addParam}>
       {renderTagIcon()}
       <p>{value}</p>
     </div>

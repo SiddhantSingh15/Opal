@@ -8,6 +8,8 @@ export default function ResultList({ handleToggleDocumentView }) {
 
   if (!results) return <Loading />;
 
+  console.log("rendering");
+
   return (
     <div className="table">
       <div className="title">
