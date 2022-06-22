@@ -1,18 +1,22 @@
 import { useState, useEffect } from "react";
+import axios from "axios";
+import config from "../config";
 
 // TODO: implement tag filtering functionality
+// TODO: implement tag caching functionality
 const useFetchTags = (tagIDs) => {
   const [tags, setTags] = useState([]);
 
   useEffect(() => {
-    setTags([
-      { id: "10", value: "blabla" },
-      { id: "10", value: "blabla" },
-      { id: "10", value: "blabla" },
-    ]);
+    console.log(`${config.BACKEND_URI}/tags`);
+    console.log(tagIDs);
+    axios
+      .post(`${config.BACKEND_URI}/tags`, tagIDs)
+      .then((res) => console.log(res))
+      .catch((e) => console.log(e));
   }, tagIDs);
 
-  return tags;
+  return [{ id: "1", value: "lanosdao" }];
 };
 
 export default useFetchTags;

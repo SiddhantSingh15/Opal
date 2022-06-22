@@ -1,13 +1,14 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import useGetSearchParams from "./useGetSearchParams";
-
-const API_URL = "http://35.231.0.227:8000/api/v1/document/";
+import config from "../config";
 
 const fetchAsync = async (query) => {
   console.log(query);
   try {
-    const resultsResponse = await axios.post(API_URL, { ...query });
+    const resultsResponse = await axios.post(`${config.BACKEND_URI}/document`, {
+      ...query,
+    });
     return resultsResponse.data.docs;
   } catch (e) {
     console.log(e);
