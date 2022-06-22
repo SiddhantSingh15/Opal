@@ -20,7 +20,7 @@ class DocumentView extends React.Component {
 				<iframe
 					title="documentPreview"
 				 	className="document" 
-					src ="./document.html"/>
+					src ="./document.pdf"/>
 			</Modal>
 		)
 	}
