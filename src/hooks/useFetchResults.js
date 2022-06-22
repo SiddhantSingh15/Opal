@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import useGetSearchParams from "./useGetSearchParams";
 
-const API_URL = "http://localhost:8000/api/v1/document/";
+const API_URL = "http://35.231.0.227:8000/api/v1/document/";
 
 const fetchAsync = async (query) => {
   console.log(query);
