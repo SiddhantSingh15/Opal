@@ -25,13 +25,20 @@ export default function ResultCard({ result, handleToggleDocumentView }) {
     setShowSummary(!showSummary);
   };
 
-  const tags = useFetchTags(result.tags);
+  const cutText = (text) => {
+    return text.substring(0,150).concat(result.fields.title.length > 150 ? "..." : "") 
+  }
 
+
+  const tags = useFetchTags(result.tags);
+ 
   return (
     <div className="results-card" onClick={handleResultsCardClick}>
       <div className="fields">
-        <div className="element">
-          <p>{result.fields.title}</p>
+        <div className="docTitle">
+          <div className="element">
+            <p>{cutText(result.fields.title).toUpperCase()}</p>
+          </div>
         </div>
         <div className="element">
           <Searchable
@@ -60,7 +67,6 @@ export default function ResultCard({ result, handleToggleDocumentView }) {
       </div>
       <Button
         variant="contained"
-        sx={styles.button}
         onClick={handleToggleSummary}
         className="clickable buttons"
       >

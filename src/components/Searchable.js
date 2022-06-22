@@ -43,16 +43,25 @@ export default function Searchable({ type, id, value }) {
     window.location = window.location.href;
   };
 
+  //Switch this to later actually check if is a date rather than this bullshit
+  const RenderValue = (value) => {
+    if (id === "date") {
+      return (value.substring(0,4) + "/" + value.substring(4,6) + "/" + value.substring(6,8));
+    } else {
+      return value;
+    }
+  }
+
   const active = false;
 
   const body = active ? (
     <div className="tag active">
-      <p>{value}</p>
+      <p>{RenderValue(value)}</p>
     </div>
   ) : (
     <div className="tag" onClick={addParam}>
       {renderTagIcon()}
-      <p>{value}</p>
+      <p>{RenderValue(value)}</p>
     </div>
   );
 

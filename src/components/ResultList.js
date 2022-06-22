@@ -11,7 +11,9 @@ export default function ResultList({ handleToggleDocumentView }) {
   return (
     <div className="table">
       <div className="title">
-        <div className="element">Title</div>
+        <div className="docTitle">
+          <div className="element">Title</div>
+        </div>
         <div className="element">Language</div>
         <div className="element">Type</div>
         <div className="element">Access</div>
