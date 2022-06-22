@@ -5,6 +5,7 @@ import useGetSearchParams from "./useGetSearchParams";
 const API_URL = "http://localhost:8000/api/v1/document/";
 
 const fetchAsync = async (query) => {
+  console.log(query);
   try {
     const resultsResponse = await axios.post(API_URL, { ...query });
     return resultsResponse.data.docs;

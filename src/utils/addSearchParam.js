@@ -1,10 +1,6 @@
-import { useSearchParams } from "react-router-dom";
-
 // TODO: right now only searching for single field (only one govlaw)
 /** Add search parameter.  */
-const useAddParam = (type, id, value) => {
-  const [searchParams, setSearchParams] = useSearchParams();
-
+const addSearchParam = (searchParams, setSearchParams, type, id, value) => {
   switch (type) {
     case "tag":
       let newTags = [id];
@@ -22,4 +18,4 @@ const useAddParam = (type, id, value) => {
   }
 };
 
-export default useAddParam;
+export default addSearchParam;
