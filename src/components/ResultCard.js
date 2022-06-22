@@ -4,6 +4,7 @@ import Summary from "./Summary.js";
 import { Button, Backdrop } from "@mui/material";
 import styles from "../styles";
 import useFetchTags from "../hooks/useFetchTags";
+import "./ResultsCard.css"
 
 export default function ResultCard({ result, handleToggleDocumentView }) {
   const handleResultsCardClick = (e) => {
