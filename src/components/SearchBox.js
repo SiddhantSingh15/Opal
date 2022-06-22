@@ -1,5 +1,5 @@
 import React from "react";
-import SearchParam from "../Utils.js";
+import SearchParam from "../SearchParam.js";
 import "./SearchBox.css";
 import { ReactComponent as SearchIcon } from "../assets/magnifier.svg";
 import { ReactComponent as CloseIcon } from "../assets/close.svg";

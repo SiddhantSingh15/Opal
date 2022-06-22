@@ -1,5 +1,5 @@
 import React from "react";
-import SearchParam from "../Utils.js";
+import SearchParam from "../SearchParam";
 import "./ResultsCard.css";
 import Summary from "./Summary.js";
 import { Backdrop, Button } from "@mui/material";
