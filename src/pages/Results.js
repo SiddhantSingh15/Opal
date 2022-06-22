@@ -1,104 +1,36 @@
-import React from "react";
-import "./Results.css";
-import DocumentView from "../components/DocumentView.js";
+import React, { useState } from "react";
+import DocumentView from "../components/DocumentView";
+import ResultList from "../components/ResultList";
 import { ReactComponent as BackArrow } from "../assets/backarrow.svg";
+import SearchParams from "../components/SearchParams";
 import SearchBox from "../components/SearchBox";
-import ResultsCard from "../components/ResultsCard";
-import Searchable from "../components/Searchable";
+import "./Results.css";
 
-class Results extends React.Component {
-  state = {
-    viewingDoc: false,
+export default function Results() {
+  const [viewingDoc, setViewingDoc] = useState(false);
+
+  const handleToggleDocumentView = () => {
+    setViewingDoc(!viewingDoc);
   };
 
-  handleDisplaySearchParams = () => {
-    return (
-      <React.Fragment>
-        {this.props.app.state.searchParams.map((param, key) => {
-          return (
-            <React.Fragment key={key}>
-              {/* <Tag
-                tagData={param}
-                handleClick={() =>
-                  this.props.app.handleRemoveSearchParams([param])
-                }
-              /> */}
-              <Searchable
-                param={param}
-                handleClick={() =>
-                  this.props.app.handleRemoveSingleParam(param)
-                }
-              />
-            </React.Fragment>
-          );
-        })}
-      </React.Fragment>
-    );
-  };
+  return (
+    <div className="results">
+      {/* Popup for previewing the document */}
+      <DocumentView
+        isOpen={viewingDoc}
+        toggleModal={handleToggleDocumentView}
+      />
 
-  handleDisplaySearching = () => {
-    return (
-      <div className="loading">
-        <h1>Searching</h1>
-        <div className="loader"></div>
-      </div>
-    );
-  };
-
-  handleDisplayResults = () => {
-    return (
-      <div className="table">
-        <div className="title">
-          <div className="element">Title</div>
-          <div className="element">Language</div>
-          <div className="element">Type</div>
-          <div className="element">Access</div>
-          <div className="element">Date</div>
-          <div className="element">Gov Law</div>
-        </div>
-        {this.props.app.state.results.map((result, key) => {
-          return (
-            <ResultsCard
-              key={key}
-              app={this.props.app}
-              result={result}
-              handleToggleDocumentView={this.handleToggleDocumentView}
-            />
-          );
-        })}
-      </div>
-    );
-  };
-
-  handleToggleDocumentView = () => {
-    this.setState({ viewingDoc: !this.state.viewingDoc });
-  };
-
-  render() {
-    return (
-      <div className="results">
-        {/* Popup for previewing the document */}
-        <DocumentView
-          isOpen={this.state.viewingDoc}
-          toggleModal={this.handleToggleDocumentView}
+      <div className="info-bar">
+        <div className="search-box">{/* <SearchBox /> */}</div>
+        <div className="params">{/* <SearchParams /> */}</div>
+        <BackArrow
+          className="back-icon"
+          onClick={() => this.props.app.handleGoToPage("home")}
         />
-
-        <div className="info-bar">
-          <div className="search-box">
-            <SearchBox app={this.props.app} />
-          </div>
-          <div className="params">{this.handleDisplaySearchParams()}</div>
-          <BackArrow
-            className="back-icon"
-            onClick={() => this.props.app.handleGoToPage("home")}
-          />
-        </div>
-
-        {!this.props.app.state.results && this.handleDisplaySearching()}
-        {this.props.app.state.results && this.handleDisplayResults()}
       </div>
-    );
-  }
-}
 
-export default Results;
+      <ResultList handleToggleDocumentView={handleToggleDocumentView} />
+    </div>
+  );
+}

@@ -10,12 +10,12 @@ import { ReactComponent as ClassificationIcon } from "../assets/lock.svg";
 /** Return a SEARCH PARAMETER (something we can search by): TAG, FIELD
  * @param {bool} active whether we are currently searching by this parameter
  */
-export default function Searchable({ param, handleClick, active }) {
+export default function Searchable({ type, key, value }) {
   const renderTagIcon = () => {
-    switch (param.type) {
+    switch (type) {
       case "tag":
       case "field":
-        switch (param.obj.key) {
+        switch (key) {
           case "govlaw":
             return <GovLawIcon className="icon" fill="white" />;
           case "type":
@@ -34,21 +34,22 @@ export default function Searchable({ param, handleClick, active }) {
     }
   };
 
+  const handleClick = () => {
+    alert("clicked");
+  };
+
+  const active = false;
+
   const body = active ? (
     <div className="tag active">
-      <p>{param.name}</p>
+      <p>{value}</p>
     </div>
   ) : (
     <div className="tag" onClick={handleClick}>
       {renderTagIcon()}
-      {param.include === true ? <p>{param.name}</p> : <s>{param.name}</s>}
+      <p>{value}</p>
     </div>
   );
 
-  return (
-    <React.Fragment>
-      {param.include !== true}
-      {body}
-    </React.Fragment>
-  );
+  return <React.Fragment>{body}</React.Fragment>;
 }

@@ -159,15 +159,7 @@ class SearchBox extends React.Component {
               {paramSuggestions.map((param, key) => {
                 return (
                   <div key={key} className="tag-option">
-                    <Searchable
-                      param={param}
-                      handleClick={() => {
-                        this.props.app.handleAddSearchParams([
-                          structuredClone(param),
-                        ]);
-                        this.handleClear();
-                      }}
-                    />
+                    <Searchable type="tag" key={param.id} value={param.name} />
 
                     <CloseIcon
                       className="icon"
