@@ -7,6 +7,7 @@ import querySearch from "./utils/querySearch";
 import useFetchTags from "./hooks/useFetchTags";
 import { useDispatch } from "react-redux";
 import { restoreSearch } from "./redux/searchSlice";
+import Home from "./pages/Home";
 
 export default function App() {
   /* Restore tags redux */
@@ -23,9 +24,9 @@ export default function App() {
       <div>
         <NavBar />
         <Routes>
+          <Route path="/" element={<Home />} />
           <Route path="/results" element={<Results />} />
         </Routes>
-        {/* {this.handleRenderBody()} */}
       </div>
     </div>
   );
