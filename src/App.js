@@ -21,7 +21,7 @@ export default function App() {
   return (
     <div className="app">
       <div>
-        {/* <NavBar app={this} /> */}
+        <NavBar />
         <Routes>
           <Route path="/results" element={<Results />} />
         </Routes>
