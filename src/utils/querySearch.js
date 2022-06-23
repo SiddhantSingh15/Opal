@@ -1,5 +1,3 @@
-import { useDispatch } from "react-redux";
-import actions from "../redux/actions";
 import { addTag } from "../redux/searchSlice";
 
 class QuerySearch {
