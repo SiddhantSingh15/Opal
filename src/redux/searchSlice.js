@@ -8,16 +8,18 @@ export const searchSlice = createSlice({
   },
   reducers: {
     addTag: (state, action) => {
-      console.log(action.payload);
-      console.log(action.payload.id);
-      state.tags = [1, 2, 3];
+      state.tags.push(action.payload);
     },
-    setField: (state, action) => {
+    addField: (state, action) => {
       state.fields[action.id] = action.value;
+    },
+    restoreSearch: (state, action) => {
+      state.tags = action.payload.restored;
+      state.fields = action.payload.fields;
     },
   },
 });
 
-export const { addTag, setField } = searchSlice.actions;
+export const { addTag, addField, restoreSearch } = searchSlice.actions;
 
 export default searchSlice.reducer;

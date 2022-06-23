@@ -5,5 +5,4 @@ export default configureStore({
   reducer: {
     search: searchReducer,
   },
-  devTools: process.env.NODE_ENV !== "production",
 });

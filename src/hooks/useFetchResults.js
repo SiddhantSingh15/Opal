@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import useGetSearchParams from "./useGetSearchParams";
 import config from "../config";
+import { useSearchParams } from "react-router-dom";
+import querySearch from "../utils/querySearch";
 
 const fetchAsync = async (query) => {
-  console.log("fetching...", query);
   try {
     const resultsResponse = await axios.post(`${config.BACKEND_URI}/document`, {
       ...query,
@@ -17,7 +17,8 @@ const fetchAsync = async (query) => {
 
 // React hook to get the documents
 const useFetchDocuments = () => {
-  const query = useGetSearchParams();
+  const params = useSearchParams()[0];
+  const query = querySearch.getSearchParams(params);
   const [documents, setDocuments] = useState([]);
 
   useEffect(() => {

@@ -12,7 +12,7 @@ const useFetchTags = (tagIDs) => {
       .post(`${config.BACKEND_URI}/tags`, tagIDs)
       .then((res) => setTags(res.data.tags))
       .catch((e) => console.log(e));
-  }, tagIDs);
+  }, []);
 
   return tags;
 };

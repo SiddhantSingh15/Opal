@@ -33,7 +33,7 @@ export default function SearchBox() {
         )
       );
     } catch (e) {
-      console.log(e);
+      console.log("tag error", tagSubstring, e);
     }
   };
 
