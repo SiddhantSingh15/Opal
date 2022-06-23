@@ -123,7 +123,7 @@ export default function SearchBox() {
       </div>
 
       {/* Suggested Options */}
-      <SuggestionBox tagSuggestions={tagSuggestions} />
+      <SuggestionBox tagSuggestions={tagSuggestions} valueLength={inputValue.length}/>
     </div>
   );
 }
