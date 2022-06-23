@@ -7,6 +7,7 @@ import querySearch from "../utils/querySearch";
 import config from "../config";
 import axios from "axios";
 import SuggestionBox from "./SuggestionBox";
+import "./SearchBox.css"
 
 export default function SearchBox() {
   const [param, setParam] = useSearchParams();
