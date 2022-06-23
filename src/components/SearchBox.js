@@ -7,6 +7,7 @@ import querySearch from "../utils/querySearch";
 import config from "../config";
 import axios from "axios";
 import SuggestionBox from "./SuggestionBox";
+import { useDispatch } from "react-redux";
 
 export default function SearchBox() {
   const [param, setParam] = useSearchParams();
@@ -25,7 +26,11 @@ export default function SearchBox() {
     const url = `${config.BACKEND_URI}/tags/${tagSubstring}`;
     try {
       const response = await axios.get(url);
-      setTagSuggestions(response.data.tags);
+      setTagSuggestions(
+        response.data.tags.filter((tag) =>
+          querySearch.tagNotSearched(param, tag.id)
+        )
+      );
     } catch (e) {
       console.log(e);
     }
@@ -42,6 +47,7 @@ export default function SearchBox() {
     setInputValue(newValue);
   };
 
+  const dispatch = useDispatch();
   /* Performs different actions on special keys pressed */
   const handleKeyDown = (event) => {
     if (inputValue.length > 0) {
@@ -51,7 +57,14 @@ export default function SearchBox() {
         /* Add tag to search parameters */
         if (validSearch()) {
           const { id, name } = tagSuggestions[0];
-          querySearch.addSearchParam(param, setParam, "tag", id, name);
+          querySearch.addSearchParam(
+            param,
+            setParam,
+            "tag",
+            id,
+            name,
+            dispatch
+          );
         }
         handleClear();
         // TODO: redirect to results with search query
@@ -60,7 +73,14 @@ export default function SearchBox() {
         event.preventDefault();
         if (validSearch()) {
           const { id, name } = tagSuggestions[0];
-          querySearch.addSearchParam(param, setParam, "tag", id, name);
+          querySearch.addSearchParam(
+            param,
+            setParam,
+            "tag",
+            id,
+            name,
+            dispatch
+          );
           handleClear();
         }
         break;

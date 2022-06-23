@@ -6,8 +6,9 @@ import { ReactComponent as GovLawIcon } from "../assets/govlaw.svg";
 import { ReactComponent as DocTypeIcon } from "../assets/doc.svg";
 import { ReactComponent as LanguageIcon } from "../assets/language.svg";
 import { ReactComponent as ClassificationIcon } from "../assets/lock.svg";
+import { useDispatch } from "react-redux";
 import { useSearchParams } from "react-router-dom";
-import addSearchParam from "../utils/addSearchParam";
+import querySearch from "../utils/querySearch";
 
 /** Return a SEARCH PARAMETER (something we can search by): TAG, FIELD
  * @param {bool} active whether we are currently searching by this parameter
@@ -38,19 +39,33 @@ export default function Searchable({ type, id, value }) {
     }
   };
 
+  const dispatch = useDispatch();
+
   const addParam = () => {
-    addSearchParam(searchParams, setSearchParams, type, id, value);
-    window.location = window.location.href;
+    querySearch.addSearchParam(
+      searchParams,
+      setSearchParams,
+      type,
+      id,
+      value,
+      dispatch
+    );
   };
 
   //Switch this to later actually check if is a date rather than this bullshit
   const RenderValue = (value) => {
     if (id === "date") {
-      return (value.substring(0,4) + "/" + value.substring(4,6) + "/" + value.substring(6,8));
+      return (
+        value.substring(0, 4) +
+        "/" +
+        value.substring(4, 6) +
+        "/" +
+        value.substring(6, 8)
+      );
     } else {
       return value;
     }
-  }
+  };
 
   const active = false;
 

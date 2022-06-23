@@ -4,6 +4,7 @@ import useGetSearchParams from "./useGetSearchParams";
 import config from "../config";
 
 const fetchAsync = async (query) => {
+  console.log("fetching...", query);
   try {
     const resultsResponse = await axios.post(`${config.BACKEND_URI}/document`, {
       ...query,

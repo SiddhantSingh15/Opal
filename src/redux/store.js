@@ -1,8 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import resultReducer from "./resultSlice";
+import searchReducer from "./searchSlice";
 
 export default configureStore({
   reducer: {
-    result: resultReducer,
+    search: searchReducer,
   },
+  devTools: process.env.NODE_ENV !== "production",
 });

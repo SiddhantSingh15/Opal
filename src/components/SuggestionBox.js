@@ -12,9 +12,8 @@ export default function SuggestionBox({ tagSuggestions }) {
 
   const queryParams = useSearchParams()[0];
 
-  const suggestions = tagSuggestions
-    .filter((tag) => querySearch.tagNotSearched(queryParams, tag.id))
-    .slice(0, TAGS_DISPLAYED);
+  /* Tag suggestions are already filtered */
+  const suggestions = tagSuggestions.slice(0, TAGS_DISPLAYED);
 
   if (tagSuggestions.length === 0) return null;
 
