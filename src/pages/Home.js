@@ -7,7 +7,6 @@ import { useSelector } from "react-redux";
 
 export default function Home() {
   const tags = useSelector((state) => state.search.tags);
-  console.log(tags);
 
   return (
     <div className="home">
@@ -20,7 +19,7 @@ export default function Home() {
             {tags.map((tag, key) => {
               return (
                 <React.Fragment key={key}>
-                  <Searchable type="tag" id={tag.id} value={tag.name} />
+                  <Searchable type="tag" id={tag.id} value={tag.value} />
                 </React.Fragment>
               );
             })}

@@ -21,6 +21,7 @@ class QuerySearch {
           prev.push(id);
           newTags = prev;
         }
+        console.log({ id, value });
         reduxDispatch(addTag({ id, value })); /* Add to redux */
         setSearchParams({ tags: encodeURIComponent(JSON.stringify(newTags)) });
         break;

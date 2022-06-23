@@ -10,7 +10,15 @@ const useFetchTags = (tagIDs) => {
   useEffect(() => {
     axios
       .post(`${config.BACKEND_URI}/tags`, tagIDs)
-      .then((res) => setTags(res.data.tags))
+      .then((res) =>
+        setTags(
+          res.data.tags.map((t) => {
+            t.value = t.name;
+            delete t.name;
+            return t;
+          })
+        )
+      )
       .catch((e) => console.log(e));
   }, []);
 
