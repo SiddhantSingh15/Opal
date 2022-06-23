@@ -1,6 +1,6 @@
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { config } from "react-spring";
+import config from "../config";
 import { ReactComponent as OpalLogo } from "../assets/opal.svg";
 import "./NavBar.css";
 
