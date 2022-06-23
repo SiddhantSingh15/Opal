@@ -29,9 +29,13 @@ export default function SearchBox() {
     try {
       const response = await axios.get(url);
       setTagSuggestions(
-        response.data.tags.filter((tag) =>
-          querySearch.tagNotSearched(param, tag.id)
-        )
+        response.data.tags
+          .filter((tag) => querySearch.tagNotSearched(param, tag.id))
+          .map((tag) => {
+            tag.value = tag.name;
+            delete tag.name;
+            return tag;
+          })
       );
     } catch (e) {
       console.log("tag error", tagSubstring, e);
@@ -86,12 +90,12 @@ export default function SearchBox() {
           handleClear();
         }
         break;
-      case "Backspace":
-        /* Remove latest tag if backspacing on it. */
-        if (inputValue === "") {
-          querySearch.removeLatestTag();
-        }
-        break;
+      // case "Backspace":
+      //   /* Remove latest tag if backspacing on it. */
+      //   if (inputValue === "") {
+      //     querySearch.removeLatestTag();
+      //   }
+      //   break;
       default:
         break;
     }

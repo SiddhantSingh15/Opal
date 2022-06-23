@@ -3,9 +3,8 @@ import { addTag } from "../redux/searchSlice";
 
 class QuerySearch {
   /** Add a search parameter
-   * @param {function} reduxDispatch dispatcher for adding to redux state
    */
-  addSearchParam = (params, setParams, type, id, value, reduxDispatch) => {
+  addSearchParam = (params, setParams, type, id, value) => {
     switch (type) {
       case "tag":
         let newTags = [id];
@@ -14,7 +13,6 @@ class QuerySearch {
           prev.push(id);
           newTags = prev;
         }
-        reduxDispatch(addTag({ id, value })); /* Add to redux */
         this.updateParam(
           params,
           setParams,
@@ -31,9 +29,39 @@ class QuerySearch {
     window.location = window.location.href;
   };
 
-  /* Update one query parameter without changing others */
+  /** Add a search parameter
+   */
+  removeSearchParam = (params, setParams, type, id, value) => {
+    switch (type) {
+      case "tag":
+        if (!params.has("tags"))
+          throw new Error("tag being removed doesn't exist");
+        // TODO: check it works with only one tag (edge case)
+        const prev = JSON.parse(decodeURIComponent(params.get("tags")));
+        const newTags = prev.filter((tagID) => tagID !== id);
+        this.updateParam(
+          params,
+          setParams,
+          "tags",
+          newTags.length > 0 ? encodeURIComponent(JSON.stringify(newTags)) : ""
+        );
+        break;
+      case "field":
+        if (!params.has(id))
+          throw new Error("field being removed doesn't exist");
+        this.updateParam(params, setParams, id, "");
+        break;
+      default:
+        throw new Error("Unsupported parameter type");
+    }
+    window.location = window.location.href;
+  };
+
+  /** Update one query parameter without changing others
+   * @param {str} value updating to. If value = '', then remove the field
+   */
   updateParam = (params, setParams, key, value) => {
-    const query = { [key]: value };
+    const query = value ? { [key]: value } : {};
 
     for (const p of config.VALID_FIELDS.concat("tags")) {
       if (p !== key && params.has(p)) {

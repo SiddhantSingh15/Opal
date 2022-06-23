@@ -8,7 +8,6 @@ import { useSearchParams } from "react-router-dom";
 
 export default function SuggestionBox({ tagSuggestions }) {
   const TAGS_DISPLAYED = 9;
-  // TODO: get tag suggestions that have not yet been searched
 
   const queryParams = useSearchParams()[0];
 
@@ -29,7 +28,7 @@ export default function SuggestionBox({ tagSuggestions }) {
                 type="tag"
                 key={key}
                 id={tag.id}
-                value={tag.name}
+                value={tag.value}
               />
 
               {/* <CloseIcon

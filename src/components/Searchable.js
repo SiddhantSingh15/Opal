@@ -6,6 +6,7 @@ import { ReactComponent as GovLawIcon } from "../assets/govlaw.svg";
 import { ReactComponent as DocTypeIcon } from "../assets/doc.svg";
 import { ReactComponent as LanguageIcon } from "../assets/language.svg";
 import { ReactComponent as ClassificationIcon } from "../assets/lock.svg";
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import { useDispatch } from "react-redux";
 import { useSearchParams } from "react-router-dom";
 import querySearch from "../utils/querySearch";
@@ -31,6 +32,8 @@ export default function Searchable({ type, id, value, input }) {
             return <LanguageIcon className="icon" fill="white" />;
           case "access":
             return <ClassificationIcon className="icon" fill="white" />;
+          case "date":
+            return <CalendarMonthIcon className="icon" fill="white" />;
           default:
             return <TagIcon className="icon" fill="white" />;
         }
@@ -53,6 +56,14 @@ export default function Searchable({ type, id, value, input }) {
         value,
         dispatch
       );
+    } else {
+      querySearch.removeSearchParam(
+        searchParams,
+        setSearchParams,
+        type,
+        id,
+        value
+      );
     }
   };
 
@@ -66,9 +77,7 @@ export default function Searchable({ type, id, value, input }) {
         "/" +
         value.substring(6, 8)
       );
-    } else {
-      return value;
-    }
+    } else return value;
   };
 
   const active = false;
