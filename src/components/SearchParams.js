@@ -1,21 +1,22 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import Searchable from "./Searchable";
 
 export default function SearchParams() {
-  const searchParams = [{ id: "12", name: "shifosafh", type: "tag" }];
+  const { tags, fields } = useSelector((state) => state.search);
 
   return (
-    <React.Fragment>
-      {searchParams.map((param, key) => {
-        return (
-          <React.Fragment key={key}>
-            <Searchable
-              param={param}
-              handleClick={() => this.props.app.handleRemoveSingleParam(param)}
-            />
-          </React.Fragment>
-        );
-      })}
-    </React.Fragment>
+    <div>
+      {tags.map((tag, key) => (
+        <div key={key}>
+          <Searchable type="tag" id={tag.id} value={tag.value} />
+        </div>
+      ))}
+      {Object.keys(fields).map((fieldKey, key) => (
+        <div key={key}>
+          <Searchable type="field" id={fieldKey} value={fields[fieldKey]} />
+        </div>
+      ))}
+    </div>
   );
 }

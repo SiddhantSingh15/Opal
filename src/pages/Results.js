@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import DocumentView from "../components/DocumentView";
 import ResultList from "../components/ResultList";
 import SearchBox from "../components/SearchBox";
+import SearchParams from "../components/SearchParams";
 import { ReactComponent as BackArrow } from "../assets/backarrow.svg";
 import "./Results.css";
 
@@ -23,7 +24,9 @@ export default function Results() {
         <div className="search-box">
           <SearchBox />
         </div>
-        <div className="params">{/* <SearchParams /> */}</div>
+        <div className="params">
+          <SearchParams />
+        </div>
         <BackArrow
           className="back-icon"
           onClick={() => this.props.app.handleGoToPage("home")}
