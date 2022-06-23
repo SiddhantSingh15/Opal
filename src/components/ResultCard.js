@@ -5,7 +5,7 @@ import { Button, Backdrop } from "@mui/material";
 import useFetchTags from "../hooks/useFetchTags";
 import "./ResultsCard.css";
 
-export default function ResultCard({ result, handleToggleDocumentView }) {
+export default function ResultCard({ result, handleToggleDocumentView, setCurrentDocLink}) {
   const handleResultsCardClick = (e) => {
     if (
       ["fields", "tags", "element", "results-card"].includes(e.target.className)
@@ -86,7 +86,8 @@ export default function ResultCard({ result, handleToggleDocumentView }) {
       <div className="buttons">
       <Button
         variant="contained"
-        onClick={handleToggleDocumentView}
+        onClick={() => {handleToggleDocumentView();
+                        setCurrentDocLink(result.fields.pdf_url);}}
         className="clickable buttons"
       >
         Preview

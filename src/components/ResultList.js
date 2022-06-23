@@ -3,7 +3,7 @@ import ResultCard from "./ResultCard";
 import Loading from "./Loading";
 import useFetchResults from "../hooks/useFetchResults";
 
-export default function ResultList({ handleToggleDocumentView }) {
+export default function ResultList({ handleToggleDocumentView,setCurrentDocLink }) {
   const results = useFetchResults();
 
   if (!results || results.length === 0) return <Loading />;
@@ -26,6 +26,7 @@ export default function ResultList({ handleToggleDocumentView }) {
             key={key}
             result={result}
             handleToggleDocumentView={handleToggleDocumentView}
+            setCurrentDocLink={setCurrentDocLink}
           />
         );
       })}
