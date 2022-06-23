@@ -12,6 +12,11 @@
 	background: rgb(225, 225, 225);
 }
 
+.results-card .multi-param{
+  display:flex;
+  flex-wrap: wrap;
+}
+
 
  .results-card .buttons {
   margin-left: auto;

@@ -65,12 +65,16 @@ export default function ResultCard({ result, handleToggleDocumentView, setCurren
           <Searchable input type="field" id="date" value={result.fields.date} />
         </div>
         <div className="element">
-          <Searchable
-            input
-            type="field"
-            id="govlaw"
-            value={result.fields.govlaw}
-          />
+          <div className="multi-param">
+            {result.fields.governing_law.map(param =>
+            <Searchable
+              input
+              type="field"
+              id="govlaw"
+              value={param}
+            />
+            )}
+          </div>
         </div>
         <div className="tags">
           {tags.map((tag, key) => (
