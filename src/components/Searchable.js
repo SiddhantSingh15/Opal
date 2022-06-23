@@ -67,7 +67,6 @@ export default function Searchable({ type, id, value, input }) {
     }
   };
 
-  //Switch this to later actually check if is a date rather than this bullshit
   const RenderValue = (value) => {
     if (id === "date") {
       return (

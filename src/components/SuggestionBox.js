@@ -6,7 +6,7 @@ import querySearch from "../utils/querySearch";
 import { useSearchParams } from "react-router-dom";
 // TODO: implement tag exclude functionality
 
-export default function SuggestionBox({ tagSuggestions, valueLength}) {
+export default function SuggestionBox({ tagSuggestions, inputValue}) {
   const TAGS_DISPLAYED = 9;
 
   const queryParams = useSearchParams()[0];
@@ -14,11 +14,21 @@ export default function SuggestionBox({ tagSuggestions, valueLength}) {
   /* Tag suggestions are already filtered */
   const suggestions = tagSuggestions.slice(0, TAGS_DISPLAYED);
 
-  if (tagSuggestions.length === 0 || (valueLength === 0)) return null;
+  if (tagSuggestions.length === 0 && (inputValue.length === 0)) return null;
 
   return (
     <div className="suggestions">
       {/* Display k number of most relevant tags */}
+      <div className="text-option">
+        <div className="text-option-tag">
+          <Searchable
+                    input
+                    type="search"
+                    id={null}
+                    value={inputValue}
+                  />
+        </div>
+      </div>
       <div className="tags-box">
         {suggestions.map((tag, key) => {
           return (
