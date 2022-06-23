@@ -19,8 +19,8 @@ class DocumentView extends React.Component {
 				<CloseIcon className="icon" onClick={this.props.toggleModal}/>
 				<iframe
 					title="documentPreview"
-					className="document" 
-					src ="./document.html"/>
+				 	className="document" 
+					src ="./document.pdf"/>
 			</Modal>
 		)
 	}
