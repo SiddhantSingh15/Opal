@@ -83,13 +83,22 @@ export default function ResultCard({ result, handleToggleDocumentView }) {
           ))}
         </div>
       </div>
+      <div className="buttons">
+      <Button
+        variant="contained"
+        onClick={handleToggleDocumentView}
+        className="clickable buttons"
+      >
+        Preview
+      </Button>
       <Button
         variant="contained"
         onClick={handleToggleSummary}
         className="clickable buttons"
       >
-        SUMMARY
+        Summary
       </Button>
+      </div>
       <Backdrop
         className="clickable"
         sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
