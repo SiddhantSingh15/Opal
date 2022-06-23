@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { ReactComponent as SearchIcon } from "../assets/magnifier.svg";
 import { ReactComponent as CloseIcon } from "../assets/close.svg";
-import { ReactComponent as DotDotDot } from "../assets/dotdotdot.svg";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import querySearch from "../utils/querySearch";
 import config from "../config";
