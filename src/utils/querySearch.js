@@ -5,32 +5,43 @@ class QuerySearch {
   /** Add a search parameter
    * @param {function} reduxDispatch dispatcher for adding to redux state
    */
-  addSearchParam = (
-    searchParams,
-    setSearchParams,
-    type,
-    id,
-    value,
-    reduxDispatch
-  ) => {
+  addSearchParam = (params, setParams, type, id, value, reduxDispatch) => {
     switch (type) {
       case "tag":
         let newTags = [id];
-        if (searchParams.has("tags")) {
-          const prev = JSON.parse(decodeURIComponent(searchParams.get("tags")));
+        if (params.has("tags")) {
+          const prev = JSON.parse(decodeURIComponent(params.get("tags")));
           prev.push(id);
           newTags = prev;
         }
-        console.log({ id, value });
         reduxDispatch(addTag({ id, value })); /* Add to redux */
-        setSearchParams({ tags: encodeURIComponent(JSON.stringify(newTags)) });
+        this.updateParam(
+          params,
+          setParams,
+          "tags",
+          encodeURIComponent(JSON.stringify(newTags))
+        );
         break;
       case "field":
-        setSearchParams({ [id]: value });
+        this.updateParam(params, setParams, id, value);
         break;
       default:
         throw new Error("Unsupported parameter type");
     }
+    window.location = window.location.href;
+  };
+
+  /* Update one query parameter without changing others */
+  updateParam = (params, setParams, key, value) => {
+    const query = { [key]: value };
+
+    for (const p of config.VALID_FIELDS.concat("tags")) {
+      if (p !== key && params.has(p)) {
+        query[p] = params.get(p);
+      }
+    }
+
+    setParams(query);
   };
 
   removeLatestTag = () => {

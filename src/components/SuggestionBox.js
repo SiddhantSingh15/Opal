@@ -24,7 +24,13 @@ export default function SuggestionBox({ tagSuggestions }) {
         {suggestions.map((tag, key) => {
           return (
             <div key={key} className="tag-option">
-              <Searchable type="tag" key={key} id={tag.id} value={tag.name} />
+              <Searchable
+                input
+                type="tag"
+                key={key}
+                id={tag.id}
+                value={tag.name}
+              />
 
               {/* <CloseIcon
                   className="icon"

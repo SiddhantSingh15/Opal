@@ -11,9 +11,11 @@ import { useSearchParams } from "react-router-dom";
 import querySearch from "../utils/querySearch";
 
 /** Return a SEARCH PARAMETER (something we can search by): TAG, FIELD
- * @param {bool} active whether we are currently searching by this parameter
+ * @param {bool} input whether the tag is an input button (if clicked adds the
+ * parameter). In that case on click we add the parameter, otherwise we remove
+ * it.
  */
-export default function Searchable({ type, id, value }) {
+export default function Searchable({ type, id, value, input }) {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const renderTagIcon = () => {
@@ -41,15 +43,17 @@ export default function Searchable({ type, id, value }) {
 
   const dispatch = useDispatch();
 
-  const addParam = () => {
-    querySearch.addSearchParam(
-      searchParams,
-      setSearchParams,
-      type,
-      id,
-      value,
-      dispatch
-    );
+  const handleClick = () => {
+    if (input) {
+      querySearch.addSearchParam(
+        searchParams,
+        setSearchParams,
+        type,
+        id,
+        value,
+        dispatch
+      );
+    }
   };
 
   //Switch this to later actually check if is a date rather than this bullshit
@@ -74,7 +78,7 @@ export default function Searchable({ type, id, value }) {
       <p>{RenderValue(value)}</p>
     </div>
   ) : (
-    <div className="tag" onClick={addParam}>
+    <div className="tag" onClick={handleClick}>
       {renderTagIcon()}
       <p>{RenderValue(value)}</p>
     </div>
