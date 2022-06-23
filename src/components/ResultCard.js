@@ -11,6 +11,7 @@ export default function ResultCard({ result, handleToggleDocumentView, setCurren
       ["fields", "tags", "element", "results-card"].includes(e.target.className)
     ) {
       handleToggleDocumentView();
+      setCurrentDocLink(result.fields.pdf_url);
     }
   };
 
@@ -107,14 +108,7 @@ export default function ResultCard({ result, handleToggleDocumentView, setCurren
         onClick={handleCloseSummary}
       >
         <Summary
-          summary=" Excepteur aliquip laboris et incididunt tempor amet aute dolor amet
-      culpa et amet. Nostrud culpa veniam minim occaecat culpa officia qui.
-      Irure commodo laborum laborum nisi. Occaecat voluptate adipisicing
-      consequat duis dolor occaecat dolor ipsum duis. Est dolore labore
-      voluptate pariatur eiusmod duis pariatur est aliqua. Consequat aliquip
-      anim officia aute dolore veniam minim ullamco. Sint quis fugiat veniam
-      eu non. Est nostrud officia ex nostrud. Commodo consectetur exercitation
-      adipisicing voluptate."
+          summary={result.fields.summary}
           title={result.fields.title}
         />
       </Backdrop>
