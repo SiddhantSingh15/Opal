@@ -6,7 +6,7 @@ import useFetchResults from "../hooks/useFetchResults";
 export default function ResultList({ handleToggleDocumentView }) {
   const results = useFetchResults();
 
-  if (!results) return <Loading />;
+  if (!results || results.length === 0) return <Loading />;
 
   return (
     <div className="table">

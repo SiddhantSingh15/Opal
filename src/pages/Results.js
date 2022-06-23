@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import DocumentView from "../components/DocumentView";
 import ResultList from "../components/ResultList";
+import SearchBox from "../components/SearchBox";
 import { ReactComponent as BackArrow } from "../assets/backarrow.svg";
 import "./Results.css";
 
@@ -19,7 +20,9 @@ export default function Results() {
         toggleModal={handleToggleDocumentView}
       />
       <div className="info-bar">
-        <div className="search-box">{/* <SearchBox /> */}</div>
+        <div className="search-box">
+          <SearchBox />
+        </div>
         <div className="params">{/* <SearchParams /> */}</div>
         <BackArrow
           className="back-icon"
