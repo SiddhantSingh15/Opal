@@ -8,6 +8,7 @@ import config from "../config";
 import axios from "axios";
 import SuggestionBox from "./SuggestionBox";
 import { useDispatch } from "react-redux";
+import "./SearchBox.css";
 
 export default function SearchBox() {
   const [param, setParam] = useSearchParams();
