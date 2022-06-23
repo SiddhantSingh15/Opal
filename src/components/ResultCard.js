@@ -4,7 +4,7 @@ import Summary from "./Summary.js";
 import { Button, Backdrop } from "@mui/material";
 import styles from "../styles";
 import useFetchTags from "../hooks/useFetchTags";
-import "./ResultsCard.css"
+import "./ResultsCard.css";
 
 export default function ResultCard({ result, handleToggleDocumentView }) {
   const handleResultsCardClick = (e) => {
@@ -26,12 +26,14 @@ export default function ResultCard({ result, handleToggleDocumentView }) {
   };
 
   const cutText = (text) => {
-    return text.substring(0,150).concat(result.fields.title.length > 150 ? "..." : "") 
-  }
+    return text
+      .substring(0, 150)
+      .concat(result.fields.title.length > 150 ? "..." : "");
+  };
 
-
+  // Fetches tags from tag ids
   const tags = useFetchTags(result.tags);
- 
+
   return (
     <div className="results-card" onClick={handleResultsCardClick}>
       <div className="fields">
