@@ -8,6 +8,7 @@ import "./Results.css";
 
 export default function Results() {
   const [viewingDoc, setViewingDoc] = useState(false);
+  const [currentDocLink, setCurrentDocLink] = useState("");
 
   const handleToggleDocumentView = () => {
     setViewingDoc(!viewingDoc);
@@ -19,6 +20,7 @@ export default function Results() {
       <DocumentView
         isOpen={viewingDoc}
         toggleModal={handleToggleDocumentView}
+        currentDocument={currentDocLink}
       />
       <div className="info-bar">
         <div className="search-box">
@@ -27,12 +29,8 @@ export default function Results() {
         <div className="params">
           <SearchParams />
         </div>
-        <BackArrow
-          className="back-icon"
-          onClick={() => this.props.app.handleGoToPage("home")}
-        />
       </div>
-      <ResultList handleToggleDocumentView={handleToggleDocumentView} />
+      <ResultList handleToggleDocumentView={handleToggleDocumentView} setCurrentDocLink={setCurrentDocLink} />
     </div>
   );
 }

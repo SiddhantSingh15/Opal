@@ -1,16 +1,18 @@
 import React, { useState } from "react";
 import Searchable from "./Searchable";
 import Summary from "./Summary.js";
+import {ReactComponent as Download} from "../assets/download.svg"
 import { Button, Backdrop } from "@mui/material";
 import useFetchTags from "../hooks/useFetchTags";
 import "./ResultsCard.css";
 
-export default function ResultCard({ result, handleToggleDocumentView }) {
+export default function ResultCard({ result, handleToggleDocumentView, setCurrentDocLink}) {
   const handleResultsCardClick = (e) => {
     if (
       ["fields", "tags", "element", "results-card"].includes(e.target.className)
     ) {
       handleToggleDocumentView();
+      setCurrentDocLink(result.fields.pdf_url);
     }
   };
 
@@ -64,12 +66,16 @@ export default function ResultCard({ result, handleToggleDocumentView }) {
           <Searchable input type="field" id="date" value={result.fields.date} />
         </div>
         <div className="element">
-          <Searchable
-            input
-            type="field"
-            id="govlaw"
-            value={result.fields.govlaw}
-          />
+          <div className="multi-param">
+            {result.fields.governing_law.map(param =>
+            <Searchable
+              input
+              type="field"
+              id="govlaw"
+              value={param}
+            />
+            )}
+          </div>
         </div>
         <div className="tags">
           {tags.map((tag, key) => (
@@ -84,13 +90,7 @@ export default function ResultCard({ result, handleToggleDocumentView }) {
         </div>
       </div>
       <div className="buttons">
-      <Button
-        variant="contained"
-        onClick={handleToggleDocumentView}
-        className="clickable buttons"
-      >
-        Preview
-      </Button>
+
       <Button
         variant="contained"
         onClick={handleToggleSummary}
@@ -98,6 +98,17 @@ export default function ResultCard({ result, handleToggleDocumentView }) {
       >
         Summary
       </Button>
+      <Button
+        variant="contained"
+        onClick={() => {handleToggleDocumentView();
+                        setCurrentDocLink(result.fields.pdf_url);}}
+        className="clickable buttons"
+      >
+        Preview
+      </Button>
+      <a href={result.fields.pdf_url} download="document">
+      <Download/>
+      </a>
       </div>
       <Backdrop
         className="clickable"
@@ -106,14 +117,7 @@ export default function ResultCard({ result, handleToggleDocumentView }) {
         onClick={handleCloseSummary}
       >
         <Summary
-          summary=" Excepteur aliquip laboris et incididunt tempor amet aute dolor amet
-      culpa et amet. Nostrud culpa veniam minim occaecat culpa officia qui.
-      Irure commodo laborum laborum nisi. Occaecat voluptate adipisicing
-      consequat duis dolor occaecat dolor ipsum duis. Est dolore labore
-      voluptate pariatur eiusmod duis pariatur est aliqua. Consequat aliquip
-      anim officia aute dolore veniam minim ullamco. Sint quis fugiat veniam
-      eu non. Est nostrud officia ex nostrud. Commodo consectetur exercitation
-      adipisicing voluptate."
+          summary={result.fields.summary}
           title={result.fields.title}
         />
       </Backdrop>
