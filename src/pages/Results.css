@@ -10,25 +10,31 @@
   display: grid;
 }
 
+
+
 .results .table .title {
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
+  grid-template-columns: repeat(8, 1fr);
   margin-bottom: 5px;
   padding: 5px;
   font-weight: bold;
 }
 
 .results .table .fields {
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(7, 1fr);
   padding: 0px;
   display: block;
   background-color: transparent;
   color: black;
   display: grid;
-  grid-column: span 6;
+  grid-column: span 7;
   padding: 5px;
   padding-bottom: 10px;
   padding-top: 10px;
+}
+
+.results .table .docTitle {
+  grid-column: span 2;
 }
 
 .results .table .tags {
