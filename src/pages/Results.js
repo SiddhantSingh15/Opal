@@ -29,10 +29,6 @@ export default function Results() {
         <div className="params">
           <SearchParams />
         </div>
-        <BackArrow
-          className="back-icon"
-          onClick={() => this.props.app.handleGoToPage("home")}
-        />
       </div>
       <ResultList handleToggleDocumentView={handleToggleDocumentView} setCurrentDocLink={setCurrentDocLink} />
     </div>

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Searchable from "./Searchable";
 import Summary from "./Summary.js";
+import {ReactComponent as Download} from "../assets/download.svg"
 import { Button, Backdrop } from "@mui/material";
 import useFetchTags from "../hooks/useFetchTags";
 import "./ResultsCard.css";
@@ -89,6 +90,14 @@ export default function ResultCard({ result, handleToggleDocumentView, setCurren
         </div>
       </div>
       <div className="buttons">
+
+      <Button
+        variant="contained"
+        onClick={handleToggleSummary}
+        className="clickable buttons"
+      >
+        Summary
+      </Button>
       <Button
         variant="contained"
         onClick={() => {handleToggleDocumentView();
@@ -97,13 +106,9 @@ export default function ResultCard({ result, handleToggleDocumentView, setCurren
       >
         Preview
       </Button>
-      <Button
-        variant="contained"
-        onClick={handleToggleSummary}
-        className="clickable buttons"
-      >
-        Summary
-      </Button>
+      <a href={result.fields.pdf_url} download="document">
+      <Download/>
+      </a>
       </div>
       <Backdrop
         className="clickable"
