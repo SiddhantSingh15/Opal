@@ -8,13 +8,13 @@
   border-radius: 15px;
 }
 
-
-  
-
-
-
 .results-card:hover {
 	background: rgb(225, 225, 225);
+}
+
+.results-card .multi-param{
+  display:flex;
+  flex-wrap: wrap;
 }
 
 
@@ -30,4 +30,8 @@
   margin: auto;
   padding: 10px;
   border-radius: 15px;
+}
+
+.results-card button:hover {
+  background:gray;
 }

@@ -3,13 +3,13 @@ import DocumentView from "../components/DocumentView";
 import ResultList from "../components/ResultList";
 import SearchBox from "../components/SearchBox";
 import SearchParams from "../components/SearchParams";
-import { ReactComponent as BackArrow } from "../assets/backarrow.svg";
 import "./Results.css";
 import useAuth from "../hooks/useAuth";
 import Loading from "../components/Loading";
 
 export default function Results() {
   const [viewingDoc, setViewingDoc] = useState(false);
+  const [currentDocLink, setCurrentDocLink] = useState("");
 
   const authenticate = useAuth();
 
@@ -27,6 +27,7 @@ export default function Results() {
       <DocumentView
         isOpen={viewingDoc}
         toggleModal={handleToggleDocumentView}
+        currentDocument={currentDocLink}
       />
       <div className="info-bar">
         <div className="search-box">
@@ -35,12 +36,13 @@ export default function Results() {
         <div className="params">
           <SearchParams />
         </div>
-        <BackArrow
-          className="back-icon"
-          onClick={() => this.props.app.handleGoToPage("home")}
-        />
+        <div className="save-tag">
+          <button onClick={() => alert("Suprise! you've been gnomed this feature does not exist yet")}>
+            Save Tag
+          </button>
+        </div>
       </div>
-      <ResultList handleToggleDocumentView={handleToggleDocumentView} />
+      <ResultList handleToggleDocumentView={handleToggleDocumentView} setCurrentDocLink={setCurrentDocLink} />
     </div>
   );
 }

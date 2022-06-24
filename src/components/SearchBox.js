@@ -128,7 +128,7 @@ export default function SearchBox() {
       </div>
 
       {/* Suggested Options */}
-      <SuggestionBox tagSuggestions={tagSuggestions} />
+      <SuggestionBox tagSuggestions={tagSuggestions} inputValue={inputValue}/>
     </div>
   );
 }
