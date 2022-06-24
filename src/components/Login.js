@@ -16,14 +16,13 @@ export default function Login() {
 
   return (
     <div className="login">
-      <Paper elevation={10} sx={{ width: "400px", padding: "30px" }}>
         <Box>
-          <Typography variant="h3">Authentication</Typography>
-          <Typography variant="subtitle">
-            Login to connect to your organisation and view your documents
-          </Typography>
+          <h3>Authentication</h3>
+          <p>
+           Login to connect to your organisation and view your documents
+          </p>
         </Box>
-        <Stack spacing={3} sx={{ margin: "0 auto", marginTop: "30px" }}>
+        <Stack spacing={3} sx={{ margin: "0 auto", marginTop: "30px"}}>
           <TextField
             id="email"
             label="Email"
@@ -31,6 +30,7 @@ export default function Login() {
             required
             autoComplete="off"
             onChange={(e) => setEmail(e.target.value)}
+            sx={{background:"white", borderRadius: "15px"}}
           />
           <TextField
             id="password"
@@ -39,10 +39,11 @@ export default function Login() {
             required
             autoComplete="off"
             onChange={(e) => setPassword(e.target.value)}
+            sx={{background:"white", borderRadius: "15px"}}
           />
           <Box sx={{ display: "flex", justifyContent: "space-between" }}>
             <Stack direction="row" sx={{ height: "20px" }}>
-              <Checkbox />
+              <Checkbox/>
               <Typography sx={{ lineHeight: "20px" }} variant="body1">
                 Remember me
               </Typography>
@@ -50,7 +51,7 @@ export default function Login() {
             <Typography
               variant="body1"
               sx={{
-                color: "gray",
+                color: "white",
                 textDecoration: "underline",
                 cursor: "pointer",
               }}
@@ -58,14 +59,13 @@ export default function Login() {
               Forgot credentials?
             </Typography>
           </Box>
-          <Button
+          <button
             sx={{ height: "50px", display: "block", marginBottom: "50px" }}
             variant="contained"
           >
-            SUBMIT
-          </Button>
+            <p>SUBMIT</p>
+          </button>
         </Stack>
-      </Paper>
     </div>
   );
 }

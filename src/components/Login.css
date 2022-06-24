@@ -1,3 +1,18 @@
 .login {
 	background-color: #202124;
+	padding: 15px;
+	border-radius: 15px;
+	color: white;
+}
+
+.login button {
+	padding: 10px;
+	border-radius: 15px;
+	border: transparent;
+}
+
+.login button p {
+	font-size: 17px;
+	font-weight: bold;
+	color: black;
 }
