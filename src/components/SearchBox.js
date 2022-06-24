@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { ReactComponent as SearchIcon } from "../assets/magnifier.svg";
 import { ReactComponent as CloseIcon } from "../assets/close.svg";
-import { ReactComponent as DotDotDot } from "../assets/dotdotdot.svg";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import querySearch from "../utils/querySearch";
 import config from "../config";
@@ -9,8 +8,11 @@ import axios from "axios";
 import SuggestionBox from "./SuggestionBox";
 import { useDispatch } from "react-redux";
 import "./SearchBox.css";
+import useAuth from "../hooks/useAuth";
 
 export default function SearchBox() {
+  const authenticate = useAuth();
+
   const navigate = useNavigate();
   const [param, setParam] = useSearchParams();
 
@@ -25,6 +27,8 @@ export default function SearchBox() {
 
   /* Gets tags from substring */
   const getSuggested = async (tagSubstring) => {
+    if (!authenticate.success) return null;
+
     const url = `${config.BACKEND_URI}/tags/${tagSubstring}`;
     try {
       const response = await axios.get(url);
