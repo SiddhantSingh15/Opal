@@ -143,10 +143,8 @@ export default function Login({ open, close }) {
         sx={{ width: "400px", padding: "30px", zIndex: "1000" }}
       >
         <Box>
-          <Typography variant="h3">Authentication</Typography>
-          <Typography variant="subtitle">
-            Login to connect to your organisation and view your documents
-          </Typography>
+          <h3>Authentication</h3>
+          <p>Login to connect to your organisation and view your documents</p>
         </Box>
         {body}
       </Paper>
