@@ -1,12 +1,14 @@
 import CryptoJS from "crypto-js";
 import { useEffect, useState } from "react";
 import config from "../config";
+import loginRequest from "../utils/loginRequest";
 
 /** Authenticates the user, otherwise, redirects to home page. */
 const useAuth = () => {
   const [response, setResponse] = useState({});
 
   useEffect(() => {
+    console.log("sending request...");
     const encrypted = sessionStorage.getItem("auth");
     if (!encrypted) {
       setResponse({ success: false, message: "Auth credentials non present" });
@@ -21,12 +23,9 @@ const useAuth = () => {
 
       const [username, password] = split;
 
-      fetch(`${config}/user/auth`, {
-        headers: { username, password },
-      })
-        .then((res) => res.json())
-        .then((jsonRes) => {
-          if (!jsonRes.success) {
+      loginRequest(username, password)
+        .then((res) => {
+          if (!res.authenticated) {
             setResponse({
               success: false,
               message: "Invalid username and password",

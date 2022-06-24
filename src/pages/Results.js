@@ -6,6 +6,7 @@ import SearchParams from "../components/SearchParams";
 import { ReactComponent as BackArrow } from "../assets/backarrow.svg";
 import "./Results.css";
 import useAuth from "../hooks/useAuth";
+import Loading from "../components/Loading";
 
 export default function Results() {
   const [viewingDoc, setViewingDoc] = useState(false);
@@ -13,8 +14,7 @@ export default function Results() {
   const authenticate = useAuth();
 
   if (!authenticate.success) {
-    window.location = "/";
-    return null;
+    return <Loading />;
   }
 
   const handleToggleDocumentView = () => {

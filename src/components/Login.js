@@ -13,6 +13,8 @@ import {
 import React, { useState } from "react";
 import config from "../config";
 import CryptoJS from "crypto-js";
+import { PasswordSharp } from "@mui/icons-material";
+import loginRequest from "../utils/loginRequest";
 
 export default function Login({ open, close }) {
   const [email, setEmail] = useState("");
@@ -20,7 +22,7 @@ export default function Login({ open, close }) {
   const [errorMessage, setErrorMessage] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const requestLogin = () => {
+  const requestLogin = async () => {
     if (!email) {
       setErrorMessage("Email required");
       return;
@@ -32,28 +34,23 @@ export default function Login({ open, close }) {
 
     setLoading(true);
 
-    fetch(`${config}/user/auth`, {
-      headers: { username: email, password },
-    })
-      .then((res) => res.json())
-      .then((jsonRes) => {
-        if (!jsonRes.success) {
-          setErrorMessage("Invalid credentials");
-        } else {
-          // Auth
-          const encrypted = CryptoJS.AES.encrypt(
-            `${email}${config.CREDENTIALS_SEPARATOR}${password}`,
-            config.DUMMY_ENCRYPTION_SECRET
-          ).toString();
-          window.sessionStorage.setItem("auth", encrypted);
-          window.location = window.location.pathname;
-        }
-        console.log(jsonRes);
-      })
-      .catch((err) => {
-        console.log(err);
-        setErrorMessage("Error, retry");
-      });
+    const response = await loginRequest();
+    if (!response) {
+      setErrorMessage("Unknown error, retry!");
+      return;
+    }
+
+    if (!response.authenticated) {
+      setErrorMessage("Invalid credentials");
+      return;
+    }
+
+    const encrypted = CryptoJS.AES.encrypt(
+      `${email}${config.CREDENTIALS_SEPARATOR}${password}`,
+      config.DUMMY_ENCRYPTION_SECRET
+    ).toString();
+    window.sessionStorage.setItem("auth", encrypted);
+    window.location = window.location.pathname;
   };
 
   const handleClose = (e) => {
