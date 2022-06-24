@@ -1,24 +1,22 @@
-import React from 'react';
-import {ReactComponent as OpalLogo} from "../assets/opal.svg"
+import React from "react";
+import { useLocation } from "react-router-dom";
+import config from "../config";
+import { ReactComponent as OpalLogo } from "../assets/opal.svg";
 import "./NavBar.css";
 
-const NavBar = ({app}) => {
-  return (
-		<div className='navbar'>
-			{app.state.page !== "search" && 
-				<div className='navbar__search'>
-					<OpalLogo className = 'navbar__logo' onClick={() => app.handleGoToPage("search")}/>
-				</div>
-			}
-			<div className="navbar__links">
-				<ul>
-					{/* <p onClick={() => app.handleGoToPage("search")} >Search</p> */}
-					{/* <p>Tags</p>
-					<p>Repository</p> */}
-				</ul>
-			</div>
-		</div>
-  )
-}
+const NavBar = () => {
+  const location = useLocation();
 
-export default NavBar
+  return (
+    <div className="navbar">
+      {location.pathname !== config.HOME_PATH && (
+        <OpalLogo
+          className="logo"
+          onClick={() => (window.location = config.HOME_PATH)}
+        />
+      )}
+    </div>
+  );
+};
+
+export default NavBar;

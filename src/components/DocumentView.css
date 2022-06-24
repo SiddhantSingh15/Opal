@@ -1,4 +1,4 @@
-.mymodal {
+.myoverlay .viewer-modal {
   position: fixed;
   top: 50%;
   left: 50%;
@@ -13,14 +13,14 @@
 	flex-direction: column;
 }
 
-.closeIcon {
+.myoverlay .icon {
 	margin-bottom: 15px;
 	margin-left: auto;
 }
 
-.document {
+.myoverlay .document {
 	width:750px;
-	height:1000px ;
+	height:770px ;
 }
 
 .myoverlay {
