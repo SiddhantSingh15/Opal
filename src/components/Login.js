@@ -15,6 +15,7 @@ import config from "../config";
 import CryptoJS from "crypto-js";
 import { PasswordSharp } from "@mui/icons-material";
 import loginRequest from "../utils/loginRequest";
+import "./Login.css"
 
 export default function Login({ open, close }) {
   const [email, setEmail] = useState("");
@@ -72,6 +73,7 @@ export default function Login({ open, close }) {
         type="email"
         required
         autoComplete="off"
+        sx={{background:"white", borderRadius:"15px"}}
         onChange={(e) => {
           setErrorMessage(null);
           setEmail(e.target.value);
@@ -83,6 +85,7 @@ export default function Login({ open, close }) {
         type="password"
         required
         autoComplete="off"
+        sx={{background:"white", borderRadius:"15px"}}
         onChange={(e) => {
           setErrorMessage(null);
           setPassword(e.target.value);
@@ -91,14 +94,14 @@ export default function Login({ open, close }) {
       <Box sx={{ display: "flex", justifyContent: "space-between" }}>
         <Stack direction="row" sx={{ height: "20px" }}>
           <Checkbox />
-          <Typography sx={{ lineHeight: "20px" }} variant="body1">
+          <Typography sx={{ lineHeight: "20px", color:"white"}} variant="body1">
             Remember me
           </Typography>
         </Stack>
         <Typography
           variant="body1"
           sx={{
-            color: "gray",
+            color: "white",
             textDecoration: "underline",
             cursor: "pointer",
           }}
@@ -107,7 +110,7 @@ export default function Login({ open, close }) {
         </Typography>
       </Box>
       <Button
-        sx={{ height: "50px", display: "block", marginBottom: "50px" }}
+        sx={{height: "50px", display: "block", marginBottom: "50px", borderRadius: "15px", background:"white",color:"black"}}
         variant="contained"
         onClick={requestLogin}
       >
@@ -134,12 +137,12 @@ export default function Login({ open, close }) {
     );
 
   return (
-    <Backdrop open={open} onClick={handleClose} sx={{ zIndex: 1 }}>
+    <Backdrop open={open} onClick={handleClose} sx={{ zIndex: 1}}>
       <Paper
         elevation={10}
-        sx={{ width: "400px", padding: "30px", zIndex: "1000" }}
-      >
-        <Box>
+        sx={{borderRadius: "15px", width: "400px", padding: "30px", zIndex: "1000",  backgroundColor: "#202124" }}>
+        <Box
+          sx ={{color:"white"}}>
           <h3>Authentication</h3>
           <p>Login to connect to your organisation and view your documents</p>
         </Box>
