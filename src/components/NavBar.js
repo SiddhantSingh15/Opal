@@ -4,13 +4,14 @@ import config from "../config";
 import { ReactComponent as OpalLogo } from "../assets/opal.svg";
 import "./NavBar.css";
 import Login from "./Login";
-import { Stack } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 import { ReactComponent as User } from "../assets/user.svg";
+import useAuth from "../hooks/useAuth";
 
 const NavBar = () => {
   const location = useLocation();
-
   const [loginOpen, setLoginOpen] = useState(false);
+  const authenticate = useAuth();
 
   return (
     <div className="navbar">
@@ -27,7 +28,13 @@ const NavBar = () => {
         sx={{ zIndex: 1 }}
       />
       <div className="login-button" onClick={() => setLoginOpen(true)}>
-        <User fill="white" />
+        {authenticate.success ? (
+          <Typography variant="h5" color="white">
+            Hello there!
+          </Typography>
+        ) : (
+          <User fill="white" />
+        )}
       </div>
     </div>
   );
