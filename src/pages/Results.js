@@ -36,13 +36,11 @@ export default function Results() {
         <div className="params">
           <SearchParams />
         </div>
-        <div className="save-tag">
-          <button onClick={() => alert("Suprise! you've been gnomed this feature does not exist yet")}>
-            Save Tag
-          </button>
-        </div>
       </div>
-      <ResultList handleToggleDocumentView={handleToggleDocumentView} setCurrentDocLink={setCurrentDocLink} />
+      <ResultList
+        handleToggleDocumentView={handleToggleDocumentView}
+        setCurrentDocLink={setCurrentDocLink}
+      />
     </div>
   );
 }

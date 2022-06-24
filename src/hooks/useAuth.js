@@ -8,7 +8,6 @@ const useAuth = () => {
   const [response, setResponse] = useState({});
 
   useEffect(() => {
-    console.log("sending request...");
     const encrypted = sessionStorage.getItem("auth");
     if (!encrypted) {
       setResponse({ success: false, message: "Auth credentials non present" });
