@@ -41,7 +41,7 @@ pipeline {
       when { branch 'master' }
       steps {
         container('kubectl') {
-          sh "kubectl set image --namespace=frontend deployment/frontend frontend-1=${PROD_IMAGE_TAG}"
+          sh "kubectl set image --namespace=frontend deployment/frontend-prod frontend-1=${PROD_IMAGE_TAG}"
         }
       }
     }
