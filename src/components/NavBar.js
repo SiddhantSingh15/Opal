@@ -5,7 +5,7 @@ import { ReactComponent as OpalLogo } from "../assets/opal.svg";
 import "./NavBar.css";
 import Login from "./Login";
 import { Backdrop, Box, Stack, Typography } from "@mui/material";
-import LoginIcon from "@mui/icons-material/Login";
+import {ReactComponent as User} from "../assets/user.svg"
 
 const NavBar = () => {
   const location = useLocation();
@@ -21,24 +21,15 @@ const NavBar = () => {
         />
       )}
       <Stack direction="row" sx={{ width: "200px" }} spacing={5}>
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            width: "90px",
-            cursor: "pointer",
-          }}
-          onClick={() => setLogin(true)}
-        >
-          <Typography color="white" variant="h6" sx={{ width: "100px" }}>
-            LOGIN
-          </Typography>
-          <LoginIcon sx={{ color: "white" }} />
-        </Box>
+
       </Stack>
       <Backdrop open={login} onClick={() => setLogin(false)} sx={{ zIndex: 1 }}>
         <Login />
       </Backdrop>
+      <div login className = "login-button" 
+                   onClick={() => setLogin(true)}>
+          <User fill="white"/>
+        </div>
     </div>
   );
 };

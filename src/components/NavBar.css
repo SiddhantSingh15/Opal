@@ -11,3 +11,16 @@
 	max-height: 30px;
 	max-width: 111px;
 }
+
+.navbar .login-button{
+    padding: 7px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 15px;
+    margin-left: auto;
+}
+
+
+.navbar .login-button:hover{
+    background: grey;
+}
