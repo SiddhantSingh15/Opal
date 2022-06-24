@@ -5,9 +5,17 @@ import SearchBox from "../components/SearchBox";
 import SearchParams from "../components/SearchParams";
 import { ReactComponent as BackArrow } from "../assets/backarrow.svg";
 import "./Results.css";
+import useAuth from "../hooks/useAuth";
 
 export default function Results() {
   const [viewingDoc, setViewingDoc] = useState(false);
+
+  const authenticate = useAuth();
+
+  if (!authenticate.success) {
+    window.location = "/";
+    return null;
+  }
 
   const handleToggleDocumentView = () => {
     setViewingDoc(!viewingDoc);
