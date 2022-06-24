@@ -8,9 +8,11 @@ import {
   DialogActions,
   Button,
   Alert,
+  CircularProgress,
 } from "@mui/material";
+// import LoadingButton from "@mui/lab/LoadingButton";
 
-export default function SaveTag({ saveTag }) {
+export default function SaveTag({ saveTag, load }) {
   const [open, setOpen] = useState(false);
   const [tagName, setTagName] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -56,7 +58,13 @@ export default function SaveTag({ saveTag }) {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleSubmit}>Create</Button>
+          {load ? (
+            <Button sx={{ color: "gray", fontStyle: "italic" }}>
+              loading...
+            </Button>
+          ) : (
+            <Button onClick={handleSubmit}>Create</Button>
+          )}
         </DialogActions>
         {errorMessage && <Alert severity="error">{errorMessage}</Alert>}
       </Dialog>

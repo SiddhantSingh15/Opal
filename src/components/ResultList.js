@@ -1,27 +1,49 @@
-import React from "react";
+import React, { useState } from "react";
 import ResultCard from "./ResultCard";
 import Loading from "./Loading";
 import useFetchResults from "../hooks/useFetchResults";
 import { Stack } from "@mui/material";
 import SaveTag from "./SaveTag";
+import axios from "axios";
+import config from "../config";
 
 export default function ResultList({
   handleToggleDocumentView,
   setCurrentDocLink,
 }) {
   const results = useFetchResults();
+  const [loading, setLoading] = useState(false);
 
   if (!results || results.length === 0) return <Loading />;
 
-  const saveTag = (tagName) => {
+  const username = "saiofdgnos";
+  const password = "saiofdgnos";
+
+  const saveTag = async (tagName) => {
+    setLoading(true);
     const documentIDs = results.map((doc) => doc.id);
-    console.log(documentIDs);
-    alert(tagName);
+    axios
+      .post(
+        `${config.BACKEND_URI}/tags/create_tag`,
+        {
+          tag_name: tagName,
+          result_ids: documentIDs,
+          search: null,
+        },
+        { headers: { username, password } }
+      )
+      .then((res) => {
+        window.location = "/";
+      })
+      .catch((e) => {
+        console.log(e);
+        window.location = "/";
+      });
   };
 
   return (
     <Stack>
-      <SaveTag saveTag={saveTag} />
+      <SaveTag saveTag={saveTag} load={loading} />
       <div className="table">
         <div className="title">
           <div className="docTitle">
