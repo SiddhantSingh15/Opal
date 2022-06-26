@@ -88,13 +88,13 @@
   border: transparent;
 }
 
-.results .loading {
+.loading {
   padding-top: 200px;
   width: 0px;
   margin: auto;
 }
 
-.results .loading .loader {
+.loading .loader {
   border: 16px solid #f3f3f3; /* Light grey */
   border-top: 16px solid black; /* Blue */
   border-radius: 50%;

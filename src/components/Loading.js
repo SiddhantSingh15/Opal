@@ -1,4 +1,5 @@
 import React from "react";
+import "../pages/Results.css";
 
 export default function Loading() {
   return (
