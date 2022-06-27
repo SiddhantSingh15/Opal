@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef} from "react";
 import { ReactComponent as SearchIcon } from "../assets/magnifier.svg";
 import { ReactComponent as CloseIcon } from "../assets/close.svg";
 import { useNavigate, useSearchParams } from "react-router-dom";
@@ -19,6 +19,30 @@ export default function SearchBox() {
   const [inputValue, setInputValue] = useState("");
   const [tagSuggestions, setTagSuggestions] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
+
+  // Outside alerter
+  const useOutsideAlerter = (ref) => {
+    useEffect(() => {
+      /**
+       * Alert if clicked on outside of element
+       */
+      function handleClickOutside(event) {
+        if (ref.current && !ref.current.contains(event.target)) {
+          setShowSuggestions(false);
+        } else {
+          if (ref.current.children[0].children[0].value.length !== 0) {
+            setShowSuggestions(true);
+          }
+        }
+      }
+      // Bind the event listener
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => {
+        // Unbind the event listener on clean up
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    }, [ref]);
+  }
 
   /* Clear input value */
   const handleClear = () => {setInputValue("");setShowSuggestions(false)};
@@ -107,9 +131,12 @@ export default function SearchBox() {
         break;
     }
   };
+  
+  const wrapperRef = useRef(null);
+  useOutsideAlerter(wrapperRef);
 
   return (
-    <div className="search">
+    <div ref={wrapperRef} className="search">
       <div className="input-bar">
         <input
           autoFocus
