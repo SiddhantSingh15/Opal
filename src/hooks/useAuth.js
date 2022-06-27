@@ -1,7 +1,7 @@
 import CryptoJS from "crypto-js";
 import { useEffect, useState } from "react";
 import config from "../config";
-import loginRequest from "../utils/loginRequest";
+import authLogic from "../utils/authLogic";
 
 /** Authenticates the user, otherwise, redirects to home page. */
 const useAuth = () => {
@@ -22,7 +22,7 @@ const useAuth = () => {
 
       const [username, password] = split;
 
-      loginRequest(username, password)
+      authLogic.loginRequest(username, password)
         .then((res) => {
           if (!res.authenticated) {
             setResponse({

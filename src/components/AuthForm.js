@@ -13,15 +13,21 @@ import {
 import React, { useState } from "react";
 import config from "../config";
 import CryptoJS from "crypto-js";
-import loginRequest from "../utils/loginRequest";
+import authLogic from "../utils/authLogic";
 import "./Login.css";
+import RememberMe from "./dummy/RememberMe";
+import UserType from "./dummy/UserType";
 
-export default function Login({ open, close }) {
+/** Auth form for both login and Sign up
+ * @param {bool} signup true if sign up false if login
+ */
+export default function AuthForm({ open, handleClose, signup }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState(null);
   const [loading, setLoading] = useState(false);
 
+  /** Login existing user (LOGIN) */
   const requestLogin = async () => {
     if (!email) {
       setErrorMessage("Email required");
@@ -34,14 +40,16 @@ export default function Login({ open, close }) {
 
     setLoading(true);
 
-    const response = await loginRequest(email, password);
+    const response = await authLogic.loginRequest(email, password);
     if (!response) {
-      setErrorMessage("Unknown error, retry!");
+      alert("Unknown error, retry!");
+      setLoading(false)
       return;
     }
 
-    if (!response.authenticated) {
-      setErrorMessage("Invalid credentials");
+    if (!response.created) {
+      alert("Invalid credentials");
+      setLoading(false)
       return;
     }
 
@@ -53,12 +61,42 @@ export default function Login({ open, close }) {
     window.location = window.location.pathname;
   };
 
-  const handleClose = (e) => {
+  /** Create a new user (SIGNUP) */
+  const createUser = async () => {
+    if (!email) {
+      setErrorMessage("Email required");
+      return;
+    }
+    if (!password) {
+      setErrorMessage("Password required");
+      return;
+    }
+
+    setLoading(true);
+
+    const response = await authLogic.signupRequest(email, password);
+    if (!response) {
+      alert("Unknown error, retry!");
+      setLoading(false)
+      return;
+    }
+
+    if (!response.created) {
+      console.log(response)
+      alert("User successfuly created!");
+      setLoading(false)
+      return;
+    }
+
+    window.location = window.location.pathname;
+  };
+
+  const hideBox = (e) => {
     if (
       e.target.className &&
       e.target.className.toLowerCase().includes("backdrop")
     )
-      close();
+      handleClose();
   };
 
   let body = (
@@ -79,7 +117,6 @@ export default function Login({ open, close }) {
         }}
       />
       <TextField
-        id="password"
         label="Password"
         type="password"
         required
@@ -90,27 +127,7 @@ export default function Login({ open, close }) {
           setPassword(e.target.value);
         }}
       />
-      <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-        <Stack direction="row" sx={{ height: "20px" }}>
-          <Checkbox />
-          <Typography
-            sx={{ lineHeight: "20px", color: "white" }}
-            variant="body1"
-          >
-            Remember me
-          </Typography>
-        </Stack>
-        <Typography
-          variant="body1"
-          sx={{
-            color: "white",
-            textDecoration: "underline",
-            cursor: "pointer",
-          }}
-        >
-          Forgot credentials?
-        </Typography>
-      </Box>
+      {signup ? <UserType handleChange={() => setErrorMessage("")} /> : <RememberMe />}
       <Button
         sx={{
           height: "50px",
@@ -121,7 +138,7 @@ export default function Login({ open, close }) {
           color: "black",
         }}
         variant="contained"
-        onClick={requestLogin}
+        onClick={signup ? createUser : requestLogin}
       >
         SUBMIT
       </Button>
@@ -145,8 +162,19 @@ export default function Login({ open, close }) {
       </Box>
     );
 
+  const text = signup
+    ? {
+        title: "Create User",
+        description: "Create new user from email and password.",
+      }
+    : {
+        title: "Authentication",
+        description:
+          "Login to connect to your organisation and view your documents",
+      };
+
   return (
-    <Backdrop open={open} onClick={handleClose} sx={{ zIndex: 1 }}>
+    <Backdrop open={open} onClick={hideBox} sx={{ zIndex: 1 }}>
       <Paper
         elevation={10}
         sx={{
@@ -158,8 +186,8 @@ export default function Login({ open, close }) {
         }}
       >
         <Box sx={{ color: "white" }}>
-          <h3>Authentication</h3>
-          <p>Login to connect to your organisation and view your documents</p>
+          <h3>{text.title}</h3>
+          <p>{text.description}</p>
         </Box>
         {body}
       </Paper>

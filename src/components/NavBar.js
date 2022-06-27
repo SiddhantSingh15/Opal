@@ -3,10 +3,10 @@ import { useLocation } from "react-router-dom";
 import config from "../config";
 import { ReactComponent as OpalLogo } from "../assets/opal.svg";
 import "./NavBar.css";
-import Login from "./Login";
 import { Stack, Typography } from "@mui/material";
 import { ReactComponent as User } from "../assets/user.svg";
 import useAuth from "../hooks/useAuth";
+import AuthForm from "./AuthForm";
 
 const NavBar = () => {
   const location = useLocation();
@@ -22,20 +22,20 @@ const NavBar = () => {
         />
       )}
       <Stack direction="row" sx={{ width: "200px" }} spacing={5}></Stack>
-      <Login
+      <AuthForm
         open={loginOpen}
-        close={() => setLoginOpen(false)}
+        handleClose={() => setLoginOpen(false)}
         sx={{ zIndex: 1 }}
       />
-      <div className="login-button" onClick={() => setLoginOpen(true)}>
-        {authenticate.success ? (
-          <Typography variant="h5" color="white">
-            Hello there!
-          </Typography>
-        ) : (
+      {authenticate.success ? (
+        <Typography variant="h5" color="white">
+          Hello there!
+        </Typography>
+      ) : (
+        <div className="login-button" onClick={() => setLoginOpen(true)}>
           <User fill="white" />
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 };
