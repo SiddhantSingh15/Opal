@@ -8,6 +8,8 @@ import useFetchTags from "./hooks/useFetchTags";
 import { useDispatch } from "react-redux";
 import { restoreSearch } from "./redux/searchSlice";
 import Home from "./pages/Home";
+import Admin from "./pages/Admin";
+import "./App.css"
 
 export default function App() {
   /* Restore tags redux */
@@ -26,6 +28,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/results" element={<Results />} />
+          <Route path="/admin" element={<Admin />} />
         </Routes>
       </div>
     </div>

@@ -13,7 +13,6 @@ import {
 import React, { useState } from "react";
 import config from "../config";
 import CryptoJS from "crypto-js";
-import { PasswordSharp } from "@mui/icons-material";
 import loginRequest from "../utils/loginRequest";
 import "./Login.css";
 
