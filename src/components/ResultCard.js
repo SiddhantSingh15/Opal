@@ -49,10 +49,16 @@ export default function ResultCard({ result, handleToggleDocumentView, setCurren
             type="field"
             id="language"
             value={result.fields.language}
+            invisible={true}
           />
         </div>
         <div className="element">
-          <Searchable input type="field" id="type" value={result.fields.type} />
+          <Searchable 
+            input 
+            type="field" 
+            id="type" 
+            value={result.fields.type}
+            invisible={true} />
         </div>
         <div className="element">
           <Searchable
@@ -60,10 +66,16 @@ export default function ResultCard({ result, handleToggleDocumentView, setCurren
             type="field"
             id="access"
             value={result.fields.access}
+            invisible={true}
           />
         </div>
         <div className="element">
-          <Searchable input type="field" id="date" value={result.fields.date} />
+          <Searchable 
+            input 
+            type="field"
+            id="date" 
+            value={result.fields.date} 
+            invisible={true}/>
         </div>
         <div className="element">
           <div className="multi-param">
@@ -73,6 +85,7 @@ export default function ResultCard({ result, handleToggleDocumentView, setCurren
               type="field"
               id="govlaw"
               value={param}
+              invisible={true}
             />
             )}
           </div>
@@ -85,6 +98,7 @@ export default function ResultCard({ result, handleToggleDocumentView, setCurren
               type="tag"
               id={tag.id}
               value={tag.value}
+              invisible={false}
             />
           ))}
         </div>
