@@ -78,7 +78,9 @@ export default function Searchable({type, id, value, input, invisible}) {
         "/" +
         value.substring(6, 8)
       );
-    } else return value;
+    } else {
+      return value.charAt(0).toUpperCase() + value.slice(1);
+    }
   };
 
 
