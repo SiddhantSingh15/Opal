@@ -40,7 +40,7 @@ export default function ResultCard({ result, handleToggleDocumentView, setCurren
       <div className="fields">
         <div className="docTitle">
           <div className="element">
-            <p>{cutText(result.fields.title).toUpperCase()}</p>
+            <p>{cutText(result.fields.title)}</p>
           </div>
         </div>
         <div className="element">
