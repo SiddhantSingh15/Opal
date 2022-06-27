@@ -18,9 +18,10 @@ export default function SearchBox() {
 
   const [inputValue, setInputValue] = useState("");
   const [tagSuggestions, setTagSuggestions] = useState([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
 
   /* Clear input value */
-  const handleClear = () => setInputValue("");
+  const handleClear = () => {setInputValue("");setShowSuggestions(false)};
 
   /* Checks if the search is valid and with results. */
   const validSearch = () => tagSuggestions.length > 0 && inputValue.length > 0;
@@ -51,8 +52,10 @@ export default function SearchBox() {
     const newValue = event.target.value;
     if (newValue.length > 0) {
       getSuggested(newValue);
+      setShowSuggestions(true);
     } else {
       setTagSuggestions([]);
+      setShowSuggestions(false);
     }
     setInputValue(newValue);
   };
@@ -128,7 +131,10 @@ export default function SearchBox() {
       </div>
 
       {/* Suggested Options */}
-      <SuggestionBox tagSuggestions={tagSuggestions} inputValue={inputValue}/>
+      <SuggestionBox 
+        tagSuggestions={tagSuggestions}
+        inputValue={inputValue} 
+        showSuggestions={showSuggestions}/>
     </div>
   );
 }
