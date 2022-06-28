@@ -39,14 +39,16 @@ export default function ResultList({
       });
   };
 
+  console.log(results);
+
   if (!results) return <Loading />;
 
-  if (results.length === 0)
-    return (
-      <Typography textAlign="center" marginTop={30} variant="h2">
-        No results!
-      </Typography>
-    );
+  // if (results.length === 0)
+  //   return (
+  //     <Typography textAlign="center" marginTop={30} variant="h2">
+  //       No results!
+  //     </Typography>
+  //   );
 
   return (
     <Stack>

@@ -1,26 +1,26 @@
 .navbar {
-    background-color: #202124;
-    display: flex;
-    justify-content: space-between;
-    gap: 20px;
-    padding: 20px 20px;
-    align-items: center;
+  background-color: #202124;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 20px 20px;
+  align-items: center;
+  position: relative;
 }
 
-.navbar .logo{
-	max-height: 30px;
-	max-width: 111px;
+.navbar .logo {
+  max-height: 30px;
+  max-width: 111px;
 }
 
-.navbar .login-button{
-    padding: 7px;
-    padding-left: 10px;
-    padding-right: 10px;
-    border-radius: 15px;
-    margin-left: auto;
+.navbar .login-button {
+  padding: 7px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 15px;
+  margin-left: auto;
 }
 
-
-.navbar .login-button:hover{
-    background: grey;
+.navbar .login-button:hover {
+  background: grey;
 }
