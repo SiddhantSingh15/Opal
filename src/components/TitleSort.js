@@ -2,7 +2,7 @@ import React from "react"
 import {ReactComponent as UpCaret} from "../assets/upcaret.svg"
 import {ReactComponent as DownCaret} from "../assets/downcaret.svg"
 
-export default function TitleSort({name,handleSort,sortFocus,sortDirection}) {
+export default function TitleSort({name,handleClick,sortFocus,sortDirection}) {
 
 	const renderCarat = () => {
 		if (sortFocus === name) {
@@ -18,7 +18,7 @@ export default function TitleSort({name,handleSort,sortFocus,sortDirection}) {
 
 	return (
 		<div
-			onClick={() => handleSort(name)}
+			onClick={() => handleClick(name)}
 			className="title-element">
 			{name}
 			{renderCarat()}

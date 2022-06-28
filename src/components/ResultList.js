@@ -4,18 +4,17 @@ import Loading from "./Loading";
 import useFetchResults from "../hooks/useFetchResults";
 import "./ResultList.css";
 import { Stack, Typography } from "@mui/material";
-import { ReactComponent as UpCaret } from "../assets/upcaret.svg";
-import { ReactComponent as DownCaret } from "../assets/downcaret.svg";
-import TitleSort from "./TitleSort.js";
+import TitleSort from "./TitleSort.js"
 import SaveTag from "./SaveTag";
 import axios from "axios";
 import config from "../config";
+import { useEffect } from "react";
 
 export default function ResultList({
   handleToggleDocumentView,
   setCurrentDocLink,
 }) {
-  const results = useFetchResults();
+  const [documents,setDocuments] = useFetchResults();
   const [loading, setLoading] = useState(false);
   const [sortFocus, setSortFocus] = useState(null);
   const [sortDirection, setSortDirection] = useState("none");
@@ -23,9 +22,52 @@ export default function ResultList({
   const username = "saiofdgnos";
   const password = "saiofdgnos";
 
+
+  const compare = (a,b) => {
+    if (sortFocus === "Date") {
+      return  parseInt(a) - parseInt(b);
+    } else {
+      return (a<b?-1:(a>b?1:0));
+    }
+  }
+
+  const sortResults = (title) => {
+    if (sortDirection === "up") {
+      return documents.sort((docA,docB) => compare(docA.fields[title],docB.fields[title]))
+    } else if (sortDirection === "down"){
+      return documents.sort((docA,docB) => compare(docB.fields[title],docA.fields[title]))
+    } else {
+      return documents
+    }
+  }
+
+  useEffect(() => {
+    switch(sortFocus) {
+      case "Title":
+        setDocuments(sortResults("title"))
+        break;
+      case "Language":
+        setDocuments(sortResults("language"))
+        break;
+      case "Type":
+        setDocuments(sortResults("type"))
+        break;     
+      case "Access":
+        setDocuments(sortResults("access"))
+        break;
+      case "Date":
+        setDocuments(sortResults("date"))
+        break; 
+      case "Gov Law":
+        setDocuments(sortResults("governing_law"))
+        break;
+    }
+  }
+  ,[sortFocus,sortDirection]);
+
   const saveTag = async (tagName) => {
     setLoading(true);
-    const documentIDs = results.map((doc) => doc.id);
+    const documentIDs = documents.map((doc) => doc.id);
     axios
       .post(
         `${config.BACKEND_URI}/tags/create_tag`,
@@ -45,25 +87,35 @@ export default function ResultList({
       });
   };
 
-  if (!results) return <Loading />;
+  if (!documents) return <Loading />;
 
-  console.log(results);
-
-  if (results.length === 0)
+  if (documents.length === 0)
     return (
       <Typography textAlign="center" marginTop={30} variant="h2">
         No results!
       </Typography>
     );
 
-  const handleSort = (name) => {
+  const handleTitleClick = (name) => {
+    var newSortDirection = "";
     if (name == sortFocus) {
-      setSortDirection("up");
+      switch (sortDirection) {
+        case "none":
+          newSortDirection = "down";
+          break;
+        case "down":
+          newSortDirection = "up";
+          break;
+        case "up":
+          newSortDirection = "down";
+          break;
+      }
     } else {
       setSortFocus(name);
-      setSortDirection("down");
+      newSortDirection = "down"
     }
-  };
+    setSortDirection(newSortDirection)
+  }
 
   return (
     <Stack>
@@ -71,52 +123,50 @@ export default function ResultList({
         <div className="title">
           <div className="docTitle">
             <TitleSort
-              name="Title"
-              handleSort={handleSort}
-              sortFocus={sortFocus}
-              sortDirection={sortDirection}
-            />
+            name="Title"
+            handleClick={handleTitleClick}
+            sortFocus={sortFocus}
+            sortDirection={sortDirection}/>
           </div>
           <TitleSort
             name="Language"
-            handleSort={handleSort}
+            handleClick={handleTitleClick}
             sortFocus={sortFocus}
             sortDirection={sortDirection}
           />
           <TitleSort
             name="Type"
-            handleSort={handleSort}
+            handleClick={handleTitleClick}
             sortFocus={sortFocus}
             sortDirection={sortDirection}
           />
           <TitleSort
             name="Access"
-            handleSort={handleSort}
+            handleClick={handleTitleClick}
             sortFocus={sortFocus}
             sortDirection={sortDirection}
           />
           <TitleSort
             name="Date"
-            handleSort={handleSort}
+            handleClick={handleTitleClick}
             sortFocus={sortFocus}
             sortDirection={sortDirection}
           />
           <TitleSort
             name="Gov Law"
-            handleSort={handleSort}
+            handleClick={handleTitleClick}
             sortFocus={sortFocus}
-            sortDirection={sortDirection}
-          />
-        </div>
-        {results.map((result, key) => {
-          return (
-            <ResultCard
-              key={key}
-              result={result}
-              handleToggleDocumentView={handleToggleDocumentView}
-              setCurrentDocLink={setCurrentDocLink}
-            />
-          );
+            sortDirection={sortDirection}/>
+          </div>
+          {documents.map((result, key) => {
+            return (
+              <ResultCard
+                key={key}
+                result={result}
+                handleToggleDocumentView={handleToggleDocumentView}
+                setCurrentDocLink={setCurrentDocLink}
+              />
+            );
         })}
       </div>
     </Stack>

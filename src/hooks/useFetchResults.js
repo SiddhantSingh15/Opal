@@ -25,7 +25,7 @@ const useFetchDocuments = () => {
     fetchAsync(query).then((docs) => setDocuments(docs));
   }, []);
 
-  return documents;
+  return [documents, setDocuments];
 };
 
 export default useFetchDocuments;
