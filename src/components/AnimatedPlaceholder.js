@@ -12,9 +12,16 @@ export default function AnimatedPlaceholder() {
   React.useEffect(() => {
     const options = {
       strings: [
-        "Some <i>strings</i> are slanted",
-        "Some <strong>strings</strong> are bold",
-        "HTML characters &times; &copy;",
+        "From <i>2003</i>",
+        "Language <i>English</i>",
+        "From <i>2003</i> to <i>2015</i>",
+        "Access <i>Public</i>",
+        "Gov Law <i>New York</i>, <i>France</i>",
+        "From <i>01/2003</i> to <i>12/2015</i>",
+        "Languages <i>English</i>, <i>French</i>",
+        "Type <i>Memo</i>",
+        "Types <i>Memo</i>, <i>Opinion</i>",
+        "Gov Law <i>New Yori</i>",
       ],
       typeSpeed: 50,
       backSpeed: 50,
