@@ -4,8 +4,6 @@ import Loading from "./Loading";
 import useFetchResults from "../hooks/useFetchResults";
 import "./ResultList.css"
 import { Stack, Typography } from "@mui/material";
-import {ReactComponent as UpCaret} from "../assets/upcaret.svg"
-import {ReactComponent as DownCaret} from "../assets/downcaret.svg"
 import TitleSort from "./TitleSort.js"
 import SaveTag from "./SaveTag";
 import axios from "axios";
@@ -25,26 +23,44 @@ export default function ResultList({
   const username = "saiofdgnos";
   const password = "saiofdgnos";
 
+
+  const compare = (a,b) => {
+    if (sortFocus === "Date") {
+      return  parseInt(a) - parseInt(b);
+    } else {
+      return (a<b?-1:(a>b?1:0));
+    }
+  }
+
+  const sortResults = (title) => {
+    if (sortDirection === "up") {
+      return documents.sort((docA,docB) => compare(docA.fields[title],docB.fields[title]))
+    } else if (sortDirection === "down"){
+      return documents.sort((docA,docB) => compare(docB.fields[title],docA.fields[title]))
+    } else {
+      return documents
+    }
+  }
+
   useEffect(() => {
     switch(sortFocus) {
       case "Title":
-        //
+        setDocuments(sortResults("title"))
         break;
       case "Language":
-        //
+        setDocuments(sortResults("language"))
         break;
       case "Type":
-        //
+        setDocuments(sortResults("type"))
         break;     
       case "Access":
-        //
+        setDocuments(sortResults("access"))
         break;
       case "Date":
-        alert("boo")
-        // setDocuments(documents.sort((docA,docB) => docA.fields.date>docB.fields.date))
+        setDocuments(sortResults("date"))
         break; 
       case "Gov Law":
-        // 
+        setDocuments(sortResults("governing_law"))
         break;
     }
   }
@@ -81,24 +97,25 @@ export default function ResultList({
       </Typography>
     );
 
-  const handleSort = (name) => {
-    const newSortDirection = "";
+  const handleTitleClick = (name) => {
+    var newSortDirection = "";
     if (name == sortFocus) {
       switch (sortDirection) {
         case "none":
           newSortDirection = "down";
-          break; 
+          break;
         case "down":
           newSortDirection = "up";
-          break; 
+          break;
         case "up":
-          newSortDirection = "none";
-          break;       
+          newSortDirection = "down";
+          break;
       }
     } else {
       setSortFocus(name);
-      setSortDirection(newSortDirection)
+      newSortDirection = "down"
     }
+    setSortDirection(newSortDirection)
   }
 
   return (
@@ -108,33 +125,33 @@ export default function ResultList({
           <div className="docTitle">
             <TitleSort
             name="Title"
-            handleSort={handleSort}
+            handleClick={handleTitleClick}
             sortFocus={sortFocus}
             sortDirection={sortDirection}/>
           </div>
           <TitleSort
             name="Language"
-            handleSort={handleSort}
+            handleClick={handleTitleClick}
             sortFocus={sortFocus}
             sortDirection={sortDirection}/>
           <TitleSort
             name="Type"
-            handleSort={handleSort}
+            handleClick={handleTitleClick}
             sortFocus={sortFocus}
             sortDirection={sortDirection}/>
           <TitleSort
             name="Access"
-            handleSort={handleSort}
+            handleClick={handleTitleClick}
             sortFocus={sortFocus}
             sortDirection={sortDirection}/>
           <TitleSort
             name="Date"
-            handleSort={handleSort}
+            handleClick={handleTitleClick}
             sortFocus={sortFocus}
             sortDirection={sortDirection}/>
           <TitleSort
             name="Gov Law"
-            handleSort={handleSort}
+            handleClick={handleTitleClick}
             sortFocus={sortFocus}
             sortDirection={sortDirection}/>
           </div>
