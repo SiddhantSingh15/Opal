@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import config from "../config";
 import { ReactComponent as OpalLogo } from "../assets/opal.svg";
 import "./NavBar.css";
-import { Menu, MenuItem, Paper, Stack, Typography } from "@mui/material";
+import { Menu, MenuItem, Stack, Typography } from "@mui/material";
 import { ReactComponent as User } from "../assets/user.svg";
 import useAuth from "../hooks/useAuth";
 import AuthForm from "./AuthForm";
@@ -12,6 +12,7 @@ const NavBar = () => {
   const location = useLocation();
   const [loginOpen, setLoginOpen] = useState(false);
   const authenticate = useAuth();
+  const navigate = useNavigate();
 
   const [anchorEl, setAnchorEl] = useState(null);
   const menuOpen = Boolean(anchorEl);
@@ -57,6 +58,9 @@ const NavBar = () => {
             }}
           >
             <MenuItem onClick={handleLogout}>Logout</MenuItem>
+            {window.location.pathname !== "/admin" && (
+              <MenuItem onClick={() => navigate("/admin")}>Admin</MenuItem>
+            )}
           </Menu>
         </div>
       ) : (
