@@ -26,7 +26,7 @@ export default function Home() {
           </div>
         )}
         <div className="search-box">
-          <SearchBox />
+          <SearchBox animated />
         </div>
       </div>
     </div>

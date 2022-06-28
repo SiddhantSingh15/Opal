@@ -9,8 +9,12 @@ import SuggestionBox from "./SuggestionBox";
 import { useDispatch } from "react-redux";
 import "./SearchBox.css";
 import useAuth from "../hooks/useAuth";
+import AnimatedPlaceholder from "./AnimatedPlaceholder";
 
-export default function SearchBox() {
+/** Renders search box component
+ * @param {bool} animated whether to show animated placeholder
+ */
+export default function SearchBox({ animated }) {
   const authenticate = useAuth();
 
   const navigate = useNavigate();
@@ -18,6 +22,8 @@ export default function SearchBox() {
 
   const [inputValue, setInputValue] = useState("");
   const [tagSuggestions, setTagSuggestions] = useState([]);
+
+  const [inputFocus, setInputFocus] = useState(false);
 
   /* Clear input value */
   const handleClear = () => setInputValue("");
@@ -105,8 +111,16 @@ export default function SearchBox() {
     }
   };
 
-  return (
-    <div className="search">
+  /** Returns search typed suggestions or search input */
+  const getSearchBar = () => {
+    if (animated && !inputFocus)
+      return (
+        <div className="input-bar" onClick={() => setInputFocus(true)}>
+          <AnimatedPlaceholder />
+        </div>
+      );
+
+    return (
       <div className="input-bar">
         <input
           autoFocus
@@ -126,9 +140,14 @@ export default function SearchBox() {
           <CloseIcon className="icon" onClick={handleClear} />
         )}
       </div>
+    );
+  };
 
+  return (
+    <div className="search">
+      {getSearchBar()}
       {/* Suggested Options */}
-      <SuggestionBox tagSuggestions={tagSuggestions} inputValue={inputValue}/>
+      <SuggestionBox tagSuggestions={tagSuggestions} inputValue={inputValue} />
     </div>
   );
 }
