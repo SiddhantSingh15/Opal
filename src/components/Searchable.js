@@ -16,15 +16,17 @@ import querySearch from "../utils/querySearch";
  * parameter). In that case on click we add the parameter, otherwise we remove
  * it.
  */
-export default function Searchable({type, id, value, input, invisible}) {
+export default function Searchable({ type, id, value, input, invisible }) {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const renderTagIcon = () => {
-    if (!invisible){
+    if (!invisible) {
       switch (type) {
         case "tag":
         case "field":
           switch (id) {
+            case "title":
+              return <TitleIcon className="icon" fill="white" />;
             case "govlaw":
               return <GovLawIcon className="icon" fill="white" />;
             case "type":
@@ -79,7 +81,6 @@ export default function Searchable({type, id, value, input, invisible}) {
       return value.charAt(0).toUpperCase() + value.slice(1);
     }
   };
-
 
   const body = invisible ? (
     <div className="invisible-tag" onClick={handleClick}>
