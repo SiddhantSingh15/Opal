@@ -1,28 +1,18 @@
 import React, { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import config from "../config";
 import { ReactComponent as OpalLogo } from "../assets/opal.svg";
 import "./NavBar.css";
-import { Menu, MenuItem, Stack, Typography } from "@mui/material";
+import { Stack } from "@mui/material";
 import { ReactComponent as User } from "../assets/user.svg";
 import useAuth from "../hooks/useAuth";
 import AuthForm from "./AuthForm";
+import UserMenu from "./UserMenu";
 
 const NavBar = () => {
   const location = useLocation();
   const [loginOpen, setLoginOpen] = useState(false);
   const authenticate = useAuth();
-  const navigate = useNavigate();
-
-  const [anchorEl, setAnchorEl] = useState(null);
-  const menuOpen = Boolean(anchorEl);
-
-  const handleClose = () => setAnchorEl(null);
-
-  const handleLogout = () => {
-    sessionStorage.removeItem("auth");
-    handleClose();
-  };
 
   return (
     <div className="navbar">
@@ -39,30 +29,7 @@ const NavBar = () => {
         sx={{ zIndex: 1 }}
       />
       {authenticate.success ? (
-        <div className="login-button">
-          <Typography
-            variant="h5"
-            color="white"
-            onClick={(e) => setAnchorEl(e.currentTarget)}
-          >
-            Hello there!
-          </Typography>
-          <Menu
-            anchorEl={anchorEl}
-            open={menuOpen}
-            onClick={handleClose}
-            PaperProps={{
-              style: {
-                width: "150px",
-              },
-            }}
-          >
-            <MenuItem onClick={handleLogout}>Logout</MenuItem>
-            {window.location.pathname !== "/admin" && (
-              <MenuItem onClick={() => navigate("/admin")}>Admin</MenuItem>
-            )}
-          </Menu>
-        </div>
+        <UserMenu />
       ) : (
         <div className="login-button" onClick={() => setLoginOpen(true)}>
           <User fill="white" />
