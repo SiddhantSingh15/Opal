@@ -12,16 +12,16 @@ export default function AnimatedPlaceholder() {
   React.useEffect(() => {
     const options = {
       strings: [
-        "From <i>2003</i>",
+        // "From <i>2003</i>",
         "Language <i>English</i>",
-        "From <i>2003</i> to <i>2015</i>",
+        // "From <i>2003</i> to <i>2015</i>",
         "Access <i>Public</i>",
         "Gov Law <i>New York</i>, <i>France</i>",
-        "From <i>01/2003</i> to <i>12/2015</i>",
+        // "From <i>01/2003</i> to <i>12/2015</i>",
         "Languages <i>English</i>, <i>French</i>",
         "Type <i>Memo</i>",
         "Types <i>Memo</i>, <i>Opinion</i>",
-        "Gov Law <i>New Yori</i>",
+        "Gov Law <i>New York</i>",
       ],
       typeSpeed: 50,
       backSpeed: 50,

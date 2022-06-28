@@ -10,6 +10,7 @@ import { useDispatch } from "react-redux";
 import "./SearchBox.css";
 import useAuth from "../hooks/useAuth";
 import AnimatedPlaceholder from "./AnimatedPlaceholder";
+import languages from "../assets/languages";
 
 /** Renders search box component
  * @param {bool} animated whether to show animated placeholder
@@ -32,7 +33,7 @@ export default function SearchBox({ animated }) {
   const validSearch = () => tagSuggestions.length > 0 && inputValue.length > 0;
 
   /* Gets tags from substring */
-  const getSuggested = async (tagSubstring) => {
+  const getSuggestedTags = async (tagSubstring) => {
     if (!authenticate.success) return null;
 
     const url = `${config.BACKEND_URI}/tags/${tagSubstring}`;
@@ -52,11 +53,64 @@ export default function SearchBox({ animated }) {
     }
   };
 
+  /* Based on the input returns the suggested fields. */
+  const getSuggestedFields = (newValue) => {
+    const suggestedFields = {
+      language: [],
+      title: [],
+      type: [],
+      access: [],
+      date: [],
+      governing_law: [],
+    };
+
+    const typed = newValue.toLowerCase();
+
+    /* Title */
+    suggestedFields.title.push(newValue);
+
+    /* Language */
+    if (typed.includes("language"))
+      suggestedFields.language = languages.filter(
+        /* Replace with .includes for more suggestions */
+        (lang) =>
+          extractKeys("language", typed).includes(lang.toLocaleLowerCase())
+      );
+
+    /* Access */
+    if (typed.includes("access")) {
+      suggestedFields.access = extractKeys("access", typed);
+    }
+
+    /* Type */
+    if (typed.includes("type")) {
+      suggestedFields.type = extractKeys("type", typed);
+    }
+
+    /* Access */
+    if (typed.includes("gov law")) {
+      suggestedFields.governing_law = extractKeys("gov law", typed);
+    }
+
+    /* Date */
+    // if (typed.includes("from")) {
+    //   const fromSplit = extractKeys("from", typed)[0];
+    //   if (fromSplit.includes("to")) {} else
+    // }
+  };
+
+  /** Extracts key search queries from field search */
+  const extractKeys = (field, input) => {
+    const replaced = input.replace(field, "");
+    return replaced.trim() ? replaced.split(",").map((w) => w.trim()) : [];
+  };
+
   // Changes in the text inputted into the search
   const handleChange = (event) => {
     const newValue = event.target.value;
     if (newValue.length > 0) {
-      getSuggested(newValue);
+      getSuggestedTags(newValue);
+      getSuggestedFields(newValue);
     } else {
       setTagSuggestions([]);
     }
