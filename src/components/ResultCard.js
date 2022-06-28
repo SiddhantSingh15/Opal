@@ -39,6 +39,14 @@ export default function ResultCard({
   // Fetches tags from tag ids
   const tags = useFetchTags(result.tags);
 
+  // Checks if we are authorised to view the document
+  // TODO: complete
+  const userAuthorised = () => result.access === "public";
+
+  // TODO: complete
+  /* Request access to the document */
+  const requestAccess = () => alert("requesting access");
+
   return (
     <div className="results-card" onClick={handleResultsCardClick}>
       <div className="fields">
@@ -94,28 +102,40 @@ export default function ResultCard({
           ))}
         </div>
       </div>
-      <div className="buttons">
-        <Button
-          variant="contained"
-          onClick={handleToggleSummary}
-          className="clickable buttons"
-        >
-          Summary
-        </Button>
-        <Button
-          variant="contained"
-          onClick={() => {
-            handleToggleDocumentView();
-            setCurrentDocLink(result.fields.pdf_url);
-          }}
-          className="clickable buttons"
-        >
-          Preview
-        </Button>
-        <a href={result.fields.pdf_url} download="document">
-          <Download />
-        </a>
-      </div>
+      {userAuthorised() ? (
+        <div className="buttons">
+          <Button
+            variant="contained"
+            onClick={handleToggleSummary}
+            className="clickable buttons"
+          >
+            Summary
+          </Button>
+          <Button
+            variant="contained"
+            onClick={() => {
+              handleToggleDocumentView();
+              setCurrentDocLink(result.fields.pdf_url);
+            }}
+            className="clickable buttons"
+          >
+            Preview
+          </Button>
+          <a href={result.fields.pdf_url} download="document">
+            <Download />
+          </a>
+        </div>
+      ) : (
+        <div className="buttons">
+          <Button
+            variant="contained"
+            onClick={requestAccess}
+            className="clickable buttons"
+          >
+            Request Access
+          </Button>
+        </div>
+      )}
       <Backdrop
         className="clickable"
         sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}

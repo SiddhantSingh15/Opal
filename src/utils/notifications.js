@@ -1,3 +1,4 @@
+// TODO: complete
 class Notifications {
   /** Get notification based on user id */
   getUser = (userId) => [

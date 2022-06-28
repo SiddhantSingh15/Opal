@@ -134,7 +134,6 @@ export default function SearchBox({ animated }) {
           querySearch.addSearchParam(param, setParam, "tag", id, name);
         }
         handleClear();
-        // TODO: redirect to results with search query
         break;
       case "Tab":
         event.preventDefault();
