@@ -1,8 +1,8 @@
-import {React,useState} from "react";
+import { React, useState } from "react";
 import ResultCard from "./ResultCard";
 import Loading from "./Loading";
 import useFetchResults from "../hooks/useFetchResults";
-import "./ResultList.css"
+import "./ResultList.css";
 import { Stack, Typography } from "@mui/material";
 import TitleSort from "./TitleSort.js"
 import SaveTag from "./SaveTag";
@@ -10,15 +10,14 @@ import axios from "axios";
 import config from "../config";
 import { useEffect } from "react";
 
-
 export default function ResultList({
   handleToggleDocumentView,
   setCurrentDocLink,
 }) {
   const [documents,setDocuments] = useFetchResults();
   const [loading, setLoading] = useState(false);
-  const [sortFocus,setSortFocus] = useState(null);
-  const [sortDirection,setSortDirection] = useState("none");
+  const [sortFocus, setSortFocus] = useState(null);
+  const [sortDirection, setSortDirection] = useState("none");
 
   const username = "saiofdgnos";
   const password = "saiofdgnos";
@@ -133,22 +132,26 @@ export default function ResultList({
             name="Language"
             handleClick={handleTitleClick}
             sortFocus={sortFocus}
-            sortDirection={sortDirection}/>
+            sortDirection={sortDirection}
+          />
           <TitleSort
             name="Type"
             handleClick={handleTitleClick}
             sortFocus={sortFocus}
-            sortDirection={sortDirection}/>
+            sortDirection={sortDirection}
+          />
           <TitleSort
             name="Access"
             handleClick={handleTitleClick}
             sortFocus={sortFocus}
-            sortDirection={sortDirection}/>
+            sortDirection={sortDirection}
+          />
           <TitleSort
             name="Date"
             handleClick={handleTitleClick}
             sortFocus={sortFocus}
-            sortDirection={sortDirection}/>
+            sortDirection={sortDirection}
+          />
           <TitleSort
             name="Gov Law"
             handleClick={handleTitleClick}

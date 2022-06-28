@@ -20,9 +20,13 @@ const signupRequest = async (email, password) => {
   const hash = CryptoJS.SHA256(password).toString();
   const headers = { username: email, password: hash };
   try {
-    const result = await axios.post(`${config.BACKEND_URI}/users/create`, {}, {
-      headers,
-    });
+    const result = await axios.post(
+      `${config.BACKEND_URI}/users/create`,
+      {},
+      {
+        headers,
+      }
+    );
     return result.data;
   } catch (e) {
     console.log(e);
@@ -30,6 +34,28 @@ const signupRequest = async (email, password) => {
   }
 };
 
-const authLogic =  {loginRequest, signupRequest};
+/** Get email and password from localstorage.
+ * @return {array} [username, hashedPsw]
+ */
+const getCredentials = () => {
+  const encrypted = sessionStorage.getItem("auth");
+  if (!encrypted) return null;
 
-export default authLogic
+  const decrypted = CryptoJS.AES.decrypt(encrypted, "secret").toString(
+    CryptoJS.enc.Utf8
+  );
+
+  const split = decrypted.split(config.CREDENTIALS_SEPARATOR);
+  if (split.length !== 2)
+    throw new Error("Username Password not split properly");
+
+  return split;
+};
+
+const getHeaders = (username, psw) => {
+  return { username, password: CryptoJS.SHA256(psw).toString() };
+};
+
+const authLogic = { loginRequest, signupRequest, getCredentials, getHeaders };
+
+export default authLogic;
