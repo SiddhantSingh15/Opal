@@ -12,14 +12,13 @@ const loginRequest = async (email, password) => {
     return result.data;
   } catch (e) {
     console.log(e);
-    return null;
+    return e.response ? e.response.data : null;
   }
 };
 
 const signupRequest = async (email, password) => {
   const hash = CryptoJS.SHA256(password).toString();
   const headers = { username: email, password: hash };
-  console.log(headers)
   try {
     const result = await axios.post(`${config.BACKEND_URI}/users/create`, {}, {
       headers,

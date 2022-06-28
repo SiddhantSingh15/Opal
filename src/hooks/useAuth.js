@@ -24,6 +24,10 @@ const useAuth = () => {
 
       authLogic.loginRequest(username, password)
         .then((res) => {
+          if (!res) {
+            setResponse({ success: false, message: "Unknown error" });
+            return;
+          }
           if (!res.authenticated) {
             setResponse({
               success: false,

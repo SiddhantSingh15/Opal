@@ -2,10 +2,8 @@ import {
   TextField,
   Paper,
   Box,
-  Typography,
   Button,
   Stack,
-  Checkbox,
   Backdrop,
   Alert,
   CircularProgress,
@@ -47,7 +45,7 @@ export default function AuthForm({ open, handleClose, signup }) {
       return;
     }
 
-    if (!response.created) {
+    if (!response.authenticated) {
       alert("Invalid credentials");
       setLoading(false)
       return;
@@ -82,7 +80,6 @@ export default function AuthForm({ open, handleClose, signup }) {
     }
 
     if (!response.created) {
-      console.log(response)
       alert("User successfuly created!");
       setLoading(false)
       return;
