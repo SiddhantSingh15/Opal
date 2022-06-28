@@ -16,33 +16,33 @@ import querySearch from "../utils/querySearch";
  * parameter). In that case on click we add the parameter, otherwise we remove
  * it.
  */
-export default function Searchable({ type, id, value, input }) {
+export default function Searchable({type, id, value, input, invisible}) {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const renderTagIcon = () => {
-    switch (type) {
-      case "tag":
-      case "field":
-        switch (id) {
-          case "title":
-            return <TitleIcon className="icon" fill="white" />;
-          case "govlaw":
-            return <GovLawIcon className="icon" fill="white" />;
-          case "type":
-            return <DocTypeIcon className="icon" fill="white" />;
-          case "language":
-            return <LanguageIcon className="icon" fill="white" />;
-          case "access":
-            return <ClassificationIcon className="icon" fill="white" />;
-          case "date":
-            return <CalendarMonthIcon className="icon" fill="white" />;
-          default:
-            return <TagIcon className="icon" fill="white" />;
-        }
-      case "search":
-        return <SearchIcon className="icon" fill="white" />;
-      default:
-        return <React.Fragment />;
+    if (!invisible){
+      switch (type) {
+        case "tag":
+        case "field":
+          switch (id) {
+            case "govlaw":
+              return <GovLawIcon className="icon" fill="white" />;
+            case "type":
+              return <DocTypeIcon className="icon" fill="white" />;
+            case "language":
+              return <LanguageIcon className="icon" fill="white" />;
+            case "access":
+              return <ClassificationIcon className="icon" fill="white" />;
+            case "date":
+              return <CalendarMonthIcon className="icon" fill="white" />;
+            default:
+              return <TagIcon className="icon" fill="white" />;
+          }
+        case "search":
+          return <SearchIcon className="icon" fill="white" />;
+        default:
+          return <React.Fragment />;
+      }
     }
   };
 
@@ -75,13 +75,14 @@ export default function Searchable({ type, id, value, input }) {
         "/" +
         value.substring(6, 8)
       );
-    } else return value;
+    } else {
+      return value.charAt(0).toUpperCase() + value.slice(1);
+    }
   };
 
-  const active = false;
 
-  const body = active ? (
-    <div className="tag active">
+  const body = invisible ? (
+    <div className="invisible-tag" onClick={handleClick}>
       <p>{RenderValue(value)}</p>
     </div>
   ) : (

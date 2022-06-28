@@ -7,13 +7,14 @@ export default function SuggestionBox({
   tagSuggestions,
   fieldSuggestions,
   inputValue,
+  showSuggestions
 }) {
   const TAGS_DISPLAYED = 9;
 
   /* Tag suggestions are already filtered */
   const suggestions = tagSuggestions.slice(0, TAGS_DISPLAYED);
 
-  if (tagSuggestions.length === 0 && inputValue.length === 0) return null;
+  if (!showSuggestions) return null;
 
   return (
     <div className="suggestions">

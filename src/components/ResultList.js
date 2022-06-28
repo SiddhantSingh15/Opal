@@ -1,11 +1,16 @@
-import React, { useState } from "react";
+import {React,useState} from "react";
 import ResultCard from "./ResultCard";
 import Loading from "./Loading";
 import useFetchResults from "../hooks/useFetchResults";
+import "./ResultList.css"
 import { Stack, Typography } from "@mui/material";
+import {ReactComponent as UpCaret} from "../assets/upcaret.svg"
+import {ReactComponent as DownCaret} from "../assets/downcaret.svg"
+import TitleSort from "./TitleSort.js"
 import SaveTag from "./SaveTag";
 import axios from "axios";
 import config from "../config";
+
 
 export default function ResultList({
   handleToggleDocumentView,
@@ -13,6 +18,8 @@ export default function ResultList({
 }) {
   const results = useFetchResults();
   const [loading, setLoading] = useState(false);
+  const [sortFocus,setSortFocus] = useState(null);
+  const [sortDirection,setSortDirection] = useState("none");
 
   const username = "saiofdgnos";
   const password = "saiofdgnos";
@@ -48,29 +55,62 @@ export default function ResultList({
       </Typography>
     );
 
+  const handleSort = (name) => {
+    if (name == sortFocus) {
+      setSortDirection("up")
+    } else {
+      setSortFocus(name);
+      setSortDirection("down")
+    }
+
+  }
+
   return (
     <Stack>
-      <SaveTag saveTag={saveTag} load={loading} />
       <div className="table">
         <div className="title">
           <div className="docTitle">
-            <div className="element">Title</div>
+            <TitleSort
+            name="Title"
+            handleSort={handleSort}
+            sortFocus={sortFocus}
+            sortDirection={sortDirection}/>
           </div>
-          <div className="element">Language</div>
-          <div className="element">Type</div>
-          <div className="element">Access</div>
-          <div className="element">Date</div>
-          <div className="element">Gov Law</div>
-        </div>
-        {results.map((result, key) => {
-          return (
-            <ResultCard
-              key={key}
-              result={result}
-              handleToggleDocumentView={handleToggleDocumentView}
-              setCurrentDocLink={setCurrentDocLink}
-            />
-          );
+          <TitleSort
+            name="Language"
+            handleSort={handleSort}
+            sortFocus={sortFocus}
+            sortDirection={sortDirection}/>
+          <TitleSort
+            name="Type"
+            handleSort={handleSort}
+            sortFocus={sortFocus}
+            sortDirection={sortDirection}/>
+          <TitleSort
+            name="Access"
+            handleSort={handleSort}
+            sortFocus={sortFocus}
+            sortDirection={sortDirection}/>
+          <TitleSort
+            name="Date"
+            handleSort={handleSort}
+            sortFocus={sortFocus}
+            sortDirection={sortDirection}/>
+          <TitleSort
+            name="Gov Law"
+            handleSort={handleSort}
+            sortFocus={sortFocus}
+            sortDirection={sortDirection}/>
+          </div>
+          {results.map((result, key) => {
+            return (
+              <ResultCard
+                key={key}
+                result={result}
+                handleToggleDocumentView={handleToggleDocumentView}
+                setCurrentDocLink={setCurrentDocLink}
+              />
+            );
         })}
       </div>
     </Stack>
