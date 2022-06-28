@@ -10,13 +10,14 @@ import TitleSort from "./TitleSort.js"
 import SaveTag from "./SaveTag";
 import axios from "axios";
 import config from "../config";
+import { useEffect } from "react";
 
 
 export default function ResultList({
   handleToggleDocumentView,
   setCurrentDocLink,
 }) {
-  const results = useFetchResults();
+  const [documents,setDocuments] = useFetchResults();
   const [loading, setLoading] = useState(false);
   const [sortFocus,setSortFocus] = useState(null);
   const [sortDirection,setSortDirection] = useState("none");
@@ -24,9 +25,34 @@ export default function ResultList({
   const username = "saiofdgnos";
   const password = "saiofdgnos";
 
+  useEffect(() => {
+    switch(sortFocus) {
+      case "Title":
+        //
+        break;
+      case "Language":
+        //
+        break;
+      case "Type":
+        //
+        break;     
+      case "Access":
+        //
+        break;
+      case "Date":
+        alert("boo")
+        // setDocuments(documents.sort((docA,docB) => docA.fields.date>docB.fields.date))
+        break; 
+      case "Gov Law":
+        // 
+        break;
+    }
+  }
+  ,[sortFocus,sortDirection]);
+
   const saveTag = async (tagName) => {
     setLoading(true);
-    const documentIDs = results.map((doc) => doc.id);
+    const documentIDs = documents.map((doc) => doc.id);
     axios
       .post(
         `${config.BACKEND_URI}/tags/create_tag`,
@@ -46,9 +72,9 @@ export default function ResultList({
       });
   };
 
-  if (!results) return <Loading />;
+  if (!documents) return <Loading />;
 
-  if (results.length === 0)
+  if (documents.length === 0)
     return (
       <Typography textAlign="center" marginTop={30} variant="h2">
         No results!
@@ -56,13 +82,23 @@ export default function ResultList({
     );
 
   const handleSort = (name) => {
+    const newSortDirection = "";
     if (name == sortFocus) {
-      setSortDirection("up")
+      switch (sortDirection) {
+        case "none":
+          newSortDirection = "down";
+          break; 
+        case "down":
+          newSortDirection = "up";
+          break; 
+        case "up":
+          newSortDirection = "none";
+          break;       
+      }
     } else {
       setSortFocus(name);
-      setSortDirection("down")
+      setSortDirection(newSortDirection)
     }
-
   }
 
   return (
@@ -102,7 +138,7 @@ export default function ResultList({
             sortFocus={sortFocus}
             sortDirection={sortDirection}/>
           </div>
-          {results.map((result, key) => {
+          {documents.map((result, key) => {
             return (
               <ResultCard
                 key={key}
