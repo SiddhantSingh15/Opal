@@ -8,7 +8,6 @@ import { ReactComponent as LanguageIcon } from "../assets/language.svg";
 import { ReactComponent as ClassificationIcon } from "../assets/lock.svg";
 import TitleIcon from "@mui/icons-material/Title";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
-import { useDispatch } from "react-redux";
 import { useSearchParams } from "react-router-dom";
 import querySearch from "../utils/querySearch";
 
@@ -47,8 +46,6 @@ export default function Searchable({ type, id, value, input }) {
     }
   };
 
-  const dispatch = useDispatch();
-
   const handleClick = () => {
     if (input) {
       querySearch.addSearchParam(
@@ -56,8 +53,7 @@ export default function Searchable({ type, id, value, input }) {
         setSearchParams,
         type,
         id,
-        value,
-        dispatch
+        value
       );
     } else {
       querySearch.removeSearchParam(

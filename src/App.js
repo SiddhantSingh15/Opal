@@ -9,7 +9,7 @@ import { useDispatch } from "react-redux";
 import { restoreSearch } from "./redux/searchSlice";
 import Home from "./pages/Home";
 import Admin from "./pages/Admin";
-import "./App.css"
+import "./App.css";
 
 export default function App() {
   /* Restore tags redux */

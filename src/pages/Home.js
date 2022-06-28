@@ -6,7 +6,9 @@ import Searchable from "../components/Searchable";
 import { useSelector } from "react-redux";
 
 export default function Home() {
-  const tags = useSelector((state) => state.search.tags);
+  const { tags, fields } = useSelector((state) => state.search);
+
+  const fieldKeys = Object.keys(fields);
 
   return (
     <div className="home">
@@ -14,8 +16,19 @@ export default function Home() {
       <OpalLogo className="searchLogo" />
       {/* Currently Selected Tags */}
       <div className="search-widget">
-        {tags.length !== 0 && (
+        {(fieldKeys.length !== 0 || tags.length !== 0) && (
           <div className="search-params">
+            {fieldKeys.map((fieldKey, i) => {
+              return (
+                <React.Fragment key={i}>
+                  <Searchable
+                    type="field"
+                    id={fieldKey}
+                    value={fields[fieldKey]}
+                  />
+                </React.Fragment>
+              );
+            })}
             {tags.map((tag, key) => {
               return (
                 <React.Fragment key={key}>

@@ -14,14 +14,14 @@ export default function SearchParams() {
 
   return (
     <div style={style}>
-      {tags.map((tag, key) => (
-        <div key={key}>
-          <Searchable type="tag" id={tag.id} value={tag.value} />
-        </div>
-      ))}
       {Object.keys(fields).map((fieldKey, key) => (
         <div key={key}>
           <Searchable type="field" id={fieldKey} value={fields[fieldKey]} />
+        </div>
+      ))}
+      {tags.map((tag, key) => (
+        <div key={key}>
+          <Searchable type="tag" id={tag.id} value={tag.value} />
         </div>
       ))}
     </div>

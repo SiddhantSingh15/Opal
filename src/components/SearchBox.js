@@ -6,7 +6,6 @@ import querySearch from "../utils/querySearch";
 import config from "../config";
 import axios from "axios";
 import SuggestionBox from "./SuggestionBox";
-import { useDispatch } from "react-redux";
 import "./SearchBox.css";
 import useAuth from "../hooks/useAuth";
 import AnimatedPlaceholder from "./AnimatedPlaceholder";
@@ -123,7 +122,6 @@ export default function SearchBox({ animated }) {
     setInputValue(newValue);
   };
 
-  const dispatch = useDispatch();
   /* Performs different actions on special keys pressed */
   const handleKeyDown = (event) => {
     if (inputValue.length > 0) {
@@ -133,14 +131,7 @@ export default function SearchBox({ animated }) {
         /* Add tag to search parameters */
         if (validSearch()) {
           const { id, name } = tagSuggestions[0];
-          querySearch.addSearchParam(
-            param,
-            setParam,
-            "tag",
-            id,
-            name,
-            dispatch
-          );
+          querySearch.addSearchParam(param, setParam, "tag", id, name);
         }
         handleClear();
         // TODO: redirect to results with search query
@@ -149,14 +140,7 @@ export default function SearchBox({ animated }) {
         event.preventDefault();
         if (validSearch()) {
           const { id, name } = tagSuggestions[0];
-          querySearch.addSearchParam(
-            param,
-            setParam,
-            "tag",
-            id,
-            name,
-            dispatch
-          );
+          querySearch.addSearchParam(param, setParam, "tag", id, name);
           handleClear();
         }
         break;
