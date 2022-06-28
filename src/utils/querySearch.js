@@ -1,5 +1,4 @@
 import config from "../config";
-import { addTag } from "../redux/searchSlice";
 
 class QuerySearch {
   /** Add a search parameter

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import ResultCard from "./ResultCard";
 import Loading from "./Loading";
 import useFetchResults from "../hooks/useFetchResults";
-import { Box, Stack, Typography } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 import SaveTag from "./SaveTag";
 import axios from "axios";
 import config from "../config";

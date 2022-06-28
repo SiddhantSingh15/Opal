@@ -12,7 +12,6 @@ import {
   CircularProgress,
 } from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
-import MilitaryTechIcon from "@mui/icons-material/MilitaryTech";
 import AddIcon from "@mui/icons-material/Add";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";

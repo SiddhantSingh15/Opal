@@ -1,9 +1,6 @@
 import React from "react";
 import Searchable from "./Searchable";
-import { ReactComponent as CloseIcon } from "../assets/close.svg";
 import { ReactComponent as DotDotDot } from "../assets/dotdotdot.svg";
-import querySearch from "../utils/querySearch";
-import { useSearchParams } from "react-router-dom";
 // TODO: implement tag exclude functionality
 
 export default function SuggestionBox({
@@ -12,8 +9,6 @@ export default function SuggestionBox({
   inputValue,
 }) {
   const TAGS_DISPLAYED = 9;
-
-  const queryParams = useSearchParams()[0];
 
   /* Tag suggestions are already filtered */
   const suggestions = tagSuggestions.slice(0, TAGS_DISPLAYED);

@@ -3,7 +3,7 @@ import React from "react";
 import "./Admin.css";
 import AdminHeader from "../components/AdminHeader";
 import UserList from "../components/UserList";
-import ConnectedDBs from "../ConnectedDBs";
+import ConnectedDBs from "../components/ConnectedDBs";
 import useAuth from "../hooks/useAuth";
 import Loading from "../components/Loading";
 

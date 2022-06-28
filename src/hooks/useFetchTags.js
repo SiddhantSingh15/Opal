@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import config from "../config";
 
-// TODO: implement tag filtering functionality
 // TODO: implement tag caching functionality
 const useFetchTags = (tagIDs) => {
   const [tags, setTags] = useState([]);
