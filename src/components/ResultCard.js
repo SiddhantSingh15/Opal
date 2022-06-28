@@ -52,7 +52,7 @@ export default function ResultCard({
       <div className="fields">
         <div className="docTitle">
           <div className="element">
-            <p>{cutText(result.fields.title).toUpperCase()}</p>
+            <p>{cutText(result.fields.title)}</p>
           </div>
         </div>
         <div className="element">
@@ -61,10 +61,16 @@ export default function ResultCard({
             type="field"
             id="language"
             value={result.fields.language}
+            invisible={true}
           />
         </div>
         <div className="element">
-          <Searchable input type="field" id="type" value={result.fields.type} />
+          <Searchable 
+            input 
+            type="field" 
+            id="type" 
+            value={result.fields.type}
+            invisible={true} />
         </div>
         <div className="element">
           <Searchable
@@ -72,22 +78,29 @@ export default function ResultCard({
             type="field"
             id="access"
             value={result.fields.access}
+            invisible={true}
           />
         </div>
         <div className="element">
-          <Searchable input type="field" id="date" value={result.fields.date} />
+          <Searchable 
+            input 
+            type="field"
+            id="date" 
+            value={result.fields.date} 
+            invisible={true}/>
         </div>
         <div className="element">
           <div className="multi-param">
-            {result.fields.governing_law.map((param, index) => (
-              <Searchable
-                key={index}
-                input
-                type="field"
-                id="govlaw"
-                value={param}
-              />
-            ))}
+            {result.fields.governing_law.map((param, index) =>
+            <Searchable
+              input
+              key={index}
+              type="field"
+              id="govlaw"
+              value={param}
+              invisible={true}
+            />
+            )}
           </div>
         </div>
         <div className="tags">
@@ -98,6 +111,7 @@ export default function ResultCard({
               type="tag"
               id={tag.id}
               value={tag.value}
+              invisible={false}
             />
           ))}
         </div>

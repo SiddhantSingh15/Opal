@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { ReactComponent as SearchIcon } from "../assets/magnifier.svg";
 import { ReactComponent as CloseIcon } from "../assets/close.svg";
 import { useNavigate, useSearchParams } from "react-router-dom";
@@ -10,6 +10,7 @@ import "./SearchBox.css";
 import useAuth from "../hooks/useAuth";
 import AnimatedPlaceholder from "./AnimatedPlaceholder";
 import languages from "../assets/languages";
+import authLogic from "../utils/authLogic";
 
 /** Renders search box component
  * @param {bool} animated whether to show animated placeholder
@@ -25,9 +26,37 @@ export default function SearchBox({ animated }) {
   const [suggestedFields, setSuggestedFields] = useState([]);
 
   const [inputFocus, setInputFocus] = useState(false);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+
+  // Outside alerter
+  const useOutsideAlerter = (ref) => {
+    useEffect(() => {
+      /**
+       * Alert if clicked on outside of element
+       */
+      function handleClickOutside(event) {
+        if (ref.current && !ref.current.contains(event.target)) {
+          setShowSuggestions(false);
+        } else {
+          if (ref.current.children[0].children[0].value.length !== 0) {
+            setShowSuggestions(true);
+          }
+        }
+      }
+      // Bind the event listener
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => {
+        // Unbind the event listener on clean up
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    }, [ref]);
+  };
 
   /* Clear input value */
-  const handleClear = () => setInputValue("");
+  const handleClear = () => {
+    setInputValue("");
+    setShowSuggestions(false);
+  };
 
   /* Checks if the search is valid and with results. */
   const validSearch = () => tagSuggestions.length > 0 && inputValue.length > 0;
@@ -36,9 +65,13 @@ export default function SearchBox({ animated }) {
   const getSuggestedTags = async (tagSubstring) => {
     if (!authenticate.success) return null;
 
+    /* Authenticated */
+    const [username, password] = authLogic.getCredentials();
+    const headers = authLogic.getHeaders(username, password);
+
     const url = `${config.BACKEND_URI}/tags/${tagSubstring}`;
     try {
-      const response = await axios.get(url);
+      const response = await axios.get(url, { headers });
       setTagSuggestions(
         response.data.tags
           .filter((tag) => querySearch.tagNotSearched(param, tag.id))
@@ -116,8 +149,10 @@ export default function SearchBox({ animated }) {
     if (newValue.length > 0) {
       getSuggestedTags(newValue);
       getSuggestedFields(newValue);
+      setShowSuggestions(true);
     } else {
       setTagSuggestions([]);
+      setShowSuggestions(false);
     }
     setInputValue(newValue);
   };
@@ -154,6 +189,9 @@ export default function SearchBox({ animated }) {
     }
   };
 
+  const wrapperRef = useRef(null);
+  useOutsideAlerter(wrapperRef);
+
   /** Returns search typed suggestions or search input */
   const getSearchBar = () => {
     if (animated && !inputFocus)
@@ -187,13 +225,14 @@ export default function SearchBox({ animated }) {
   };
 
   return (
-    <div className="search">
+    <div className="search" ref={wrapperRef}>
       {getSearchBar()}
       {/* Suggested Options */}
       <SuggestionBox
         tagSuggestions={tagSuggestions}
-        fieldSuggestions={suggestedFields}
         inputValue={inputValue}
+        showSuggestions={showSuggestions}
+        fieldSuggestions={suggestedFields}
       />
     </div>
   );

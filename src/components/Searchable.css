@@ -21,23 +21,43 @@
   background-color: grey;
 }
 
+.invisible-tag {
+  border-radius: 15px;
+  margin-top: 2px;
+  margin-right: 2px;
+  color: black;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  flex-direction: row;
+  align-items: center;
+  border-color: transparent;
+}
+.invisible-tag:hover {
+  border-radius: 15px;
+  margin-top: 2px;
+  margin-left: 2px;
+  margin-right: 2px;
+  padding: 5px;
+  background-color: #202124ff;
+  color: white;
+  flex-direction: row;
+  align-items: center;
+  border-color: transparent;
+}
+
 .tag p {
   margin: auto;
   padding-left: 5px;
   padding-right: 5px;
-  font-weight: bold;
   font-size: 15px;
 }
 
-.tag s {
+.invisible-tag p {
   margin: auto;
-  padding-left: 5px;
   padding-right: 5px;
-  font-weight: bold;
   font-size: 15px;
-  text-decoration-thickness: 2px;
-  text-decoration-color: crimson;
 }
+
 
 .tag.active {
   background-color: white;
