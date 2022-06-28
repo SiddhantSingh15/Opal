@@ -38,7 +38,10 @@ export default function SearchBox({ animated }) {
         if (ref.current && !ref.current.contains(event.target)) {
           setShowSuggestions(false);
         } else {
-          if (ref.current.children[0].children[0].value.length !== 0) {
+          if (
+            ref.current.children[0].children[0].value &&
+            ref.current.children[0].children[0].value.length !== 0
+          ) {
             setShowSuggestions(true);
           }
         }

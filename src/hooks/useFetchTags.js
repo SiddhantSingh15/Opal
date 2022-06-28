@@ -8,8 +8,7 @@ const useFetchTags = (tagIDs) => {
   const [tags, setTags] = useState([]);
 
   /* Authentication (we're already authed) */
-  const [username, password] = authLogic.getCredentials();
-  const headers = authLogic.getHeaders(username, password);
+  const headers = authLogic.getHeaders();
 
   useEffect(() => {
     axios

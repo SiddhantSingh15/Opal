@@ -5,6 +5,7 @@ import { ReactComponent as Download } from "../assets/download.svg";
 import { Button, Backdrop } from "@mui/material";
 import useFetchTags from "../hooks/useFetchTags";
 import "./ResultsCard.css";
+import authLogic from "../utils/authLogic";
 
 export default function ResultCard({
   result,
@@ -41,18 +42,23 @@ export default function ResultCard({
 
   // Checks if we are authorised to view the document
   // TODO: complete
-  const userAuthorised = () => result.access === "public";
+  const userAuthorised = () => {
+    return result.fields.access === "public";
+  };
 
   // TODO: complete
   /* Request access to the document */
-  const requestAccess = () => alert("requesting access");
+  const requestAccess = () => {
+    const header = authLogic.getHeader();
+    console.log(header);
+  };
 
   return (
     <div className="results-card" onClick={handleResultsCardClick}>
       <div className="fields">
         <div className="docTitle">
           <div className="element">
-            <p>{cutText(result.fields.title)}</p>
+            <p>{cutText(result.fields.title).toUpperCase()}</p>
           </div>
         </div>
         <div className="element">
@@ -61,16 +67,10 @@ export default function ResultCard({
             type="field"
             id="language"
             value={result.fields.language}
-            invisible={true}
           />
         </div>
         <div className="element">
-          <Searchable 
-            input 
-            type="field" 
-            id="type" 
-            value={result.fields.type}
-            invisible={true} />
+          <Searchable input type="field" id="type" value={result.fields.type} />
         </div>
         <div className="element">
           <Searchable
@@ -78,29 +78,22 @@ export default function ResultCard({
             type="field"
             id="access"
             value={result.fields.access}
-            invisible={true}
           />
         </div>
         <div className="element">
-          <Searchable 
-            input 
-            type="field"
-            id="date" 
-            value={result.fields.date} 
-            invisible={true}/>
+          <Searchable input type="field" id="date" value={result.fields.date} />
         </div>
         <div className="element">
           <div className="multi-param">
-            {result.fields.governing_law.map((param, index) =>
-            <Searchable
-              input
-              key={index}
-              type="field"
-              id="govlaw"
-              value={param}
-              invisible={true}
-            />
-            )}
+            {result.fields.governing_law.map((param, index) => (
+              <Searchable
+                key={index}
+                input
+                type="field"
+                id="govlaw"
+                value={param}
+              />
+            ))}
           </div>
         </div>
         <div className="tags">
@@ -111,7 +104,6 @@ export default function ResultCard({
               type="tag"
               id={tag.id}
               value={tag.value}
-              invisible={false}
             />
           ))}
         </div>

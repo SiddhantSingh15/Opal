@@ -45,8 +45,6 @@ export default function ResultList({
       });
   };
 
-  console.log(results);
-
   if (!results) return <Loading />;
 
   // if (results.length === 0)
