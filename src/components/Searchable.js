@@ -6,6 +6,7 @@ import { ReactComponent as GovLawIcon } from "../assets/govlaw.svg";
 import { ReactComponent as DocTypeIcon } from "../assets/doc.svg";
 import { ReactComponent as LanguageIcon } from "../assets/language.svg";
 import { ReactComponent as ClassificationIcon } from "../assets/lock.svg";
+import TitleIcon from "@mui/icons-material/Title";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import { useDispatch } from "react-redux";
 import { useSearchParams } from "react-router-dom";
@@ -24,6 +25,8 @@ export default function Searchable({ type, id, value, input }) {
       case "tag":
       case "field":
         switch (id) {
+          case "title":
+            return <TitleIcon className="icon" fill="white" />;
           case "govlaw":
             return <GovLawIcon className="icon" fill="white" />;
           case "type":

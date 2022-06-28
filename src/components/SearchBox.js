@@ -23,6 +23,7 @@ export default function SearchBox({ animated }) {
 
   const [inputValue, setInputValue] = useState("");
   const [tagSuggestions, setTagSuggestions] = useState([]);
+  const [suggestedFields, setSuggestedFields] = useState([]);
 
   const [inputFocus, setInputFocus] = useState(false);
 
@@ -55,41 +56,44 @@ export default function SearchBox({ animated }) {
 
   /* Based on the input returns the suggested fields. */
   const getSuggestedFields = (newValue) => {
-    const suggestedFields = {
-      language: [],
-      title: [],
-      type: [],
-      access: [],
-      date: [],
-      governing_law: [],
-    };
-
     const typed = newValue.toLowerCase();
 
+    const fields = [];
+
     /* Title */
-    suggestedFields.title.push(newValue);
+    fields.push({ id: "title", value: newValue });
 
     /* Language */
-    if (typed.includes("language"))
-      suggestedFields.language = languages.filter(
+    if (typed.includes("language")) {
+      const langFields = languages.filter(
         /* Replace with .includes for more suggestions */
         (lang) =>
           extractKeys("language", typed).includes(lang.toLocaleLowerCase())
       );
+      langFields.forEach((lang) =>
+        fields.push({ id: "language", value: lang })
+      );
+    }
 
     /* Access */
     if (typed.includes("access")) {
-      suggestedFields.access = extractKeys("access", typed);
+      extractKeys("access", typed).forEach((value) =>
+        fields.push({ id: "access", value })
+      );
     }
 
     /* Type */
     if (typed.includes("type")) {
-      suggestedFields.type = extractKeys("type", typed);
+      extractKeys("type", typed).forEach((value) =>
+        fields.push({ id: "type", value })
+      );
     }
 
     /* Access */
     if (typed.includes("gov law")) {
-      suggestedFields.governing_law = extractKeys("gov law", typed);
+      extractKeys("gov law", typed).forEach((value) =>
+        fields.push({ id: "govlaw", value })
+      );
     }
 
     /* Date */
@@ -97,6 +101,8 @@ export default function SearchBox({ animated }) {
     //   const fromSplit = extractKeys("from", typed)[0];
     //   if (fromSplit.includes("to")) {} else
     // }
+
+    setSuggestedFields(fields);
   };
 
   /** Extracts key search queries from field search */
@@ -201,7 +207,11 @@ export default function SearchBox({ animated }) {
     <div className="search">
       {getSearchBar()}
       {/* Suggested Options */}
-      <SuggestionBox tagSuggestions={tagSuggestions} inputValue={inputValue} />
+      <SuggestionBox
+        tagSuggestions={tagSuggestions}
+        fieldSuggestions={suggestedFields}
+        inputValue={inputValue}
+      />
     </div>
   );
 }
