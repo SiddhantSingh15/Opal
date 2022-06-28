@@ -22,7 +22,8 @@ const useAuth = () => {
 
       const [username, password] = split;
 
-      authLogic.loginRequest(username, password)
+      authLogic
+        .loginRequest(username, password)
         .then((res) => {
           if (!res) {
             setResponse({ success: false, message: "Unknown error" });
@@ -42,7 +43,7 @@ const useAuth = () => {
           setResponse({ success: false, message: "Unknown error" });
         });
     }
-  }, []);
+  }, [sessionStorage.getItem("auth")]);
 
   return response;
 };
