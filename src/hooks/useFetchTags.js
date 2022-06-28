@@ -17,7 +17,6 @@ const useFetchTags = (tagIDs) => {
     console.log(e)
   }
   
-  console.log("here")
   const headers = authLogic.getHeaders(username, password);
 
   useEffect(() => {

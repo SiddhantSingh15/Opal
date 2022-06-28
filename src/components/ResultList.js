@@ -89,12 +89,13 @@ export default function ResultList({
 
   if (!documents) return <Loading />;
 
-  if (documents.length === 0)
+  if (documents.length === 0) {
     return (
       <Typography textAlign="center" marginTop={30} variant="h2">
         No results!
       </Typography>
     );
+  } 
 
   const handleTitleClick = (name) => {
     var newSortDirection = "";
@@ -158,7 +159,6 @@ export default function ResultList({
             sortFocus={sortFocus}
             sortDirection={sortDirection}/>
           </div>
-          {console.log(documents[0].fields.title)}
           {documents.map((result, key) => {
             return (
               <ResultCard
