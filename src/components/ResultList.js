@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import ResultCard from "./ResultCard";
 import Loading from "./Loading";
 import useFetchResults from "../hooks/useFetchResults";
-import { Stack } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 import SaveTag from "./SaveTag";
 import axios from "axios";
 import config from "../config";
@@ -13,8 +13,6 @@ export default function ResultList({
 }) {
   const results = useFetchResults();
   const [loading, setLoading] = useState(false);
-
-  if (!results || results.length === 0) return <Loading />;
 
   const username = "saiofdgnos";
   const password = "saiofdgnos";
@@ -40,6 +38,15 @@ export default function ResultList({
         window.location = "/";
       });
   };
+
+  if (!results) return <Loading />;
+
+  if (results.length === 0)
+    return (
+      <Typography textAlign="center" marginTop={30} variant="h2">
+        No results!
+      </Typography>
+    );
 
   return (
     <Stack>
