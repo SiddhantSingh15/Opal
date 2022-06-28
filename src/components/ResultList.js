@@ -1,16 +1,15 @@
-import {React,useState} from "react";
+import { React, useState } from "react";
 import ResultCard from "./ResultCard";
 import Loading from "./Loading";
 import useFetchResults from "../hooks/useFetchResults";
-import "./ResultList.css"
+import "./ResultList.css";
 import { Stack, Typography } from "@mui/material";
-import {ReactComponent as UpCaret} from "../assets/upcaret.svg"
-import {ReactComponent as DownCaret} from "../assets/downcaret.svg"
-import TitleSort from "./TitleSort.js"
+import { ReactComponent as UpCaret } from "../assets/upcaret.svg";
+import { ReactComponent as DownCaret } from "../assets/downcaret.svg";
+import TitleSort from "./TitleSort.js";
 import SaveTag from "./SaveTag";
 import axios from "axios";
 import config from "../config";
-
 
 export default function ResultList({
   handleToggleDocumentView,
@@ -18,8 +17,8 @@ export default function ResultList({
 }) {
   const results = useFetchResults();
   const [loading, setLoading] = useState(false);
-  const [sortFocus,setSortFocus] = useState(null);
-  const [sortDirection,setSortDirection] = useState("none");
+  const [sortFocus, setSortFocus] = useState(null);
+  const [sortDirection, setSortDirection] = useState("none");
 
   const username = "saiofdgnos";
   const password = "saiofdgnos";
@@ -48,6 +47,8 @@ export default function ResultList({
 
   if (!results) return <Loading />;
 
+  console.log(results);
+
   if (results.length === 0)
     return (
       <Typography textAlign="center" marginTop={30} variant="h2">
@@ -57,13 +58,12 @@ export default function ResultList({
 
   const handleSort = (name) => {
     if (name == sortFocus) {
-      setSortDirection("up")
+      setSortDirection("up");
     } else {
       setSortFocus(name);
-      setSortDirection("down")
+      setSortDirection("down");
     }
-
-  }
+  };
 
   return (
     <Stack>
@@ -71,46 +71,52 @@ export default function ResultList({
         <div className="title">
           <div className="docTitle">
             <TitleSort
-            name="Title"
-            handleSort={handleSort}
-            sortFocus={sortFocus}
-            sortDirection={sortDirection}/>
+              name="Title"
+              handleSort={handleSort}
+              sortFocus={sortFocus}
+              sortDirection={sortDirection}
+            />
           </div>
           <TitleSort
             name="Language"
             handleSort={handleSort}
             sortFocus={sortFocus}
-            sortDirection={sortDirection}/>
+            sortDirection={sortDirection}
+          />
           <TitleSort
             name="Type"
             handleSort={handleSort}
             sortFocus={sortFocus}
-            sortDirection={sortDirection}/>
+            sortDirection={sortDirection}
+          />
           <TitleSort
             name="Access"
             handleSort={handleSort}
             sortFocus={sortFocus}
-            sortDirection={sortDirection}/>
+            sortDirection={sortDirection}
+          />
           <TitleSort
             name="Date"
             handleSort={handleSort}
             sortFocus={sortFocus}
-            sortDirection={sortDirection}/>
+            sortDirection={sortDirection}
+          />
           <TitleSort
             name="Gov Law"
             handleSort={handleSort}
             sortFocus={sortFocus}
-            sortDirection={sortDirection}/>
-          </div>
-          {results.map((result, key) => {
-            return (
-              <ResultCard
-                key={key}
-                result={result}
-                handleToggleDocumentView={handleToggleDocumentView}
-                setCurrentDocLink={setCurrentDocLink}
-              />
-            );
+            sortDirection={sortDirection}
+          />
+        </div>
+        {results.map((result, key) => {
+          return (
+            <ResultCard
+              key={key}
+              result={result}
+              handleToggleDocumentView={handleToggleDocumentView}
+              setCurrentDocLink={setCurrentDocLink}
+            />
+          );
         })}
       </div>
     </Stack>
