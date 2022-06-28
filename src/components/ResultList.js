@@ -33,18 +33,18 @@ export default function ResultList({
 
   const sortResults = (title) => {
     if (sortDirection === "up") {
-      return documents.sort((docA,docB) => compare(docA.fields[title],docB.fields[title]))
+      return [...documents].sort((docA,docB) => compare(docA.fields[title],docB.fields[title]))
     } else if (sortDirection === "down"){
-      return documents.sort((docA,docB) => compare(docB.fields[title],docA.fields[title]))
+      return [...documents].sort((docA,docB) => compare(docB.fields[title],docA.fields[title]))
     } else {
       return documents
     }
   }
-
   useEffect(() => {
     switch(sortFocus) {
       case "Title":
-        setDocuments(sortResults("title"))
+        var temp = sortResults("title")
+        setDocuments(temp)
         break;
       case "Language":
         setDocuments(sortResults("language"))
@@ -158,6 +158,7 @@ export default function ResultList({
             sortFocus={sortFocus}
             sortDirection={sortDirection}/>
           </div>
+          {console.log(documents[0].fields.title)}
           {documents.map((result, key) => {
             return (
               <ResultCard
