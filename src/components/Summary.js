@@ -7,8 +7,8 @@ export default function Summary({ title, summary, display }) {
     <Card
       sx={{
         padding: 2,
-        width: "450px",
-        height: "300px",
+        maxHeight: "75%",
+        width: "50%",
       }}
     >
       <Typography variant="h6" component="h1">
@@ -17,14 +17,11 @@ export default function Summary({ title, summary, display }) {
       <Typography marginTop={-1} variant="subtitle" component="p">
         <i>Summary</i>
       </Typography>
-      <Box marginTop={2} sx={{ height: "200px", overflowY: "scroll" }}>
+      <Box marginTop={2}>
         <Typography variant="body1" component="p">
           {summary}
         </Typography>
       </Box>
-      <Button variant="contained" sx={styles.button}>
-        READ FULL
-      </Button>
     </Card>
   );
 }
