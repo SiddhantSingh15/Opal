@@ -41,13 +41,13 @@ export default function AuthForm({ open, handleClose, signup }) {
     const response = await authLogic.loginRequest(email, password);
     if (!response) {
       alert("Unknown error, retry!");
-      setLoading(false)
+      setLoading(false);
       return;
     }
 
     if (!response.authenticated) {
       alert("Invalid credentials");
-      setLoading(false)
+      setLoading(false);
       return;
     }
 
@@ -75,13 +75,13 @@ export default function AuthForm({ open, handleClose, signup }) {
     const response = await authLogic.signupRequest(email, password);
     if (!response) {
       alert("Unknown error, retry!");
-      setLoading(false)
+      setLoading(false);
       return;
     }
 
     if (!response.created) {
       alert("User successfuly created!");
-      setLoading(false)
+      setLoading(false);
       return;
     }
 
@@ -102,7 +102,6 @@ export default function AuthForm({ open, handleClose, signup }) {
       sx={{ margin: "0 auto", marginTop: "30px", height: "320px" }}
     >
       <TextField
-        id="email"
         label="Email"
         type="email"
         required
@@ -124,7 +123,11 @@ export default function AuthForm({ open, handleClose, signup }) {
           setPassword(e.target.value);
         }}
       />
-      {signup ? <UserType handleChange={() => setErrorMessage("")} /> : <RememberMe />}
+      {signup ? (
+        <UserType handleChange={() => setErrorMessage("")} />
+      ) : (
+        <RememberMe />
+      )}
       <Button
         sx={{
           height: "50px",
