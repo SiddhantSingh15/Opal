@@ -11,11 +11,11 @@ export default function Results() {
   const [viewingDoc, setViewingDoc] = useState(false);
   const [currentDocLink, setCurrentDocLink] = useState("");
 
-  const authenticate = useAuth();
+  // const authenticate = useAuth();
 
-  if (!authenticate.success) {
-    return <Loading />;
-  }
+  // if (!authenticate.success) {
+  //   return <Loading />;
+  // }
 
   const handleToggleDocumentView = () => {
     setViewingDoc(!viewingDoc);
