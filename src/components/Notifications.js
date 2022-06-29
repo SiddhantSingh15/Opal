@@ -12,6 +12,9 @@ import HourglassTopIcon from "@mui/icons-material/HourglassTop";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
 import useFetchNotifications from "../hooks/useFetchNotifications";
+import authLogic from "../utils/authLogic";
+import axios from "axios";
+import config from "../config";
 
 let count = 0;
 
@@ -43,8 +46,23 @@ export default function Notifications({ userAdmin }) {
   };
 
   /** Handles access request, accepting or rejecting it. */
-  const handleGrantAccess = (notificationID) => {
-    alert("accept");
+  const handleGrantAccess = async (
+    notification_id,
+    document_id,
+    granted_to
+  ) => {
+    const headers = authLogic.getHeaders();
+    const body = { notification_id, document_id, granted_to };
+    console.log(headers, body);
+    try {
+      const response = await axios.post(
+        `${config.BACKEND_URI}/document/grantaccess`,
+        body,
+        { headers }
+      );
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   if (!notifications || notifications.length === 0) return null;
@@ -86,7 +104,11 @@ export default function Notifications({ userAdmin }) {
               </Typography>
               {userAdmin && (
                 <Tooltip title="grant access">
-                  <IconButton onClick={() => handleGrantAccess(item.id)}>
+                  <IconButton
+                    onClick={() =>
+                      handleGrantAccess(item.id, item.document_id, item.sender)
+                    }
+                  >
                     <ThumbUpOffAltIcon color="success" fontSize="small" />
                   </IconButton>
                 </Tooltip>
