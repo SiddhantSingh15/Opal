@@ -22,6 +22,7 @@
 }
 
 .invisible-tag {
+  display: flex;
   border-radius: 15px;
   margin-top: 2px;
   margin-right: 2px;
@@ -32,6 +33,16 @@
   align-items: center;
   border-color: transparent;
 }
+
+.invisible-tag .icon {
+  display: none;
+}
+
+.invisible-tag:hover .icon{
+  display: block;
+  margin-right: 7px;
+}
+
 .invisible-tag:hover {
   border-radius: 15px;
   margin-top: 2px;

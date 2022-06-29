@@ -8,7 +8,15 @@ const useFetchTags = (tagIDs) => {
   const [tags, setTags] = useState([]);
 
   /* Authentication (we're already authed) */
-  const [username, password] = authLogic.getCredentials();
+  var username = ""
+  var password = ""
+  try {
+    const [username, password] = authLogic.getCredentials();
+  }
+  catch (e) {
+    console.log(e)
+  }
+  
   const headers = authLogic.getHeaders(username, password);
 
   useEffect(() => {
@@ -25,7 +33,6 @@ const useFetchTags = (tagIDs) => {
       })
       .catch((e) => console.log(e));
   }, []);
-
   return tags;
 };
 

@@ -20,31 +20,29 @@ export default function Searchable({ type, id, value, input, invisible }) {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const renderTagIcon = () => {
-    if (!invisible) {
-      switch (type) {
-        case "tag":
-        case "field":
-          switch (id) {
-            case "title":
-              return <TitleIcon className="icon" fill="white" />;
-            case "govlaw":
-              return <GovLawIcon className="icon" fill="white" />;
-            case "type":
-              return <DocTypeIcon className="icon" fill="white" />;
-            case "language":
-              return <LanguageIcon className="icon" fill="white" />;
-            case "access":
-              return <ClassificationIcon className="icon" fill="white" />;
-            case "date":
-              return <CalendarMonthIcon className="icon" fill="white" />;
-            default:
-              return <TagIcon className="icon" fill="white" />;
-          }
-        case "search":
-          return <SearchIcon className="icon" fill="white" />;
-        default:
-          return <React.Fragment />;
-      }
+    switch (type) {
+      case "tag":
+      case "field":
+        switch (id) {
+          case "title":
+            return <TitleIcon className="icon" fill="white" />;
+          case "govlaw":
+            return <GovLawIcon className="icon" fill="white" />;
+          case "type":
+            return <DocTypeIcon className="icon" fill="white" />;
+          case "language":
+            return <LanguageIcon className="icon" fill="white" />;
+          case "access":
+            return <ClassificationIcon className="icon" fill="white" />;
+          case "date":
+            return <CalendarMonthIcon className="icon" fill="white" />;
+          default:
+            return <TagIcon className="icon" fill="white" />;
+        }
+      case "search":
+        return <SearchIcon className="icon" fill="white" />;
+      default:
+        return <React.Fragment />;
     }
   };
 
@@ -84,6 +82,7 @@ export default function Searchable({ type, id, value, input, invisible }) {
 
   const body = invisible ? (
     <div className="invisible-tag" onClick={handleClick}>
+      {renderTagIcon()}
       <p>{RenderValue(value)}</p>
     </div>
   ) : (

@@ -163,22 +163,24 @@ export default function SearchBox({ animated }) {
     }
     switch (event.key) {
       case "Enter":
-        /* Add tag to search parameters */
-        if (validSearch()) {
-          const { id, name } = tagSuggestions[0];
-          querySearch.addSearchParam(param, setParam, "tag", id, name);
-        }
-        handleClear();
-        // TODO: redirect to results with search query
-        break;
-      case "Tab":
-        event.preventDefault();
-        if (validSearch()) {
-          const { id, name } = tagSuggestions[0];
-          querySearch.addSearchParam(param, setParam, "tag", id, name);
-          handleClear();
-        }
-        break;
+        navigate(`/results?${param.toString()}`)
+      // case "Enter":
+      //   /* Add tag to search parameters */
+      //   if (validSearch()) {
+      //     const { id, name } = tagSuggestions[0];
+      //     querySearch.addSearchParam(param, setParam, "tag", id, name);
+      //   }
+      //   handleClear();
+      //   // TODO: redirect to results with search query
+      //   break;
+      // case "Tab":
+      //   event.preventDefault();
+      //   if (validSearch()) {
+      //     const { id, name } = tagSuggestions[0];
+      //     querySearch.addSearchParam(param, setParam, "tag", id, name);
+      //     handleClear();
+      //   }
+      //   break;
       // case "Backspace":
       //   /* Remove latest tag if backspacing on it. */
       //   if (inputValue === "") {

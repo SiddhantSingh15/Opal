@@ -23,28 +23,30 @@ export default function ResultList({
   const password = "saiofdgnos";
 
 
-  const compare = (a,b) => {
+  const compare = (docA,docB) => {
+    const cleanedDocA = docA.trim();
+    const cleanedDocB = docB.trim();
     if (sortFocus === "Date") {
-      return  parseInt(a) - parseInt(b);
+      return  parseInt(cleanedDocA) - parseInt(cleanedDocB);
     } else {
-      return (a<b?-1:(a>b?1:0));
+      return (cleanedDocA<cleanedDocB?-1:(cleanedDocA>cleanedDocB?1:0));
     }
   }
 
-  const sortResults = (title) => {
+  const sortResults = (paramType) => {
     if (sortDirection === "up") {
-      return documents.sort((docA,docB) => compare(docA.fields[title],docB.fields[title]))
+      return [...documents].sort((docA,docB) => compare(docA.fields[paramType],docB.fields[paramType]))
     } else if (sortDirection === "down"){
-      return documents.sort((docA,docB) => compare(docB.fields[title],docA.fields[title]))
+      return [...documents].sort((docA,docB) => compare(docB.fields[paramType],docA.fields[paramType]))
     } else {
       return documents
     }
   }
-
   useEffect(() => {
     switch(sortFocus) {
       case "Title":
-        setDocuments(sortResults("title"))
+        var temp = sortResults("title")
+        setDocuments(temp)
         break;
       case "Language":
         setDocuments(sortResults("language"))
@@ -89,12 +91,13 @@ export default function ResultList({
 
   if (!documents) return <Loading />;
 
-  if (documents.length === 0)
+  if (documents.length === 0) {
     return (
       <Typography textAlign="center" marginTop={30} variant="h2">
         No results!
       </Typography>
     );
+  } 
 
   const handleTitleClick = (name) => {
     var newSortDirection = "";
@@ -112,7 +115,7 @@ export default function ResultList({
       }
     } else {
       setSortFocus(name);
-      newSortDirection = "down"
+      newSortDirection = "up"
     }
     setSortDirection(newSortDirection)
   }
@@ -158,7 +161,7 @@ export default function ResultList({
             sortFocus={sortFocus}
             sortDirection={sortDirection}/>
           </div>
-          {documents.map((result, key) => {
+          { [...documents].map((result, key) => {
             return (
               <ResultCard
                 key={key}
