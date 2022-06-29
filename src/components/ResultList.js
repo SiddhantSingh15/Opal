@@ -23,19 +23,21 @@ export default function ResultList({
   const password = "saiofdgnos";
 
 
-  const compare = (a,b) => {
+  const compare = (docA,docB) => {
+    const cleanedDocA = docA.trim();
+    const cleanedDocB = docB.trim();
     if (sortFocus === "Date") {
-      return  parseInt(a) - parseInt(b);
+      return  parseInt(cleanedDocA) - parseInt(cleanedDocB);
     } else {
-      return (a<b?-1:(a>b?1:0));
+      return (cleanedDocA<cleanedDocB?-1:(cleanedDocA>cleanedDocB?1:0));
     }
   }
 
-  const sortResults = (title) => {
+  const sortResults = (paramType) => {
     if (sortDirection === "up") {
-      return [...documents].sort((docA,docB) => compare(docA.fields[title],docB.fields[title]))
+      return [...documents].sort((docA,docB) => compare(docA.fields[paramType],docB.fields[paramType]))
     } else if (sortDirection === "down"){
-      return [...documents].sort((docA,docB) => compare(docB.fields[title],docA.fields[title]))
+      return [...documents].sort((docA,docB) => compare(docB.fields[paramType],docA.fields[paramType]))
     } else {
       return documents
     }
@@ -113,7 +115,7 @@ export default function ResultList({
       }
     } else {
       setSortFocus(name);
-      newSortDirection = "down"
+      newSortDirection = "up"
     }
     setSortDirection(newSortDirection)
   }
