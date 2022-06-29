@@ -3,7 +3,7 @@ import axios from "axios";
 import config from "../config";
 import authLogic from "../utils/authLogic";
 
-const useFetchNotifications = () => {
+const useFetchNotifications = (count) => {
   const [notifications, setNotifications] = useState([]);
 
   const headers = authLogic.getHeaders();
@@ -14,7 +14,7 @@ const useFetchNotifications = () => {
       .catch((e) => {
         console.log(e);
       });
-  }, []);
+  }, [count]);
 
   return notifications;
 };

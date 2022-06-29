@@ -15,8 +15,7 @@ const NavBar = () => {
   const [loginOpen, setLoginOpen] = useState(false);
   const authenticate = useAuth();
 
-  // TODO: implement it really from server info
-  const isAdmin = true;
+  const isAdmin = authenticate.admin;
 
   return (
     <div className="navbar">

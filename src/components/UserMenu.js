@@ -11,7 +11,7 @@ export default function UserMenu({ userAdmin }) {
 
   const handleLogout = () => {
     sessionStorage.removeItem("auth");
-    window.location = window.location.pathname;
+    window.location = "/";
   };
 
   return (

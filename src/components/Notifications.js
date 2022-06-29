@@ -1,42 +1,46 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import { Stack, Menu, MenuItem, Typography, IconButton } from "@mui/material";
-// import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
+import {
+  Stack,
+  Menu,
+  MenuItem,
+  Typography,
+  IconButton,
+  Tooltip,
+} from "@mui/material";
 import HourglassTopIcon from "@mui/icons-material/HourglassTop";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
-import ThumbDownOffAltIcon from "@mui/icons-material/ThumbDownOffAlt";
 import useFetchNotifications from "../hooks/useFetchNotifications";
+
+let count = 0;
 
 export default function Notifications({ userAdmin }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const menuOpen = Boolean(anchorEl);
+  const [dummy, setDummy] = useState(0);
 
   const handleClose = () => setAnchorEl(null);
 
-  const notifications = useFetchNotifications();
-  console.log(notifications);
+  const notifications = useFetchNotifications(Math.floor(count / 2));
+
+  useEffect(() => {
+    setInterval(() => {
+      count++;
+      setDummy(count);
+    }, 2000);
+  }, []);
 
   const getNotificationBody = (notification) => {
     if (notification.resolved)
       return [<CheckCircleOutlineIcon color="success" />, "denied"];
 
     return [<HourglassTopIcon color="warning" />, "requested"];
-    // switch (notification.status) {
-    //   case "rejected":
-    //     return [<ErrorOutlineIcon color="error" />, "denied"];
-    //   case "pending":
-    //     return [<HourglassTopIcon color="warning" />, "requested"];
-    //   case "accepted":
-    //     return [<CheckCircleOutlineIcon color="success" />, "denied"];
-    //   default:
-    //     return [null, "unknown"];
-    // }
   };
 
   /** Handles access request, accepting or rejecting it. */
-  const handleRequest = (requestID, accept) => {
-    alert(accept);
+  const handleGrantAccess = (notificationID) => {
+    alert("accept");
   };
 
   if (!notifications || notifications.length === 0) return null;
@@ -67,23 +71,21 @@ export default function Notifications({ userAdmin }) {
           horizontal: "right",
         }}
       >
-        {notifications.map((item, key) => {
+        {[...notifications].reverse().map((item, key) => {
           const [icon, verb] = getNotificationBody(item);
           return (
             <MenuItem key={key} style={{ whiteSpace: "normal" }}>
               {icon}
               <Typography marginLeft={1} variant="body2">
-                Access {verb} to {item.title}
+                Access {verb} by <b>{item.sender}</b> to document{" "}
+                <b>{item.document_id}</b>
               </Typography>
               {userAdmin && (
-                <Stack>
-                  <IconButton onClick={() => handleRequest(item.id, true)}>
+                <Tooltip title="grant access">
+                  <IconButton onClick={() => handleGrantAccess(item.id)}>
                     <ThumbUpOffAltIcon color="success" fontSize="small" />
                   </IconButton>
-                  <IconButton onClick={() => handleRequest(item.id, false)}>
-                    <ThumbDownOffAltIcon color="error" fontSize="small" />
-                  </IconButton>
-                </Stack>
+                </Tooltip>
               )}
             </MenuItem>
           );
