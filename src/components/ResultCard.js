@@ -5,9 +5,7 @@ import { ReactComponent as Download } from "../assets/download.svg";
 import { Button, Backdrop, Snackbar } from "@mui/material";
 import useFetchTags from "../hooks/useFetchTags";
 import "./ResultsCard.css";
-import authLogic from "../utils/authLogic";
-import config from "../config";
-import axios from "axios";
+import RequestAccess from "./RequestAccess";
 
 export default function ResultCard({
   result,
@@ -46,26 +44,6 @@ export default function ResultCard({
   // TODO: complete
   const userAuthorised = () => {
     return result.fields.access === "public";
-  };
-
-  // TODO: complete
-  /* Request access to the document */
-  const requestAccess = async () => {
-    const headers = authLogic.getHeaders();
-    try {
-      const response = await axios.post(
-        `${config.BACKEND_URI}/document/requestaccess`,
-        { document_id: result.id, reason: "Research cause no 631" },
-        { headers }
-      );
-
-      if (response.status === 200) {
-        alert("Access requested");
-      }
-    } catch (e) {
-      console.log(e);
-      alert("Unknown error");
-    }
   };
 
   return (
@@ -158,15 +136,7 @@ export default function ResultCard({
             </a>
           </div>
         ) : (
-          <div className="buttons">
-            <Button
-              variant="contained"
-              onClick={requestAccess}
-              className="clickable buttons"
-            >
-              Request Access
-            </Button>
-          </div>
+          <RequestAccess document_id={result.id} />
         )}
         <Backdrop
           className="clickable"
