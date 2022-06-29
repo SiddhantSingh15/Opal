@@ -25,15 +25,16 @@ export default function RequestAccess({ document_id }) {
   const handleRequest = async () => {
     const headers = authLogic.getHeaders();
     setLoading(true);
+    const body = { document_id, reason };
     try {
       const response = await axios.post(
         `${config.BACKEND_URI}/document/requestaccess`,
-        { document_id, reason },
+        body,
         { headers }
       );
 
       if (response.status === 200) {
-        alert("Access requested");
+        alert("Access requested successfully!");
       }
       window.location = window.location.href;
     } catch (e) {

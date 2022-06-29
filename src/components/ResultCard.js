@@ -7,12 +7,15 @@ import useFetchTags from "../hooks/useFetchTags";
 import "./ResultsCard.css";
 import RequestAccess from "./RequestAccess";
 import authLogic from "../utils/authLogic";
+import useAuth from "../hooks/useAuth";
 
 export default function ResultCard({
   result,
   handleToggleDocumentView,
   setCurrentDocLink,
 }) {
+  const authenticate = useAuth();
+
   const handleResultsCardClick = (e) => {
     if (
       ["fields", "tags", "element", "results-card"].includes(e.target.className)
@@ -46,6 +49,7 @@ export default function ResultCard({
   const userAuthorised = () => {
     return (
       result.fields.access === "public" ||
+      authenticate.admin ||
       result.fields.permitted_viewers.includes(email)
     );
   };
@@ -85,7 +89,7 @@ export default function ResultCard({
         </div>
       );
 
-    return <RequestAccess />;
+    return <RequestAccess document_id={result.id} />;
   };
 
   return (

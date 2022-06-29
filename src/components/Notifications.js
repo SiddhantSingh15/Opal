@@ -96,7 +96,11 @@ export default function Notifications({ userAdmin }) {
         {[...notifications].reverse().map((item, key) => {
           const [icon, verb] = getNotificationBody(item);
           return (
-            <MenuItem key={key} style={{ whiteSpace: "normal" }}>
+            <MenuItem
+              onClick={() => (window.location = window.location.href)}
+              key={key}
+              style={{ whiteSpace: "normal" }}
+            >
               {icon}
               <Typography marginLeft={1} variant="body2">
                 Access {verb} by <b>{item.sender}</b> to document{" "}

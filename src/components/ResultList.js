@@ -10,6 +10,7 @@ import TitleSort from "./TitleSort.js";
 import SaveTag from "./SaveTag";
 import axios from "axios";
 import config from "../config";
+import authLogic from "../utils/authLogic";
 
 export default function ResultList({
   handleToggleDocumentView,
@@ -20,12 +21,10 @@ export default function ResultList({
   const [sortFocus, setSortFocus] = useState(null);
   const [sortDirection, setSortDirection] = useState("none");
 
-  const username = "saiofdgnos";
-  const password = "saiofdgnos";
-
   const saveTag = async (tagName) => {
     setLoading(true);
     const documentIDs = results.map((doc) => doc.id);
+    const headers = authLogic.getHeaders();
     axios
       .post(
         `${config.BACKEND_URI}/tags/create_tag`,
@@ -34,7 +33,7 @@ export default function ResultList({
           result_ids: documentIDs,
           search: null,
         },
-        { headers: { username, password } }
+        { headers }
       )
       .then((res) => {
         window.location = "/";
@@ -46,6 +45,8 @@ export default function ResultList({
   };
 
   if (!results) return <Loading />;
+
+  console.log(results);
 
   // if (results.length === 0)
   //   return (
