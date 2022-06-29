@@ -6,6 +6,7 @@ import { Button, Backdrop, Snackbar } from "@mui/material";
 import useFetchTags from "../hooks/useFetchTags";
 import "./ResultsCard.css";
 import RequestAccess from "./RequestAccess";
+import authLogic from "../utils/authLogic";
 
 export default function ResultCard({
   result,
@@ -39,11 +40,52 @@ export default function ResultCard({
 
   // Fetches tags from tag ids
   const tags = useFetchTags(result.tags);
+  const email = authLogic.getCredentials()[0];
 
   // Checks if we are authorised to view the document
-  // TODO: complete
   const userAuthorised = () => {
-    return result.fields.access === "public";
+    return (
+      result.fields.access === "public" ||
+      result.fields.permitted_viewers.includes(email)
+    );
+  };
+
+  /* Based on permission returns the realtive buttons. */
+  const getButtons = () => {
+    if (userAuthorised())
+      return (
+        <div className="buttons">
+          <Button
+            variant="contained"
+            onClick={handleToggleSummary}
+            className="clickable buttons"
+          >
+            Summary
+          </Button>
+          <Button
+            variant="contained"
+            onClick={() => {
+              handleToggleDocumentView();
+              setCurrentDocLink(result.fields.pdf_url);
+            }}
+            className="clickable buttons"
+          >
+            Preview
+          </Button>
+          <a href={result.fields.pdf_url} download="document">
+            <Download />
+          </a>
+        </div>
+      );
+
+    if (result.fields.requested_access.includes(email))
+      return (
+        <div className="buttons">
+          <p>Request pending...</p>
+        </div>
+      );
+
+    return <RequestAccess />;
   };
 
   return (
@@ -112,32 +154,7 @@ export default function ResultCard({
             ))}
           </div>
         </div>
-        {userAuthorised() ? (
-          <div className="buttons">
-            <Button
-              variant="contained"
-              onClick={handleToggleSummary}
-              className="clickable buttons"
-            >
-              Summary
-            </Button>
-            <Button
-              variant="contained"
-              onClick={() => {
-                handleToggleDocumentView();
-                setCurrentDocLink(result.fields.pdf_url);
-              }}
-              className="clickable buttons"
-            >
-              Preview
-            </Button>
-            <a href={result.fields.pdf_url} download="document">
-              <Download />
-            </a>
-          </div>
-        ) : (
-          <RequestAccess document_id={result.id} />
-        )}
+        {getButtons()}
         <Backdrop
           className="clickable"
           sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}

@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import { Stack, Menu, MenuItem, Typography, IconButton } from "@mui/material";
-import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
+// import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 import HourglassTopIcon from "@mui/icons-material/HourglassTop";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import ThumbUpOffAltIcon from "@mui/icons-material/ThumbUpOffAlt";
 import ThumbDownOffAltIcon from "@mui/icons-material/ThumbDownOffAlt";
-import notificationManager from "../utils/notifications";
+import useFetchNotifications from "../hooks/useFetchNotifications";
 
 export default function Notifications({ userAdmin }) {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -14,27 +14,32 @@ export default function Notifications({ userAdmin }) {
 
   const handleClose = () => setAnchorEl(null);
 
-  const notificatios = userAdmin
-    ? notificationManager.getAdmin()
-    : notificationManager.getUser("user_id");
+  const notifications = useFetchNotifications();
+  console.log(notifications);
 
   const getNotificationBody = (notification) => {
-    switch (notification.status) {
-      case "rejected":
-        return [<ErrorOutlineIcon color="error" />, "denied"];
-      case "pending":
-        return [<HourglassTopIcon color="warning" />, "requested"];
-      case "accepted":
-        return [<CheckCircleOutlineIcon color="success" />, "denied"];
-      default:
-        return [null, "unknown"];
-    }
+    if (notification.resolved)
+      return [<CheckCircleOutlineIcon color="success" />, "denied"];
+
+    return [<HourglassTopIcon color="warning" />, "requested"];
+    // switch (notification.status) {
+    //   case "rejected":
+    //     return [<ErrorOutlineIcon color="error" />, "denied"];
+    //   case "pending":
+    //     return [<HourglassTopIcon color="warning" />, "requested"];
+    //   case "accepted":
+    //     return [<CheckCircleOutlineIcon color="success" />, "denied"];
+    //   default:
+    //     return [null, "unknown"];
+    // }
   };
 
   /** Handles access request, accepting or rejecting it. */
   const handleRequest = (requestID, accept) => {
     alert(accept);
   };
+
+  if (!notifications || notifications.length === 0) return null;
 
   return (
     <Stack sx={{ color: "white" }} justifyContent="center">
@@ -62,7 +67,7 @@ export default function Notifications({ userAdmin }) {
           horizontal: "right",
         }}
       >
-        {notificatios.map((item, key) => {
+        {notifications.map((item, key) => {
           const [icon, verb] = getNotificationBody(item);
           return (
             <MenuItem key={key} style={{ whiteSpace: "normal" }}>
