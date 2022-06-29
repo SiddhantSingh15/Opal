@@ -145,7 +145,14 @@ export default function ResultCard({
             />
           </div>
           <div className="element">
-            <div className="multi-param">
+          <Searchable
+                  input
+                  type="field"
+                  id="govlaw"
+                  value={result.fields.governing_law[0]}
+                  invisible={true}
+                />
+            {/* <div className="multi-param">
               {result.fields.governing_law.map((param, index) => (
                 <Searchable
                   input
@@ -156,7 +163,7 @@ export default function ResultCard({
                   invisible={true}
                 />
               ))}
-            </div>
+            </div> */}
           </div>
           {isExpanded && (
             <div className="tags">
