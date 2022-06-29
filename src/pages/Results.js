@@ -13,8 +13,11 @@ export default function Results() {
 
   const authenticate = useAuth();
 
-  if (!authenticate.success) {
-    return <Loading />;
+  if (
+    Object.keys(authenticate).includes("success") &&
+    authenticate.success === false
+  ) {
+    window.location = "/";
   }
 
   const handleToggleDocumentView = () => {

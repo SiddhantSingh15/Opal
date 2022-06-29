@@ -46,14 +46,12 @@ export default function ResultList({
 
   if (!results) return <Loading />;
 
-  console.log(results);
-
-  // if (results.length === 0)
-  //   return (
-  //     <Typography textAlign="center" marginTop={30} variant="h2">
-  //       No results!
-  //     </Typography>
-  //   );
+  if (results.length === 0)
+    return (
+      <Typography textAlign="center" marginTop={30} variant="h2">
+        No results!
+      </Typography>
+    );
 
   const handleSort = (name) => {
     if (name == sortFocus) {
