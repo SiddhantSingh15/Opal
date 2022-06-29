@@ -9,7 +9,7 @@ import {
   Typography,
   IconButton,
 } from "@mui/material";
-import React, {useState} from "react";
+import React, { useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
 import PersonRemoveIcon from "@mui/icons-material/PersonRemove";
 import MilitaryTechIcon from "@mui/icons-material/MilitaryTech";
@@ -19,16 +19,16 @@ export default function UserList() {
   const [addUser, setAddUser] = useState(false);
 
   const users = [
-    { email: "test@gmail.com", type: "Admin" },
-    { email: "test1@gmail.com", type: "Intern" },
-    { email: "test2@gmail.com", type: "Senior Associate" },
-    { email: "test3@gmail.com", type: "Lawyer" },
-    { email: "test4@gmail.com", type: "Lawyer" },
-    { email: "test5@gmail.com", type: "Lawyer" },
-    { email: "test6@gmail.com", type: "Lawyer" },
-    { email: "test7@gmail.com", type: "Admin" },
-    { email: "test8@gmail.com", type: "Senior Associate" },
-    { email: "test9@gmail.com", type: "Intern" },
+    { email: "paolo.varain@ubs.com", type: "Junior Lawyer" },
+    { email: "mark.spencer@ubs.com", type: "Intern" },
+    { email: "carl.cox@ubs.com", type: "Senior Associate" },
+    { email: "amelie.lens@ubs.com", type: "Lawyer" },
+    { email: "charlotte.dewitte@ubs.com", type: "Lawyer" },
+    { email: "paula.temple@ubs.com", type: "Lawyer" },
+    { email: "jeff.mills@ubs.com", type: "Lawyer" },
+    { email: "william.chegg@ubs.com", type: "Admin" },
+    { email: "rufus.dusol@ubs.com", type: "Senior Associate" },
+    { email: "jan.blomqvist@ubs.com", type: "Intern" },
   ];
 
   return (
@@ -66,7 +66,10 @@ export default function UserList() {
             key={index}
           >
             <Stack direction="row">
-              <ListItemText sx={{ maxWidth: "300px", width: "300px" }} primary={user.email} />
+              <ListItemText
+                sx={{ maxWidth: "300px", width: "300px" }}
+                primary={user.email}
+              />
               <ListItemText
                 sx={{ marginLeft: "50px", color: "gray", fontStyle: "italic" }}
                 primary={user.type}
