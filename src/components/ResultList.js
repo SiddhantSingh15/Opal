@@ -39,7 +39,7 @@ export default function ResultList({
         compare(docB.fields[paramType], docA.fields[paramType])
       );
     } else {
-      return documents;
+      return [...documents];
     }
   };
   useEffect(() => {
@@ -167,7 +167,7 @@ export default function ResultList({
               sortDirection={sortDirection}
             />
           </div>
-          {[...documents].map((result, key) => {
+          {documents.map((result, key) => {
             return (
               <ResultCard
                 key={key}

@@ -6,6 +6,7 @@ import { ReactComponent as GovLawIcon } from "../assets/govlaw.svg";
 import { ReactComponent as DocTypeIcon } from "../assets/doc.svg";
 import { ReactComponent as LanguageIcon } from "../assets/language.svg";
 import { ReactComponent as ClassificationIcon } from "../assets/lock.svg";
+import { ReactComponent as CircleIcon} from "../assets/circle.svg";
 import TitleIcon from "@mui/icons-material/Title";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import { useSearchParams } from "react-router-dom";
@@ -16,16 +17,34 @@ import querySearch from "../utils/querySearch";
  * parameter). In that case on click we add the parameter, otherwise we remove
  * it.
  */
-export default function Searchable({ type, id, value, input, invisible }) {
+export default function Searchable({ type, id, value, input, invisible}) {
+
+  var colors = ["#0a2342ff","#db2b39ff","#f3a712ff","#226F54","#DB2763","#E55934","#6E2594"];
+  const getColor = (val) => {
+    return colors[Math.abs(val) % (colors.length)];
+  } 
+  
+  const hashCode = (str) => {
+    let hash = 0;
+    for (let i = 0, len = str.length; i < len; i++) {
+        let chr = str.charCodeAt(i);
+        hash = (hash << 5) - hash + chr;
+        hash |= 0; // Convert to 32bit integer
+    }
+    return hash;
+}
+
+
   const [searchParams, setSearchParams] = useSearchParams();
 
   const renderTagIcon = () => {
     switch (type) {
       case "tag":
+        return <TagIcon className="icon" fill="white"/>;
       case "field":
         switch (id) {
           case "title":
-            return <TitleIcon className="icon" fill="white" />;
+            return <SearchIcon className="icon" fill="white" />;
           case "govlaw":
             return <GovLawIcon className="icon" fill="white" />;
           case "type":
@@ -80,13 +99,22 @@ export default function Searchable({ type, id, value, input, invisible }) {
     }
   };
 
+  const getTagColor = () => {
+    if (type === "tag"){
+      return getColor(hashCode(value))
+    } else {
+      return "#202124ff"
+    }
+    
+  }
+
   const body = invisible ? (
     <div className="invisible-tag" onClick={handleClick}>
       {renderTagIcon()}
       <p>{RenderValue(value)}</p>
     </div>
   ) : (
-    <div className="tag" onClick={handleClick}>
+    <div className="tag" onClick={handleClick} style={{background:getTagColor()}}>
       {renderTagIcon()}
       <p>{RenderValue(value)}</p>
     </div>
