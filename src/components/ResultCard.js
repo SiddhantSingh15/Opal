@@ -12,7 +12,6 @@ export default function ResultCard({
   setCurrentDocLink,
 }) {
   const handleResultsCardClick = (e) => {
-    console.log(e.target.className)
     if (
       ["titleText","fields", "tags", "element", "results-card"].includes(e.target.className)
     ) {
@@ -47,13 +46,6 @@ export default function ResultCard({
         <div className="card-buttons">
           <button
             variant="contained"
-            onClick={handleToggleSummary}
-            className="clickable buttons"
-          >
-            Summary
-          </button>
-          <button
-            variant="contained"
             onClick={() => {
               handleToggleDocumentView();
               setCurrentDocLink(result.fields.pdf_url);
@@ -62,9 +54,15 @@ export default function ResultCard({
           >
             Preview
           </button>
-          {/* <a href={result.fields.pdf_url} download="document">
-            <Download />
-          </a> */}
+
+          <button
+            variant="contained"
+            onClick={handleToggleSummary}
+            className="clickable buttons"
+          >
+            Summary
+          </button>
+
         </div>
       </div>}
       <div className="results-card" 

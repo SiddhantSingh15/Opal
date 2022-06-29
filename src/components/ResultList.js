@@ -161,7 +161,7 @@ export default function ResultList({
             sortFocus={sortFocus}
             sortDirection={sortDirection}/>
           </div>
-          {documents.map((result, key) => {
+          { [...documents].map((result, key) => {
             return (
               <ResultCard
                 key={key}
