@@ -6,8 +6,8 @@ import { ReactComponent as GovLawIcon } from "../assets/govlaw.svg";
 import { ReactComponent as DocTypeIcon } from "../assets/doc.svg";
 import { ReactComponent as LanguageIcon } from "../assets/language.svg";
 import { ReactComponent as ClassificationIcon } from "../assets/lock.svg";
+import TitleIcon from "@mui/icons-material/Title";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
-import { useDispatch } from "react-redux";
 import { useSearchParams } from "react-router-dom";
 import querySearch from "../utils/querySearch";
 
@@ -16,7 +16,7 @@ import querySearch from "../utils/querySearch";
  * parameter). In that case on click we add the parameter, otherwise we remove
  * it.
  */
-export default function Searchable({ type, id, value, input }) {
+export default function Searchable({ type, id, value, input, invisible }) {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const renderTagIcon = () => {
@@ -24,6 +24,8 @@ export default function Searchable({ type, id, value, input }) {
       case "tag":
       case "field":
         switch (id) {
+          case "title":
+            return <TitleIcon className="icon" fill="white" />;
           case "govlaw":
             return <GovLawIcon className="icon" fill="white" />;
           case "type":
@@ -44,8 +46,6 @@ export default function Searchable({ type, id, value, input }) {
     }
   };
 
-  const dispatch = useDispatch();
-
   const handleClick = () => {
     if (input) {
       querySearch.addSearchParam(
@@ -53,8 +53,7 @@ export default function Searchable({ type, id, value, input }) {
         setSearchParams,
         type,
         id,
-        value,
-        dispatch
+        value
       );
     } else {
       querySearch.removeSearchParam(
@@ -76,13 +75,14 @@ export default function Searchable({ type, id, value, input }) {
         "/" +
         value.substring(6, 8)
       );
-    } else return value;
+    } else {
+      return value.charAt(0).toUpperCase() + value.slice(1);
+    }
   };
 
-  const active = false;
-
-  const body = active ? (
-    <div className="tag active">
+  const body = invisible ? (
+    <div className="invisible-tag" onClick={handleClick}>
+      {renderTagIcon()}
       <p>{RenderValue(value)}</p>
     </div>
   ) : (

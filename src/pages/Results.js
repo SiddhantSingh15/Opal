@@ -4,10 +4,18 @@ import ResultList from "../components/ResultList";
 import SearchBox from "../components/SearchBox";
 import SearchParams from "../components/SearchParams";
 import "./Results.css";
+import useAuth from "../hooks/useAuth";
+import Loading from "../components/Loading";
 
 export default function Results() {
   const [viewingDoc, setViewingDoc] = useState(false);
   const [currentDocLink, setCurrentDocLink] = useState("");
+
+  // const authenticate = useAuth();
+
+  // if (!authenticate.success) {
+  //   return <Loading />;
+  // }
 
   const handleToggleDocumentView = () => {
     setViewingDoc(!viewingDoc);
@@ -28,13 +36,11 @@ export default function Results() {
         <div className="params">
           <SearchParams />
         </div>
-        <div className="save-tag">
-          <button onClick={() => alert("Suprise! you've been gnomed this feature does not exist yet")}>
-            Save Tag
-          </button>
-        </div>
       </div>
-      <ResultList handleToggleDocumentView={handleToggleDocumentView} setCurrentDocLink={setCurrentDocLink} />
+      <ResultList
+        handleToggleDocumentView={handleToggleDocumentView}
+        setCurrentDocLink={setCurrentDocLink}
+      />
     </div>
   );
 }

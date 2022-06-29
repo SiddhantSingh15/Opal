@@ -19,13 +19,13 @@ const fetchAsync = async (query) => {
 const useFetchDocuments = () => {
   const params = useSearchParams()[0];
   const query = querySearch.getSearchParams(params);
-  const [documents, setDocuments] = useState([]);
+  const [documents, setDocuments] = useState(null);
 
   useEffect(() => {
     fetchAsync(query).then((docs) => setDocuments(docs));
   }, []);
 
-  return documents;
+  return [documents, setDocuments];
 };
 
 export default useFetchDocuments;
