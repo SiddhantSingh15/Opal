@@ -11,14 +11,14 @@
 
 .results .table .title {
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
+  grid-template-columns: repeat(8, 1fr);
   margin-bottom: 5px;
   padding: 5px;
   font-weight: bold;
 }
 
 .results .table .fields {
-  grid-template-columns: repeat(7, 1fr);
+  grid-template-columns: repeat(8, 1fr);
   padding: 0px;
   display: block;
   background-color: transparent;

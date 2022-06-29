@@ -13,16 +13,8 @@
   flex-wrap: wrap;
 }
 
-.results-card-all:hover .results-card{
-  background: rgb(225, 225, 225);
-}
-
 .results-card-all .pop-up .card-buttons{
   background: white
-}
-
-.results-card-all:hover .pop-up .card-buttons{
-  background: rgb(225, 225, 225);
 }
 
 .results-card-all .pop-up .card-buttons {
@@ -46,4 +38,19 @@
 
 .results-card-all .card-buttons button:hover {
   background:gray;
+}
+
+.results-card .expandIcon {
+  fill: rgba(128, 128, 128, 0.519);
+  display: flex;
+  max-height: 20px;
+  margin-left: auto;
+  padding: 2px;
+  border-radius: 15px;
+  justify-content: center;
+  align-items: center;
+}
+
+.results-card-all:hover .expandIcon{
+  fill: black;
 }
