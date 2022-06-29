@@ -5,17 +5,19 @@ import SearchBox from "../components/SearchBox";
 import SearchParams from "../components/SearchParams";
 import "./Results.css";
 import useAuth from "../hooks/useAuth";
-import Loading from "../components/Loading";
 
 export default function Results() {
   const [viewingDoc, setViewingDoc] = useState(false);
   const [currentDocLink, setCurrentDocLink] = useState("");
 
-  // const authenticate = useAuth();
+  const authenticate = useAuth();
 
-  // if (!authenticate.success) {
-  //   return <Loading />;
-  // }
+  if (
+    Object.keys(authenticate).includes("success") &&
+    authenticate.success === false
+  ) {
+    window.location = "/";
+  }
 
   const handleToggleDocumentView = () => {
     setViewingDoc(!viewingDoc);

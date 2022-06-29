@@ -1,74 +1,76 @@
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
 import ResultCard from "./ResultCard";
 import Loading from "./Loading";
 import useFetchResults from "../hooks/useFetchResults";
 import "./ResultList.css";
 import { Stack, Typography } from "@mui/material";
-import TitleSort from "./TitleSort.js"
+import TitleSort from "./TitleSort.js";
 import SaveTag from "./SaveTag";
 import axios from "axios";
 import config from "../config";
-import { useEffect } from "react";
+import authLogic from "../utils/authLogic";
 
 export default function ResultList({
   handleToggleDocumentView,
   setCurrentDocLink,
 }) {
-  const [documents,setDocuments] = useFetchResults();
+  const [documents, setDocuments] = useFetchResults();
   const [loading, setLoading] = useState(false);
   const [sortFocus, setSortFocus] = useState(null);
   const [sortDirection, setSortDirection] = useState("none");
 
-  const username = "saiofdgnos";
-  const password = "saiofdgnos";
-
-
-  const compare = (docA,docB) => {
+  const compare = (docA, docB) => {
     const cleanedDocA = docA.trim();
     const cleanedDocB = docB.trim();
     if (sortFocus === "Date") {
-      return  parseInt(cleanedDocA) - parseInt(cleanedDocB);
+      return parseInt(cleanedDocA) - parseInt(cleanedDocB);
     } else {
-      return (cleanedDocA<cleanedDocB?-1:(cleanedDocA>cleanedDocB?1:0));
+      return cleanedDocA < cleanedDocB ? -1 : cleanedDocA > cleanedDocB ? 1 : 0;
     }
-  }
+  };
 
   const sortResults = (paramType) => {
     if (sortDirection === "up") {
-      return [...documents].sort((docA,docB) => compare(docA.fields[paramType],docB.fields[paramType]))
-    } else if (sortDirection === "down"){
-      return [...documents].sort((docA,docB) => compare(docB.fields[paramType],docA.fields[paramType]))
+      return [...documents].sort((docA, docB) =>
+        compare(docA.fields[paramType], docB.fields[paramType])
+      );
+    } else if (sortDirection === "down") {
+      return [...documents].sort((docA, docB) =>
+        compare(docB.fields[paramType], docA.fields[paramType])
+      );
     } else {
-      return documents
+      return documents;
     }
-  }
+  };
   useEffect(() => {
-    switch(sortFocus) {
+    switch (sortFocus) {
       case "Title":
-        var temp = sortResults("title")
-        setDocuments(temp)
+        var temp = sortResults("title");
+        setDocuments(temp);
         break;
       case "Language":
-        setDocuments(sortResults("language"))
+        setDocuments(sortResults("language"));
         break;
       case "Type":
-        setDocuments(sortResults("type"))
-        break;     
+        setDocuments(sortResults("type"));
+        break;
       case "Access":
-        setDocuments(sortResults("access"))
+        setDocuments(sortResults("access"));
         break;
       case "Date":
-        setDocuments(sortResults("date"))
-        break; 
+        setDocuments(sortResults("date"));
+        break;
       case "Gov Law":
-        setDocuments(sortResults("governing_law"))
+        setDocuments(sortResults("governing_law"));
+        break;
+      default:
         break;
     }
-  }
-  ,[sortFocus,sortDirection]);
+  }, [sortFocus, sortDirection]);
 
   const saveTag = async (tagName) => {
     setLoading(true);
+    const headers = authLogic.getHeaders();
     const documentIDs = documents.map((doc) => doc.id);
     axios
       .post(
@@ -78,7 +80,7 @@ export default function ResultList({
           result_ids: documentIDs,
           search: null,
         },
-        { headers: { username, password } }
+        { headers }
       )
       .then((res) => {
         window.location = "/";
@@ -97,7 +99,7 @@ export default function ResultList({
         No results!
       </Typography>
     );
-  } 
+  }
 
   const handleTitleClick = (name) => {
     var newSortDirection = "";
@@ -115,10 +117,10 @@ export default function ResultList({
       }
     } else {
       setSortFocus(name);
-      newSortDirection = "up"
+      newSortDirection = "up";
     }
-    setSortDirection(newSortDirection)
-  }
+    setSortDirection(newSortDirection);
+  };
 
   return (
     <Stack>
@@ -126,10 +128,11 @@ export default function ResultList({
         <div className="title">
           <div className="docTitle">
             <TitleSort
-            name="Title"
-            handleClick={handleTitleClick}
-            sortFocus={sortFocus}
-            sortDirection={sortDirection}/>
+              name="Title"
+              handleClick={handleTitleClick}
+              sortFocus={sortFocus}
+              sortDirection={sortDirection}
+            />
           </div>
           <TitleSort
             name="Language"
@@ -159,17 +162,18 @@ export default function ResultList({
             name="Gov Law"
             handleClick={handleTitleClick}
             sortFocus={sortFocus}
-            sortDirection={sortDirection}/>
-          </div>
-          { [...documents].map((result, key) => {
-            return (
-              <ResultCard
-                key={key}
-                result={result}
-                handleToggleDocumentView={handleToggleDocumentView}
-                setCurrentDocLink={setCurrentDocLink}
-              />
-            );
+            sortDirection={sortDirection}
+          />
+        </div>
+        {[...documents].map((result, key) => {
+          return (
+            <ResultCard
+              key={key}
+              result={result}
+              handleToggleDocumentView={handleToggleDocumentView}
+              setCurrentDocLink={setCurrentDocLink}
+            />
+          );
         })}
       </div>
     </Stack>

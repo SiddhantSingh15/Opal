@@ -35,7 +35,6 @@ class QuerySearch {
       case "tag":
         if (!params.has("tags"))
           throw new Error("tag being removed doesn't exist");
-        // TODO: check it works with only one tag (edge case)
         const prev = JSON.parse(decodeURIComponent(params.get("tags")));
         const newTags = prev.filter((tagID) => tagID !== id);
         this.updateParam(

@@ -25,7 +25,7 @@ const useAuth = () => {
               message: "Invalid username and password",
             });
           } else {
-            setResponse({ success: true });
+            setResponse({ success: true, admin: res.user.role === "admin" });
           }
         })
         .catch((err) => {

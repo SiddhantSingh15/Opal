@@ -2,18 +2,25 @@ import React, { useState } from "react";
 import Searchable from "./Searchable";
 import Summary from "./Summary.js";
 import { ReactComponent as Download } from "../assets/download.svg";
-import { Button, Backdrop } from "@mui/material";
+import { Button, Backdrop, Snackbar } from "@mui/material";
 import useFetchTags from "../hooks/useFetchTags";
 import "./ResultsCard.css";
+import RequestAccess from "./RequestAccess";
+import authLogic from "../utils/authLogic";
+import useAuth from "../hooks/useAuth";
 
 export default function ResultCard({
   result,
   handleToggleDocumentView,
   setCurrentDocLink,
 }) {
+  const authenticate = useAuth();
+
   const handleResultsCardClick = (e) => {
     if (
-      ["titleText","fields", "tags", "element", "results-card"].includes(e.target.className)
+      ["titleText", "fields", "tags", "element", "results-card"].includes(
+        e.target.className
+      )
     ) {
       setIsExpanded(!isExpanded);
     }
@@ -38,35 +45,63 @@ export default function ResultCard({
 
   // Fetches tags from tag ids
   const tags = useFetchTags(result.tags);
+  const email = authLogic.getCredentials()[0];
+
+  // Checks if we are authorised to view the document
+  const userAuthorised = () => {
+    return (
+      result.fields.access === "public" ||
+      authenticate.admin ||
+      result.fields.permitted_viewers.includes(email)
+    );
+  };
+
+  /* Based on permission returns the realtive buttons. */
+  const getButtons = () => {
+    if (userAuthorised())
+      return (
+        <div className="pop-up">
+          <div className="card-buttons">
+            <button
+              variant="contained"
+              onClick={() => {
+                handleToggleDocumentView();
+                setCurrentDocLink(result.fields.pdf_url);
+              }}
+              className="clickable buttons"
+            >
+              Preview
+            </button>
+
+            <button
+              variant="contained"
+              onClick={handleToggleSummary}
+              className="clickable buttons"
+            >
+              Summary
+            </button>
+          </div>
+        </div>
+      );
+
+    if (result.fields.requested_access.includes(email))
+      return (
+        <div className="pop-up">
+          <div className="card-buttons">
+            <p style={{ padding: "10px", color: "orange" }}>
+              Request pending...
+            </p>
+          </div>
+        </div>
+      );
+
+    return <RequestAccess document_id={result.id} />;
+  };
 
   return (
     <div className="results-card-all">
-      {isExpanded &&
-      <div className="pop-up">
-        <div className="card-buttons">
-          <button
-            variant="contained"
-            onClick={() => {
-              handleToggleDocumentView();
-              setCurrentDocLink(result.fields.pdf_url);
-            }}
-            className="clickable buttons"
-          >
-            Preview
-          </button>
-
-          <button
-            variant="contained"
-            onClick={handleToggleSummary}
-            className="clickable buttons"
-          >
-            Summary
-          </button>
-
-        </div>
-      </div>}
-      <div className="results-card" 
-        onClick={handleResultsCardClick}>
+      {isExpanded && getButtons()}
+      <div className="results-card" onClick={handleResultsCardClick}>
         <div className="fields">
           <div className="docTitle">
             <div className="element">
@@ -83,12 +118,13 @@ export default function ResultCard({
             />
           </div>
           <div className="element">
-            <Searchable 
-              input 
-              type="field" 
-              id="type" 
+            <Searchable
+              input
+              type="field"
+              id="type"
               value={result.fields.type}
-              invisible={true} />
+              invisible={true}
+            />
           </div>
           <div className="element">
             <Searchable
@@ -100,49 +136,52 @@ export default function ResultCard({
             />
           </div>
           <div className="element">
-            <Searchable 
-              input 
+            <Searchable
+              input
               type="field"
-              id="date" 
-              value={result.fields.date} 
-              invisible={true}/>
+              id="date"
+              value={result.fields.date}
+              invisible={true}
+            />
           </div>
           <div className="element">
             <div className="multi-param">
-              {result.fields.governing_law.map((param, index) =>
-              <Searchable
-                input
-                key={index}
-                type="field"
-                id="govlaw"
-                value={param}
-                invisible={true}
-              />
-              )}
+              {result.fields.governing_law.map((param, index) => (
+                <Searchable
+                  input
+                  key={index}
+                  type="field"
+                  id="govlaw"
+                  value={param}
+                  invisible={true}
+                />
+              ))}
             </div>
           </div>
-          {isExpanded &&
-          <div className="tags">
-            {tags.map((tag, key) => (
-              <Searchable
-                input
-                key={key}
-                type="tag"
-                id={tag.id}
-                value={tag.value}
-                invisible={false}
-              />
-            ))}
-          </div>}
+          {isExpanded && (
+            <div className="tags">
+              {tags.map((tag, key) => (
+                <Searchable
+                  input
+                  key={key}
+                  type="tag"
+                  id={tag.id}
+                  value={tag.value}
+                />
+              ))}
+            </div>
+          )}
         </div>
-
         <Backdrop
           className="clickable"
           sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
           open={showSummary}
           onClick={handleCloseSummary}
         >
-          <Summary summary={result.fields.summary} title={result.fields.title} />
+          <Summary
+            summary={result.fields.summary}
+            title={result.fields.title}
+          />
         </Backdrop>
       </div>
     </div>

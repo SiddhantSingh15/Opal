@@ -1,7 +1,6 @@
 import React from "react";
 import Searchable from "./Searchable";
 import { ReactComponent as DotDotDot } from "../assets/dotdotdot.svg";
-// TODO: implement tag exclude functionality
 
 export default function SuggestionBox({
   tagSuggestions,

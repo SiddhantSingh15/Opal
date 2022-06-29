@@ -52,7 +52,12 @@ const getCredentials = () => {
   return split;
 };
 
-const getHeaders = (username, psw) => {
+const getHeaders = () => {
+  const credentials = getCredentials();
+  if (!credentials) {
+    return null;
+  }
+  const [username, psw] = credentials;
   return { username, password: CryptoJS.SHA256(psw).toString() };
 };
 
