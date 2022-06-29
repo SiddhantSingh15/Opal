@@ -22,7 +22,7 @@ export default function Notifications({ userAdmin }) {
 
   const handleClose = () => setAnchorEl(null);
 
-  const notifications = useFetchNotifications(Math.floor(count / 2));
+  const notifications = useFetchNotifications(Math.floor(count / 2), userAdmin);
 
   useEffect(() => {
     setInterval(() => {
@@ -32,10 +32,14 @@ export default function Notifications({ userAdmin }) {
   }, []);
 
   const getNotificationBody = (notification) => {
-    if (notification.resolved)
-      return [<CheckCircleOutlineIcon color="success" />, "denied"];
-
-    return [<HourglassTopIcon color="warning" />, "requested"];
+    switch (notification.type) {
+      case "access_grant":
+        return [<CheckCircleOutlineIcon color="success" />, "denied"];
+      case "access_request":
+        return [<HourglassTopIcon color="warning" />, "requested"];
+      default:
+        return [null, null];
+    }
   };
 
   /** Handles access request, accepting or rejecting it. */
