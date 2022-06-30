@@ -17,6 +17,11 @@
   background: white
 }
 
+
+.results-card-all:hover{
+  cursor: pointer;
+}
+
 .results-card-all .pop-up .card-buttons {
   margin-left: auto;
   border-radius: 15px 15px 0px 0px;
