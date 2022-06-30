@@ -37,7 +37,7 @@ export default function Notifications({ userAdmin }) {
   const getNotificationBody = (notification) => {
     switch (notification.type) {
       case "access_grant":
-        return [<CheckCircleOutlineIcon color="success" />, "denied"];
+        return [<CheckCircleOutlineIcon color="success" />, "granted"];
       case "access_request":
         return [<HourglassTopIcon color="warning" />, "requested"];
       default:

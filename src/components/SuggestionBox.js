@@ -6,7 +6,7 @@ export default function SuggestionBox({
   tagSuggestions,
   fieldSuggestions,
   inputValue,
-  showSuggestions
+  showSuggestions,
 }) {
   const TAGS_DISPLAYED = 9;
 
@@ -20,7 +20,7 @@ export default function SuggestionBox({
       {/* Display k number of most relevant tags */}
       <div className="text-option">
         <div className="text-option-tag">
-          <Searchable input type="search" id={null} value={inputValue} />
+          <Searchable input type="field" id="title" value={inputValue} />
         </div>
       </div>
       <div className="tags-box">

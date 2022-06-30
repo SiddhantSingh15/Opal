@@ -33,7 +33,10 @@ export default function SaveTag({ saveTag, load }) {
   };
 
   return (
-    <div className="save-tag">
+    <div
+      className="save-tag"
+      style={{ display: "flex", justifyContent: "flex-end" }}
+    >
       <button onClick={handleClickOpen}>Save Tag</button>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Create Tag</DialogTitle>

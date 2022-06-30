@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import Searchable from "./Searchable";
 import Summary from "./Summary.js";
-import { ReactComponent as Download } from "../assets/download.svg";
 import { Button, Backdrop, Snackbar } from "@mui/material";
 import useFetchTags from "../hooks/useFetchTags";
 import "./ResultsCard.css";
 import RequestAccess from "./RequestAccess";
 import authLogic from "../utils/authLogic";
 import useAuth from "../hooks/useAuth";
+import {ReactComponent as ArrowDown} from "../assets/arrowdown.svg";
+import {ReactComponent as ArrowUp} from "../assets/arrowup.svg";
 
 export default function ResultCard({
   result,
@@ -17,8 +18,9 @@ export default function ResultCard({
   const authenticate = useAuth();
 
   const handleResultsCardClick = (e) => {
+
     if (
-      ["titleText", "fields", "tags", "element", "results-card"].includes(
+      ["expandIcon","titleText", "fields", "tags", "element", "results-card"].includes(
         e.target.className
       )
     ) {
@@ -145,7 +147,14 @@ export default function ResultCard({
             />
           </div>
           <div className="element">
-            <div className="multi-param">
+          {result.fields.governing_law[1] && <Searchable
+                  input
+                  type="field"
+                  id="govlaw"
+                  value={result.fields.governing_law[1]}
+                  invisible={true}
+                />}
+            {/* <div className="multi-param">
               {result.fields.governing_law.map((param, index) => (
                 <Searchable
                   input
@@ -156,8 +165,10 @@ export default function ResultCard({
                   invisible={true}
                 />
               ))}
-            </div>
+            </div> */}
           </div>
+          {!isExpanded && <ArrowDown className="expandIcon" onClick={()=> setIsExpanded(!isExpanded)}/>}
+          {isExpanded && <ArrowUp className="expandIcon"  onClick={()=> setIsExpanded(!isExpanded)}/>}
           {isExpanded && (
             <div className="tags">
               {tags.map((tag, key) => (

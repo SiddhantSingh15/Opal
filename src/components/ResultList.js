@@ -39,7 +39,7 @@ export default function ResultList({
         compare(docB.fields[paramType], docA.fields[paramType])
       );
     } else {
-      return documents;
+      return [...documents];
     }
   };
   useEffect(() => {
@@ -123,59 +123,62 @@ export default function ResultList({
   };
 
   return (
-    <Stack>
-      <div className="table">
-        <div className="title">
-          <div className="docTitle">
+    <div>
+      <SaveTag saveTag={saveTag} load={loading} />
+      <Stack>
+        <div className="table">
+          <div className="title">
+            <div className="docTitle">
+              <TitleSort
+                name="Title"
+                handleClick={handleTitleClick}
+                sortFocus={sortFocus}
+                sortDirection={sortDirection}
+              />
+            </div>
             <TitleSort
-              name="Title"
+              name="Language"
+              handleClick={handleTitleClick}
+              sortFocus={sortFocus}
+              sortDirection={sortDirection}
+            />
+            <TitleSort
+              name="Type"
+              handleClick={handleTitleClick}
+              sortFocus={sortFocus}
+              sortDirection={sortDirection}
+            />
+            <TitleSort
+              name="Access"
+              handleClick={handleTitleClick}
+              sortFocus={sortFocus}
+              sortDirection={sortDirection}
+            />
+            <TitleSort
+              name="Date"
+              handleClick={handleTitleClick}
+              sortFocus={sortFocus}
+              sortDirection={sortDirection}
+            />
+            <TitleSort
+              name="Gov Law"
               handleClick={handleTitleClick}
               sortFocus={sortFocus}
               sortDirection={sortDirection}
             />
           </div>
-          <TitleSort
-            name="Language"
-            handleClick={handleTitleClick}
-            sortFocus={sortFocus}
-            sortDirection={sortDirection}
-          />
-          <TitleSort
-            name="Type"
-            handleClick={handleTitleClick}
-            sortFocus={sortFocus}
-            sortDirection={sortDirection}
-          />
-          <TitleSort
-            name="Access"
-            handleClick={handleTitleClick}
-            sortFocus={sortFocus}
-            sortDirection={sortDirection}
-          />
-          <TitleSort
-            name="Date"
-            handleClick={handleTitleClick}
-            sortFocus={sortFocus}
-            sortDirection={sortDirection}
-          />
-          <TitleSort
-            name="Gov Law"
-            handleClick={handleTitleClick}
-            sortFocus={sortFocus}
-            sortDirection={sortDirection}
-          />
+          {documents.map((result, key) => {
+            return (
+              <ResultCard
+                key={key}
+                result={result}
+                handleToggleDocumentView={handleToggleDocumentView}
+                setCurrentDocLink={setCurrentDocLink}
+              />
+            );
+          })}
         </div>
-        {[...documents].map((result, key) => {
-          return (
-            <ResultCard
-              key={key}
-              result={result}
-              handleToggleDocumentView={handleToggleDocumentView}
-              setCurrentDocLink={setCurrentDocLink}
-            />
-          );
-        })}
-      </div>
-    </Stack>
+      </Stack>
+    </div>
   );
 }

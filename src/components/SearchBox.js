@@ -95,9 +95,6 @@ export default function SearchBox({ animated }) {
 
     const fields = [];
 
-    /* Title */
-    fields.push({ id: "title", value: newValue });
-
     /* Language */
     if (typed.includes("language")) {
       const langFields = languages.filter(
